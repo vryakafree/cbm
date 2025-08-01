@@ -66,7 +66,10 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
 	// Cobblemon - temporarily commented out due to repository issues
-	// modImplementation "com.cobblemon:fabric:${project.cobblemon_version}"
+	modImplementation "com.cobblemon:fabric:${project.cobblemon_version}"
+	
+	// Kotlin dependency for Cobblemon
+	implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.0"
 	
 	// Uncomment the following line to enable the deprecated Fabric API modules. 
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.

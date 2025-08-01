@@ -1,16 +1,14 @@
 package com.cbm.cobblemonbattlemusic;
 
 import net.fabricmc.api.ClientModInitializer;
-// Client imports - temporarily commented out for basic build test
-// import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-// import net.minecraft.client.MinecraftClient;
-// import net.minecraft.client.sound.PositionedSoundInstance;
-// import net.minecraft.sound.SoundCategory;
-// Cobblemon imports - temporarily commented out due to repository issues
-// import com.cobblemon.mod.common.api.events.CobblemonEvents;
-// import com.cobblemon.mod.common.battles.BattleRegistry;
-// import com.cobblemon.mod.common.api.Priority;
-// import kotlin.Unit;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.sound.SoundCategory;
+import com.cobblemon.mod.common.api.events.CobblemonEvents;
+import com.cobblemon.mod.common.battles.BattleRegistry;
+import com.cobblemon.mod.common.api.Priority;
+import kotlin.Unit;
 
 public class CobblemonBattleMusicClient implements ClientModInitializer {
     private static boolean isInBattle = false;
@@ -24,18 +22,14 @@ public class CobblemonBattleMusicClient implements ClientModInitializer {
         // Register event listeners
         registerBattleEvents();
         
-        // TODO: Register tick events when client imports are available
-        /*
+        // Register tick events
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             checkBattleState();
         });
-        */
     }
     
     private void registerBattleEvents() {
-        // TODO: Add Cobblemon event listeners when repository issues are resolved
         // Listen for battle start events
-        /*
         CobblemonEvents.BATTLE_STARTED_PRE.subscribe(Priority.NORMAL, battleStartEvent -> {
             onBattleStart();
             return Unit.INSTANCE;
@@ -56,18 +50,16 @@ public class CobblemonBattleMusicClient implements ClientModInitializer {
             onBattleEnd();
             return Unit.INSTANCE;
         });
-        */
     }
     
     private void checkBattleState() {
-        // TODO: Implement when MinecraftClient imports are available
-        /*
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null) return;
         
-        // TODO: Check if player is in battle using Cobblemon's battle registry when available
-        // boolean currentlyInBattle = BattleRegistry.INSTANCE.getBattleByParticipatingPlayer(client.player) != null;
-        boolean currentlyInBattle = false; // Placeholder for testing
+        // Check if player is in battle using Cobblemon's battle registry
+        // Note: BattleRegistry expects ServerPlayerEntity, but we're on client side
+        // For now, we'll use a placeholder until we find the correct client-side API
+        boolean currentlyInBattle = false; // Placeholder - need to find client-side battle detection
         
         if (currentlyInBattle != isInBattle) {
             isInBattle = currentlyInBattle;
@@ -84,7 +76,6 @@ public class CobblemonBattleMusicClient implements ClientModInitializer {
         } else if ((!isInBattle || client.player.getHealth() > 6.0f) && isLowHealthMusicPlaying) {
             stopLowHealthMusic();
         }
-        */
     }
     
     private void onBattleStart() {
@@ -105,9 +96,6 @@ public class CobblemonBattleMusicClient implements ClientModInitializer {
     }
     
     public static void playBattleMusic() {
-        // TODO: Implement when client classes are available
-        CobblemonBattleMusic.LOGGER.info("Playing battle music");
-        /*
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.getSoundManager() != null) {
             client.getSoundManager().play(PositionedSoundInstance.master(
@@ -115,13 +103,9 @@ public class CobblemonBattleMusicClient implements ClientModInitializer {
             isBattleMusicPlaying = true;
             CobblemonBattleMusic.LOGGER.info("Playing battle music");
         }
-        */
     }
     
     public static void playLowHealthMusic() {
-        // TODO: Implement when client classes are available
-        CobblemonBattleMusic.LOGGER.info("Playing low health music");
-        /*
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.getSoundManager() != null && !isLowHealthMusicPlaying) {
             client.getSoundManager().play(PositionedSoundInstance.master(
@@ -129,26 +113,18 @@ public class CobblemonBattleMusicClient implements ClientModInitializer {
             isLowHealthMusicPlaying = true;
             CobblemonBattleMusic.LOGGER.info("Playing low health music");
         }
-        */
     }
     
     public static void playVictoryMusic() {
-        // TODO: Implement when client classes are available
-        CobblemonBattleMusic.LOGGER.info("Playing victory music");
-        /*
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.getSoundManager() != null) {
             client.getSoundManager().play(PositionedSoundInstance.master(
                 CobblemonBattleMusic.VICTORY_MUSIC, 1.0F));
             CobblemonBattleMusic.LOGGER.info("Playing victory music");
         }
-        */
     }
     
     public static void stopBattleMusic() {
-        // TODO: Implement when client classes are available  
-        CobblemonBattleMusic.LOGGER.info("Stopped battle music");
-        /*
         if (isBattleMusicPlaying) {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client.getSoundManager() != null) {
@@ -157,7 +133,6 @@ public class CobblemonBattleMusicClient implements ClientModInitializer {
             isBattleMusicPlaying = false;
             CobblemonBattleMusic.LOGGER.info("Stopped battle music");
         }
-        */
     }
     
     public static void stopLowHealthMusic() {
