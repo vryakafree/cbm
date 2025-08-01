@@ -11,11 +11,11 @@ Một mod Fabric thêm nhạc nền chiến đấu tùy chỉnh cho Cobblemon.
 
 ## Yêu cầu
 
-- Minecraft 1.20.1
-- Fabric Loader 0.15.11+
-- Fabric API 0.92.2+
-- Cobblemon 1.4.1+
-- Java 17+
+- Minecraft 1.21.1
+- Fabric Loader 0.16.9+
+- Fabric API 0.110.0+
+- Cobblemon 1.6.1+
+- Java 21+
 
 ## Cài đặt
 

@@ -1,0 +1,19 @@
+# Gradle files
+.gradle/
+build/
+
+# IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Fabric
+remapped/
+run/
+
+# Note: File JAR đã được copy vào thư mục releases/ để có thể download trực tiếp từ GitHub

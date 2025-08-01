@@ -2,7 +2,9 @@
 
 ## Hiện tại
 
-Hiện tại mod đã được cấu hình cơ bản và có thể build thành công. Tuy nhiên, để mod hoạt động đầy đủ với Cobblemon, bạn cần thực hiện các bước sau:
+
+Mod đã được cập nhật cho **Minecraft 1.21.1** và **Cobblemon 1.6.1**. Hiện tại mod có thể build thành công với cấu hình cơ bản, tuy nhiên do một số vấn đề repository network, Cobblemon integration tạm thời được comment out. Để mod hoạt động đầy đủ với Cobblemon, bạn cần thực hiện các bước sau:
+
 
 ## Bước 1: Kích hoạt Cobblemon dependency
 
@@ -15,6 +17,12 @@ Trong file `build.gradle`, uncomment dòng Cobblemon dependency:
 // Và thay thế bằng:
 modImplementation "com.cobblemon:fabric:${project.cobblemon_version}"
 ```
+
+
+**Lưu ý về Repository**: Nếu gặp lỗi network với nexus.impactdev.net, hãy thử:
+1. Sử dụng VPN hoặc thay đổi DNS
+2. Hoặc download Cobblemon JAR trực tiếp và đặt vào local libs folder
+
 
 ## Bước 2: Kích hoạt imports trong CobblemonBattleMusicClient.java
 
@@ -49,6 +57,10 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.sound.SoundCategory;
 ```
+
+**Quan trọng**: Minecraft 1.21.1 đã thay đổi một số API. Nếu gặp lỗi compilation, hãy kiểm tra:
+- `Identifier.of()` thay vì `new Identifier()`
+- Mappings phù hợp với yarn build.1 hoặc mới hơn
 
 ## Bước 3: Kích hoạt event registration
 

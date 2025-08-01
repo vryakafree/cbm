@@ -1,21 +1,18 @@
 plugins {
-	id 'fabric-loom' version '1.5-SNAPSHOT'
+	id 'fabric-loom' version '1.7-SNAPSHOT'
 	id 'maven-publish'
 }
 
 repositories {
-	// These repositories are required to resolve the dependencies of the Fabric template.
+	// Fabric repositories first
 	maven {
 		name = "Fabric"
 		url = "https://maven.fabricmc.net/"
 	}
+	mavenCentral()
 	maven {
 		name = "ParchmentMC"
 		url = "https://maven.parchmentmc.org/"
-	}
-	maven {
-		name = "ImpactDev Nexus"
-		url = "https://nexus.impactdev.net/repository/public/"
 	}
 	maven {
 		name = "Modrinth"
@@ -27,6 +24,15 @@ repositories {
 	maven {
 		name = "architectury"
 		url = "https://maven.architectury.dev/"
+	}
+	// Cobblemon repository
+	maven {
+		name = "ImpactDev Nexus"
+		url = "https://nexus.impactdev.net/repository/public/"
+	}
+	maven {
+		name = "Cobblemon Development"
+		url = "https://maven.impactdev.net/repository/development/"
 	}
 }
 
@@ -48,7 +54,6 @@ loom {
 			sourceSet sourceSets.client
 		}
 	}
-
 }
 
 dependencies {
@@ -60,8 +65,11 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
-	// Cobblemon - temporarily commented out for testing basic build
-	// modImplementation "com.cobblemon:fabric:${project.cobblemon_version}"
+	// Cobblemon - temporarily commented out due to repository issues
+	modImplementation "com.cobblemon:fabric:${project.cobblemon_version}"
+	
+	// Kotlin dependency for Cobblemon
+	implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.0"
 	
 	// Uncomment the following line to enable the deprecated Fabric API modules. 
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
@@ -78,7 +86,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release = 21
 }
 
 java {
@@ -87,8 +95,8 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
