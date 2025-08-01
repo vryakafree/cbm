@@ -2,40 +2,29 @@
 package com.cbm.cobblemonbattlemusic;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
-import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.sound.SoundCategory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CobblemonBattleMusic implements ModInitializer {
-    private static final Identifier BATTLE_MUSIC = new Identifier("cobblemonbattlemusic", "battle_music");
-    private static final Identifier LOW_HEALTH_MUSIC = new Identifier("cobblemonbattlemusic", "low_health_music");
-    private static final Identifier VICTORY_MUSIC = new Identifier("cobblemonbattlemusic", "victory_music");
+    public static final String MOD_ID = "cobblemonbattlemusic";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
+    // Sound Events
+    public static final SoundEvent BATTLE_MUSIC = registerSoundEvent("battle_music");
+    public static final SoundEvent LOW_HEALTH_MUSIC = registerSoundEvent("low_health_music");
+    public static final SoundEvent VICTORY_MUSIC = registerSoundEvent("victory_music");
 
     @Override
     public void onInitialize() {
-        // Register events and logic here
+        LOGGER.info("Initializing Cobblemon Battle Music mod");
     }
 
-    public static void playBattleMusic() {
-        MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(BATTLE_MUSIC), 1.0F));
-    }
-
-    public static void playLowHealthMusic() {
-        MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(LOW_HEALTH_MUSIC), 1.0F));
-    }
-
-    public static void playVictoryMusic() {
-        MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(VICTORY_MUSIC), 1.0F));
-        // Schedule volume reduction after 8 seconds
-        new Thread(() -> {
-            try {
-                Thread.sleep(8000);
-                MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(VICTORY_MUSIC), 0.3F));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
+    private static SoundEvent registerSoundEvent(String name) {
+        Identifier id = new Identifier(MOD_ID, name);
+        return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
     }
 }
