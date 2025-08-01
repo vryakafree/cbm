@@ -14,6 +14,8 @@ public class CobblemonBattleMusicClient implements ClientModInitializer {
     private static boolean isInBattle = false;
     private static boolean isBattleMusicPlaying = false;
     private static boolean isLowHealthMusicPlaying = false;
+    private static int battleMusicTicks = 0;
+    private static final int BATTLE_MUSIC_DURATION_TICKS = 20 * 60; // 60 seconds at 20 TPS
     
     @Override
     public void onInitializeClient() {
@@ -35,12 +37,18 @@ public class CobblemonBattleMusicClient implements ClientModInitializer {
             return Unit.INSTANCE;
         });
         
-        // Listen for battle end events  
+        // Listen for battle victory events (only when player wins)
         CobblemonEvents.BATTLE_VICTORY.subscribe(Priority.NORMAL, battleVictoryEvent -> {
-            onBattleVictory();
+            // Check if the player is the winner
+            if (battleVictoryEvent.getBattle().getPlayers().contains(MinecraftClient.getInstance().player)) {
+                onBattleVictory();
+            } else {
+                onBattleEnd(); // Player lost
+            }
             return Unit.INSTANCE;
         });
         
+        // Listen for battle end events (defeat/flee)
         CobblemonEvents.BATTLE_FLED.subscribe(Priority.NORMAL, battleFledEvent -> {
             onBattleEnd();
             return Unit.INSTANCE;
@@ -70,36 +78,50 @@ public class CobblemonBattleMusicClient implements ClientModInitializer {
             }
         }
         
-        // Check for low health condition
-        if (isInBattle && client.player.getHealth() <= 6.0f && !isLowHealthMusicPlaying) {
+        // Check for low health condition (20% of max health = 4.0f)
+        if (isInBattle && client.player.getHealth() <= 4.0f && !isLowHealthMusicPlaying) {
             playLowHealthMusic();
-        } else if ((!isInBattle || client.player.getHealth() > 6.0f) && isLowHealthMusicPlaying) {
+        } else if ((!isInBattle || client.player.getHealth() > 4.0f) && isLowHealthMusicPlaying) {
             stopLowHealthMusic();
+        }
+        
+        // Handle battle music looping
+        if (isInBattle && isBattleMusicPlaying) {
+            battleMusicTicks++;
+            if (battleMusicTicks >= BATTLE_MUSIC_DURATION_TICKS) {
+                // Restart battle music for looping effect
+                playBattleMusic();
+                battleMusicTicks = 0;
+            }
         }
     }
     
     private void onBattleStart() {
         if (!isBattleMusicPlaying) {
             playBattleMusic();
+            battleMusicTicks = 0;
         }
     }
     
     private void onBattleEnd() {
         stopBattleMusic();
         stopLowHealthMusic();
+        battleMusicTicks = 0;
     }
     
     private void onBattleVictory() {
         stopBattleMusic();
         stopLowHealthMusic();
         playVictoryMusic();
+        battleMusicTicks = 0;
     }
     
     public static void playBattleMusic() {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.getSoundManager() != null) {
+            // Use master for music with correct pitch and volume
             client.getSoundManager().play(PositionedSoundInstance.master(
-                CobblemonBattleMusic.BATTLE_MUSIC, 0.8F));
+                CobblemonBattleMusic.BATTLE_MUSIC, 1.0F));
             isBattleMusicPlaying = true;
             CobblemonBattleMusic.LOGGER.info("Playing battle music");
         }
@@ -108,8 +130,9 @@ public class CobblemonBattleMusicClient implements ClientModInitializer {
     public static void playLowHealthMusic() {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.getSoundManager() != null && !isLowHealthMusicPlaying) {
+            // Use master for music with correct pitch and volume
             client.getSoundManager().play(PositionedSoundInstance.master(
-                CobblemonBattleMusic.LOW_HEALTH_MUSIC, 0.6F));
+                CobblemonBattleMusic.LOW_HEALTH_MUSIC, 1.0F));
             isLowHealthMusicPlaying = true;
             CobblemonBattleMusic.LOGGER.info("Playing low health music");
         }
@@ -118,9 +141,10 @@ public class CobblemonBattleMusicClient implements ClientModInitializer {
     public static void playVictoryMusic() {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.getSoundManager() != null) {
+            // Victory music doesn't need to loop, use master with correct pitch
             client.getSoundManager().play(PositionedSoundInstance.master(
                 CobblemonBattleMusic.VICTORY_MUSIC, 1.0F));
-            CobblemonBattleMusic.LOGGER.info("Playing victory music");
+            CobblemonBattleMusic.LOGGER.info("Playing victory music (one-time)");
         }
     }
     
@@ -128,6 +152,7 @@ public class CobblemonBattleMusicClient implements ClientModInitializer {
         if (isBattleMusicPlaying) {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client.getSoundManager() != null) {
+                // Stop all music sounds
                 client.getSoundManager().stopSounds(null, SoundCategory.MUSIC);
             }
             isBattleMusicPlaying = false;
@@ -137,6 +162,11 @@ public class CobblemonBattleMusicClient implements ClientModInitializer {
     
     public static void stopLowHealthMusic() {
         if (isLowHealthMusicPlaying) {
+            MinecraftClient client = MinecraftClient.getInstance();
+            if (client.getSoundManager() != null) {
+                // Stop all music sounds
+                client.getSoundManager().stopSounds(null, SoundCategory.MUSIC);
+            }
             isLowHealthMusicPlaying = false;
             CobblemonBattleMusic.LOGGER.info("Stopped low health music");
         }
