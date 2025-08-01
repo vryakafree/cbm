@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "cobblemonbattlemusic",
+  "version": "1.0.0",
+  "name": "Cobblemon Battle Music",
+  "description": "Adds custom battle music for Cobblemon battles",
+  "authors": [
+    "Trần Duy Anh"
+  ],
+  "contact": {
+    "homepage": "https://github.com/your-username/cobblemon-battle-music",
+    "sources": "https://github.com/your-username/cobblemon-battle-music"
+  },
+  "license": "MIT",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.cbm.cobblemonbattlemusic.CobblemonBattleMusic"
+    ],
+    "client": [
+      "com.cbm.cobblemonbattlemusic.CobblemonBattleMusicClient"
+    ]
+  },
+
+  "depends": {
+    "fabricloader": ">=0.14.0",
+    "fabric": "*",
+    "minecraft": ">=1.20.1",
+    "java": ">=17",
+    "cobblemon": ">=1.4.0"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
