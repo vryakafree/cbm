@@ -15,3 +15,5 @@ Thumbs.db
 # Fabric
 remapped/
 run/
+
+# Note: File JAR đã được copy vào thư mục releases/ để có thể download trực tiếp từ GitHub
