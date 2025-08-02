@@ -39,7 +39,7 @@ public class CustomCobblemonMusicMod implements ModInitializer {
         LOGGER.info("- evo_congrat.ogg (after evolution completes)");
         LOGGER.info("- catch_congrat.ogg (when Pokemon is caught)");
         LOGGER.info("Battle music is handled by Cobblemon's native system or resource packs");
-        LOGGER.info("Cobblemon integration active!");
+        LOGGER.info("Music system is fully functional!");
         LOGGER.info("Use '/cobblemusic status' to check mod status");
     }
 

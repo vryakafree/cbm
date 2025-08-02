@@ -16,9 +16,6 @@
   "icon": "assets/customcobblemonmusicmod/icon.png",
 
   "environment": "*",
-  "mixins": [
-    "customcobblemonmusicmod.mixins.json"
-  ],
   "entrypoints": {
     "main": [
       "com.cbm.customcobblemonmusicmod.CustomCobblemonMusicMod"

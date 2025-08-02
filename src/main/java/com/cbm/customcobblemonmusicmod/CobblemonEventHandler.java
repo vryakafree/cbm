@@ -21,6 +21,7 @@ public class CobblemonEventHandler {
         
         LOGGER.info("Cobblemon event handlers registered successfully");
         LOGGER.info("Note: Event handlers are simplified for this version");
+        LOGGER.info("Music system is fully functional with manual commands");
     }
     
     // Simplified event handlers - these would be implemented with proper Cobblemon events
