@@ -5,8 +5,8 @@ A lightweight Fabric mod that adds **Victory**, **Evolution**, and **Catch** mus
 ## ✨ Features
 
 ### 🎵 **Music Types**
-- **🏆 Victory Music** - Plays immediately after winning battles (configurable duration)
-- **🔄 Evolution Music** - Plays during Pokemon evolution sequences  
+- **🏆 Victory Music** - Plays immediately after winning battles with smooth fade out
+- **🔄 Evolution Music** - Plays alongside Cobblemon's evolution_full.ogg during evolution
 - **🎉 Evolution Congratulations** - Plays when evolution completes
 - **⭐ Catch Congratulations** - Plays when you successfully catch Pokemon
 
@@ -14,7 +14,7 @@ A lightweight Fabric mod that adds **Victory**, **Evolution**, and **Catch** mus
 - **ModMenu Integration**: Full GUI configuration through ModMenu
 - **Volume Controls**: Individual volume settings for each music type (0-100%)
 - **Feature Toggles**: Enable/disable specific music types
-- **Advanced Settings**: Victory duration, debug logging
+- **Advanced Settings**: Victory duration, fade out duration, debug logging
 - **Auto-save Configuration**: Settings automatically save and load
 
 ### 🎮 **Commands**

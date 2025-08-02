@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.cbm.customcobblemonmusicmod.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "PokemonEntityMixin"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

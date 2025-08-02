@@ -41,9 +41,10 @@ public class CustomCobblemonMusicModCommands {
         CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
         
         source.sendMessage(Text.literal("§6=== Custom Cobblemon Music Mod Status ==="));
-        source.sendMessage(Text.literal("§eVersion: §f1.0.1"));
+        source.sendMessage(Text.literal("§eVersion: §f1.0.2"));
         source.sendMessage(Text.literal("§eActive Music System: §fVictory, Evolution & Catch only"));
         source.sendMessage(Text.literal("§eBattle Music: §fHandled by Cobblemon/Resource Packs"));
+        source.sendMessage(Text.literal("§eFade Out: §fEnabled for victory music"));
         source.sendMessage(Text.literal(""));
         source.sendMessage(Text.literal("§6Enabled Features:"));
         source.sendMessage(Text.literal("§7- Victory Music: §" + (config.enableVictoryMusic ? "a✓" : "c✗")));
@@ -73,6 +74,7 @@ public class CustomCobblemonMusicModCommands {
             source.sendMessage(Text.literal("§6Testing victory music..."));
             source.sendMessage(Text.literal("§ePlaying: victory.ogg"));
             source.sendMessage(Text.literal("§7Duration: " + (config.victoryMusicDuration / 1000) + " seconds"));
+            source.sendMessage(Text.literal("§7Fade Out: " + (config.victoryMusicFadeOutDuration / 1000) + " seconds"));
             source.sendMessage(Text.literal("§7Volume: " + (int)(config.victoryMusicVolume * 100) + "%"));
             
         } else {
@@ -181,6 +183,7 @@ public class CustomCobblemonMusicModCommands {
         source.sendMessage(Text.literal("§eEvolution Congrat: §f" + config.enableEvolutionMusic + " (Vol: " + (int)(config.evolutionCongratMusicVolume * 100) + "%)"));
         source.sendMessage(Text.literal("§eCatch Music: §f" + config.enableCatchMusic + " (Vol: " + (int)(config.catchCongratMusicVolume * 100) + "%)"));
         source.sendMessage(Text.literal("§eVictory Duration: §f" + (config.victoryMusicDuration / 1000) + " seconds"));
+        source.sendMessage(Text.literal("§eVictory Fade Out: §f" + (config.victoryMusicFadeOutDuration / 1000) + " seconds"));
         source.sendMessage(Text.literal("§eDebug Logging: §f" + config.debugLogging));
         source.sendMessage(Text.literal(""));
         source.sendMessage(Text.literal("§7Use ModMenu for GUI configuration"));

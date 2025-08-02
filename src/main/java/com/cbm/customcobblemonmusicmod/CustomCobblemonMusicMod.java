@@ -7,6 +7,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.cbm.customcobblemonmusicmod.CobblemonEventHandler;
 
 public class CustomCobblemonMusicMod implements ModInitializer {
     public static final String MOD_ID = "customcobblemonmusicmod";
@@ -26,16 +27,19 @@ public class CustomCobblemonMusicMod implements ModInitializer {
         CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
         LOGGER.info("Configuration loaded successfully");
         
+        // Register Cobblemon event handlers
+        CobblemonEventHandler.register();
+        
         // Register debug commands
         CustomCobblemonMusicModCommands.register();
         
         LOGGER.info("Registered sound events:");
-        LOGGER.info("- victory.ogg (plays for " + (config.victoryMusicDuration / 1000) + " seconds after winning)");
-        LOGGER.info("- evo.ogg (during Pokemon evolution)");
+        LOGGER.info("- victory.ogg (plays for " + (config.victoryMusicDuration / 1000) + " seconds after winning with fade out)");
+        LOGGER.info("- evo.ogg (plays alongside evolution_full.ogg during Pokemon evolution)");
         LOGGER.info("- evo_congrat.ogg (after evolution completes)");
         LOGGER.info("- catch_congrat.ogg (when Pokemon is caught)");
         LOGGER.info("Battle music is handled by Cobblemon's native system or resource packs");
-        LOGGER.info("Ready for Cobblemon integration!");
+        LOGGER.info("Cobblemon integration active!");
         LOGGER.info("Use '/cobblemusic status' to check mod status");
     }
 

@@ -27,6 +27,7 @@ public class CustomCobblemonMusicModConfig {
     
     // Advanced settings
     public int victoryMusicDuration = 7000; // 7 seconds in milliseconds
+    public int victoryMusicFadeOutDuration = 2000; // 2 seconds fade out
     public boolean immediateStopOnBattleEnd = true;
     public boolean debugLogging = false;
     
@@ -78,5 +79,6 @@ public class CustomCobblemonMusicModConfig {
         
         // Ensure duration is within valid range
         victoryMusicDuration = Math.max(1000, Math.min(30000, victoryMusicDuration));
+        victoryMusicFadeOutDuration = Math.max(500, Math.min(5000, victoryMusicFadeOutDuration));
     }
 }
