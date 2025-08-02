@@ -25,14 +25,18 @@ public class CustomCobblemonMusicMod implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Initializing Custom Cobblemon Music Mod");
         
+        // Initialize configuration
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        LOGGER.info("Configuration loaded successfully");
+        
         // Register debug commands
         CustomCobblemonMusicModCommands.register();
         
         LOGGER.info("Registered sound events:");
         LOGGER.info("- battle_song.ogg (loops during normal battles)");
-        LOGGER.info("- strong_battle_song.ogg (when opponent 15+ levels higher)");
-        LOGGER.info("- panic_song.ogg (when Pokemon health < 20%)");
-        LOGGER.info("- victory.ogg (plays for 7 seconds after winning)");
+        LOGGER.info("- strong_battle_song.ogg (when opponent " + config.strongBattleLevelDifference + "+ levels higher)");
+        LOGGER.info("- panic_song.ogg (when Pokemon health < " + (config.panicHealthThreshold * 100) + "%)");
+        LOGGER.info("- victory.ogg (plays for " + (config.victoryMusicDuration / 1000) + " seconds after winning)");
         LOGGER.info("- evo.ogg (during Pokemon evolution)");
         LOGGER.info("- evo_congrat.ogg (after evolution completes)");
         LOGGER.info("- catch_congrat.ogg (when Pokemon is caught)");

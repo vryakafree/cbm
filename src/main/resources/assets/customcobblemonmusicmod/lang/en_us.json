@@ -1,0 +1,61 @@
+{
+  "config.customcobblemonmusicmod.title": "Custom Cobblemon Music Mod",
+  
+  "config.customcobblemonmusicmod.category.volume": "Volume Settings",
+  "config.customcobblemonmusicmod.category.features": "Music Features",
+  "config.customcobblemonmusicmod.category.advanced": "Advanced Settings",
+  
+  "config.customcobblemonmusicmod.battle_volume": "Battle Music Volume",
+  "config.customcobblemonmusicmod.battle_volume.tooltip": "Volume for normal battle music (0.0 - 1.0)",
+  
+  "config.customcobblemonmusicmod.strong_battle_volume": "Strong Battle Music Volume",
+  "config.customcobblemonmusicmod.strong_battle_volume.tooltip": "Volume for strong battle music when facing higher level Pokemon (0.0 - 1.0)",
+  
+  "config.customcobblemonmusicmod.panic_volume": "Panic Music Volume",
+  "config.customcobblemonmusicmod.panic_volume.tooltip": "Volume for panic music when Pokemon health is low (0.0 - 1.0)",
+  
+  "config.customcobblemonmusicmod.victory_volume": "Victory Music Volume",
+  "config.customcobblemonmusicmod.victory_volume.tooltip": "Volume for victory music after winning battles (0.0 - 1.0)",
+  
+  "config.customcobblemonmusicmod.evolution_volume": "Evolution Music Volume",
+  "config.customcobblemonmusicmod.evolution_volume.tooltip": "Volume for evolution music during Pokemon evolution (0.0 - 1.0)",
+  
+  "config.customcobblemonmusicmod.evolution_congrat_volume": "Evolution Congratulations Volume",
+  "config.customcobblemonmusicmod.evolution_congrat_volume.tooltip": "Volume for congratulations music after evolution completes (0.0 - 1.0)",
+  
+  "config.customcobblemonmusicmod.catch_congrat_volume": "Catch Congratulations Volume",
+  "config.customcobblemonmusicmod.catch_congrat_volume.tooltip": "Volume for congratulations music when catching Pokemon (0.0 - 1.0)",
+  
+  "config.customcobblemonmusicmod.enable_battle_music": "Enable Battle Music",
+  "config.customcobblemonmusicmod.enable_battle_music.tooltip": "Enable music during Pokemon battles",
+  
+  "config.customcobblemonmusicmod.enable_strong_battle_music": "Enable Strong Battle Music",
+  "config.customcobblemonmusicmod.enable_strong_battle_music.tooltip": "Enable special music for battles against higher level Pokemon",
+  
+  "config.customcobblemonmusicmod.enable_panic_music": "Enable Panic Music",
+  "config.customcobblemonmusicmod.enable_panic_music.tooltip": "Enable panic music when Pokemon health is low",
+  
+  "config.customcobblemonmusicmod.enable_victory_music": "Enable Victory Music",
+  "config.customcobblemonmusicmod.enable_victory_music.tooltip": "Enable victory music after winning battles",
+  
+  "config.customcobblemonmusicmod.enable_evolution_music": "Enable Evolution Music",
+  "config.customcobblemonmusicmod.enable_evolution_music.tooltip": "Enable music during Pokemon evolution",
+  
+  "config.customcobblemonmusicmod.enable_catch_music": "Enable Catch Music",
+  "config.customcobblemonmusicmod.enable_catch_music.tooltip": "Enable congratulations music when catching Pokemon",
+  
+  "config.customcobblemonmusicmod.panic_health_threshold": "Panic Health Threshold",
+  "config.customcobblemonmusicmod.panic_health_threshold.tooltip": "Health percentage threshold to trigger panic music (0.0 - 1.0, default: 0.2 = 20%)",
+  
+  "config.customcobblemonmusicmod.strong_battle_level_difference": "Strong Battle Level Difference",
+  "config.customcobblemonmusicmod.strong_battle_level_difference.tooltip": "Level difference required to trigger strong battle music (default: 15 levels)",
+  
+  "config.customcobblemonmusicmod.victory_music_duration": "Victory Music Duration (ms)",
+  "config.customcobblemonmusicmod.victory_music_duration.tooltip": "How long victory music plays in milliseconds (default: 7000 = 7 seconds)",
+  
+  "config.customcobblemonmusicmod.immediate_stop_on_battle_end": "Immediate Stop on Battle End",
+  "config.customcobblemonmusicmod.immediate_stop_on_battle_end.tooltip": "Stop music immediately when battle ends instead of fading out",
+  
+  "config.customcobblemonmusicmod.debug_logging": "Debug Logging",
+  "config.customcobblemonmusicmod.debug_logging.tooltip": "Enable debug logging for troubleshooting (check console logs)"
+}
