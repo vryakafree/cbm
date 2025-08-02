@@ -14,26 +14,18 @@ public class CustomCobblemonMusicModConfig {
     private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("customcobblemonmusicmod.json");
     private static CustomCobblemonMusicModConfig INSTANCE;
     
-    // Music volume settings
-    public float battleMusicVolume = 0.8f;
-    public float strongBattleMusicVolume = 0.85f;
-    public float panicMusicVolume = 0.9f;
+    // Music volume settings (only for custom sounds)
     public float victoryMusicVolume = 1.0f;
     public float evolutionMusicVolume = 0.7f;
     public float evolutionCongratMusicVolume = 0.8f;
     public float catchCongratMusicVolume = 0.9f;
     
     // Music behavior settings
-    public boolean enableBattleMusic = true;
-    public boolean enableStrongBattleMusic = true;
-    public boolean enablePanicMusic = true;
     public boolean enableVictoryMusic = true;
     public boolean enableEvolutionMusic = true;
     public boolean enableCatchMusic = true;
     
     // Advanced settings
-    public float panicHealthThreshold = 0.2f; // 20% health
-    public int strongBattleLevelDifference = 15; // 15 level difference
     public int victoryMusicDuration = 7000; // 7 seconds in milliseconds
     public boolean immediateStopOnBattleEnd = true;
     public boolean debugLogging = false;
@@ -79,17 +71,12 @@ public class CustomCobblemonMusicModConfig {
     
     private void validate() {
         // Ensure volume values are within valid range
-        battleMusicVolume = Math.max(0.0f, Math.min(1.0f, battleMusicVolume));
-        strongBattleMusicVolume = Math.max(0.0f, Math.min(1.0f, strongBattleMusicVolume));
-        panicMusicVolume = Math.max(0.0f, Math.min(1.0f, panicMusicVolume));
         victoryMusicVolume = Math.max(0.0f, Math.min(1.0f, victoryMusicVolume));
         evolutionMusicVolume = Math.max(0.0f, Math.min(1.0f, evolutionMusicVolume));
         evolutionCongratMusicVolume = Math.max(0.0f, Math.min(1.0f, evolutionCongratMusicVolume));
         catchCongratMusicVolume = Math.max(0.0f, Math.min(1.0f, catchCongratMusicVolume));
         
-        // Ensure threshold values are within valid range
-        panicHealthThreshold = Math.max(0.0f, Math.min(1.0f, panicHealthThreshold));
-        strongBattleLevelDifference = Math.max(1, Math.min(100, strongBattleLevelDifference));
+        // Ensure duration is within valid range
         victoryMusicDuration = Math.max(1000, Math.min(30000, victoryMusicDuration));
     }
 }

@@ -27,33 +27,6 @@ public class CustomCobblemonMusicModMenuIntegration implements ModMenuApi {
             // Volume Settings Category
             ConfigCategory volumeCategory = builder.getOrCreateCategory(
                     Text.translatable("config.customcobblemonmusicmod.category.volume"));
-            
-            volumeCategory.addEntry(entryBuilder
-                    .startFloatField(Text.translatable("config.customcobblemonmusicmod.battle_volume"), config.battleMusicVolume)
-                    .setDefaultValue(0.8f)
-                    .setMin(0.0f)
-                    .setMax(1.0f)
-                    .setTooltip(Text.translatable("config.customcobblemonmusicmod.battle_volume.tooltip"))
-                    .setSaveConsumer(newValue -> config.battleMusicVolume = newValue)
-                    .build());
-                    
-            volumeCategory.addEntry(entryBuilder
-                    .startFloatField(Text.translatable("config.customcobblemonmusicmod.strong_battle_volume"), config.strongBattleMusicVolume)
-                    .setDefaultValue(0.85f)
-                    .setMin(0.0f)
-                    .setMax(1.0f)
-                    .setTooltip(Text.translatable("config.customcobblemonmusicmod.strong_battle_volume.tooltip"))
-                    .setSaveConsumer(newValue -> config.strongBattleMusicVolume = newValue)
-                    .build());
-                    
-            volumeCategory.addEntry(entryBuilder
-                    .startFloatField(Text.translatable("config.customcobblemonmusicmod.panic_volume"), config.panicMusicVolume)
-                    .setDefaultValue(0.9f)
-                    .setMin(0.0f)
-                    .setMax(1.0f)
-                    .setTooltip(Text.translatable("config.customcobblemonmusicmod.panic_volume.tooltip"))
-                    .setSaveConsumer(newValue -> config.panicMusicVolume = newValue)
-                    .build());
                     
             volumeCategory.addEntry(entryBuilder
                     .startFloatField(Text.translatable("config.customcobblemonmusicmod.victory_volume"), config.victoryMusicVolume)
@@ -96,27 +69,6 @@ public class CustomCobblemonMusicModMenuIntegration implements ModMenuApi {
                     Text.translatable("config.customcobblemonmusicmod.category.features"));
                     
             featuresCategory.addEntry(entryBuilder
-                    .startBooleanToggle(Text.translatable("config.customcobblemonmusicmod.enable_battle_music"), config.enableBattleMusic)
-                    .setDefaultValue(true)
-                    .setTooltip(Text.translatable("config.customcobblemonmusicmod.enable_battle_music.tooltip"))
-                    .setSaveConsumer(newValue -> config.enableBattleMusic = newValue)
-                    .build());
-                    
-            featuresCategory.addEntry(entryBuilder
-                    .startBooleanToggle(Text.translatable("config.customcobblemonmusicmod.enable_strong_battle_music"), config.enableStrongBattleMusic)
-                    .setDefaultValue(true)
-                    .setTooltip(Text.translatable("config.customcobblemonmusicmod.enable_strong_battle_music.tooltip"))
-                    .setSaveConsumer(newValue -> config.enableStrongBattleMusic = newValue)
-                    .build());
-                    
-            featuresCategory.addEntry(entryBuilder
-                    .startBooleanToggle(Text.translatable("config.customcobblemonmusicmod.enable_panic_music"), config.enablePanicMusic)
-                    .setDefaultValue(true)
-                    .setTooltip(Text.translatable("config.customcobblemonmusicmod.enable_panic_music.tooltip"))
-                    .setSaveConsumer(newValue -> config.enablePanicMusic = newValue)
-                    .build());
-                    
-            featuresCategory.addEntry(entryBuilder
                     .startBooleanToggle(Text.translatable("config.customcobblemonmusicmod.enable_victory_music"), config.enableVictoryMusic)
                     .setDefaultValue(true)
                     .setTooltip(Text.translatable("config.customcobblemonmusicmod.enable_victory_music.tooltip"))
@@ -142,37 +94,12 @@ public class CustomCobblemonMusicModMenuIntegration implements ModMenuApi {
                     Text.translatable("config.customcobblemonmusicmod.category.advanced"));
                     
             advancedCategory.addEntry(entryBuilder
-                    .startFloatField(Text.translatable("config.customcobblemonmusicmod.panic_health_threshold"), config.panicHealthThreshold)
-                    .setDefaultValue(0.2f)
-                    .setMin(0.0f)
-                    .setMax(1.0f)
-                    .setTooltip(Text.translatable("config.customcobblemonmusicmod.panic_health_threshold.tooltip"))
-                    .setSaveConsumer(newValue -> config.panicHealthThreshold = newValue)
-                    .build());
-                    
-            advancedCategory.addEntry(entryBuilder
-                    .startIntField(Text.translatable("config.customcobblemonmusicmod.strong_battle_level_difference"), config.strongBattleLevelDifference)
-                    .setDefaultValue(15)
-                    .setMin(1)
-                    .setMax(100)
-                    .setTooltip(Text.translatable("config.customcobblemonmusicmod.strong_battle_level_difference.tooltip"))
-                    .setSaveConsumer(newValue -> config.strongBattleLevelDifference = newValue)
-                    .build());
-                    
-            advancedCategory.addEntry(entryBuilder
                     .startIntField(Text.translatable("config.customcobblemonmusicmod.victory_music_duration"), config.victoryMusicDuration)
                     .setDefaultValue(7000)
                     .setMin(1000)
                     .setMax(30000)
                     .setTooltip(Text.translatable("config.customcobblemonmusicmod.victory_music_duration.tooltip"))
                     .setSaveConsumer(newValue -> config.victoryMusicDuration = newValue)
-                    .build());
-                    
-            advancedCategory.addEntry(entryBuilder
-                    .startBooleanToggle(Text.translatable("config.customcobblemonmusicmod.immediate_stop_on_battle_end"), config.immediateStopOnBattleEnd)
-                    .setDefaultValue(true)
-                    .setTooltip(Text.translatable("config.customcobblemonmusicmod.immediate_stop_on_battle_end.tooltip"))
-                    .setSaveConsumer(newValue -> config.immediateStopOnBattleEnd = newValue)
                     .build());
                     
             advancedCategory.addEntry(entryBuilder

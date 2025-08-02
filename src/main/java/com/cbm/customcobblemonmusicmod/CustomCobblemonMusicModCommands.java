@@ -1,14 +1,12 @@
 package com.cbm.customcobblemonmusicmod;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.FloatArgumentType;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.Text;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 
 public class CustomCobblemonMusicModCommands {
     
@@ -23,96 +21,40 @@ public class CustomCobblemonMusicModCommands {
             .then(CommandManager.literal("status")
                 .executes(CustomCobblemonMusicModCommands::showStatus))
             .then(CommandManager.literal("test")
-                .then(CommandManager.literal("battle")
-                    .executes(CustomCobblemonMusicModCommands::testBattleMusic))
-                .then(CommandManager.literal("panic")
-                    .executes(CustomCobblemonMusicModCommands::testPanicMusic))
                 .then(CommandManager.literal("victory")
                     .executes(CustomCobblemonMusicModCommands::testVictoryMusic))
                 .then(CommandManager.literal("evolution")
                     .executes(CustomCobblemonMusicModCommands::testEvolutionMusic))
-                .then(CommandManager.literal("evo")
-                    .executes(CustomCobblemonMusicModCommands::testEvolutionSequence))
+                .then(CommandManager.literal("evo_congrat")
+                    .executes(CustomCobblemonMusicModCommands::testEvolutionCongratMusic))
                 .then(CommandManager.literal("catch")
                     .executes(CustomCobblemonMusicModCommands::testCatchMusic)))
             .then(CommandManager.literal("stop")
                 .executes(CustomCobblemonMusicModCommands::stopMusic))
-            .then(CommandManager.literal("version")
-                .executes(CustomCobblemonMusicModCommands::showVersion))
+            .then(CommandManager.literal("config")
+                .executes(CustomCobblemonMusicModCommands::showConfig))
         );
     }
     
     private static int showStatus(CommandContext<ServerCommandSource> context) {
         ServerCommandSource source = context.getSource();
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
         
-        try {
-            source.sendMessage(Text.literal("§6=== Custom Cobblemon Music Mod Status ==="));
-            source.sendMessage(Text.literal("§aModID: §f" + CustomCobblemonMusicMod.MOD_ID));
-            source.sendMessage(Text.literal("§aVersion: §f1.0.0"));
-            source.sendMessage(Text.literal("§aCobblemon Integration: §2✓ ENABLED"));
-            source.sendMessage(Text.literal("§aMinecraft: §f1.21.1"));
-            source.sendMessage(Text.literal("§aExpected Cobblemon: §f1.6.1+"));
-            
-            // Check if Cobblemon is actually loaded
-            try {
-                Class.forName("com.cobblemon.mod.common.api.events.CobblemonEvents");
-                source.sendMessage(Text.literal("§aCobblemon API: §2✓ FOUND"));
-            } catch (ClassNotFoundException e) {
-                source.sendMessage(Text.literal("§aCobblemon API: §c✗ NOT FOUND"));
-                source.sendMessage(Text.literal("§cPlease install Cobblemon 1.6.1+ for full functionality"));
-            }
-            
-            source.sendMessage(Text.literal("§6Sound Events Registered:"));
-            source.sendMessage(Text.literal("§f- battle_song.ogg"));
-            source.sendMessage(Text.literal("§f- strong_battle_song.ogg"));
-            source.sendMessage(Text.literal("§f- panic_song.ogg"));
-            source.sendMessage(Text.literal("§f- victory.ogg"));
-            source.sendMessage(Text.literal("§f- evo.ogg"));
-            source.sendMessage(Text.literal("§f- evo_congrat.ogg"));
-            source.sendMessage(Text.literal("§f- catch_congrat.ogg"));
-            
-            source.sendMessage(Text.literal("§6Use §e/cobblemusic test <type>§6 to test sounds"));
-            
-        } catch (Exception e) {
-            source.sendMessage(Text.literal("§cError checking status: " + e.getMessage()));
-            return 0;
-        }
-        
-        return 1;
-    }
-    
-    private static int testBattleMusic(CommandContext<ServerCommandSource> context) {
-        ServerCommandSource source = context.getSource();
-        
-        if (source.getEntity() instanceof ServerPlayerEntity player) {
-            source.sendMessage(Text.literal("§6Testing battle music..."));
-            source.sendMessage(Text.literal("§7Note: This is a test command. Real battle music is triggered by Cobblemon events."));
-            
-            // In a real implementation, you'd trigger the client-side music
-            // For now, just show what would happen
-            source.sendMessage(Text.literal("§aWould play: battle_song.ogg (loops until battle ends)"));
-            source.sendMessage(Text.literal("§7Real trigger: When Cobblemon battle starts"));
-            
-        } else {
-            source.sendMessage(Text.literal("§cThis command must be run by a player"));
-            return 0;
-        }
-        
-        return 1;
-    }
-    
-    private static int testPanicMusic(CommandContext<ServerCommandSource> context) {
-        ServerCommandSource source = context.getSource();
-        
-        if (source.getEntity() instanceof ServerPlayerEntity player) {
-            source.sendMessage(Text.literal("§6Testing panic music..."));
-            source.sendMessage(Text.literal("§cWould play: panic_song.ogg (when Pokemon health ≤ 20%)"));
-            source.sendMessage(Text.literal("§7Real trigger: Pokemon health monitoring during battle"));
-            
-        } else {
-            source.sendMessage(Text.literal("§cThis command must be run by a player"));
-            return 0;
-        }
+        source.sendMessage(Text.literal("§6=== Custom Cobblemon Music Mod Status ==="));
+        source.sendMessage(Text.literal("§eVersion: §f1.0.1"));
+        source.sendMessage(Text.literal("§eActive Music System: §fVictory, Evolution & Catch only"));
+        source.sendMessage(Text.literal("§eBattle Music: §fHandled by Cobblemon/Resource Packs"));
+        source.sendMessage(Text.literal(""));
+        source.sendMessage(Text.literal("§6Enabled Features:"));
+        source.sendMessage(Text.literal("§7- Victory Music: §" + (config.enableVictoryMusic ? "a✓" : "c✗")));
+        source.sendMessage(Text.literal("§7- Evolution Music: §" + (config.enableEvolutionMusic ? "a✓" : "c✗")));
+        source.sendMessage(Text.literal("§7- Catch Music: §" + (config.enableCatchMusic ? "a✓" : "c✗")));
+        source.sendMessage(Text.literal(""));
+        source.sendMessage(Text.literal("§6Commands:"));
+        source.sendMessage(Text.literal("§7- /cobblemusic test victory"));
+        source.sendMessage(Text.literal("§7- /cobblemusic test evolution"));
+        source.sendMessage(Text.literal("§7- /cobblemusic test catch"));
+        source.sendMessage(Text.literal("§7- /cobblemusic stop"));
         
         return 1;
     }
@@ -121,9 +63,17 @@ public class CustomCobblemonMusicModCommands {
         ServerCommandSource source = context.getSource();
         
         if (source.getEntity() instanceof ServerPlayerEntity player) {
+            CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+            
+            if (!config.enableVictoryMusic) {
+                source.sendMessage(Text.literal("§cVictory music is disabled in config"));
+                return 0;
+            }
+            
             source.sendMessage(Text.literal("§6Testing victory music..."));
-            source.sendMessage(Text.literal("§aWould play: victory.ogg (7 seconds, then fade out)"));
-            source.sendMessage(Text.literal("§7Real trigger: When player wins Cobblemon battle"));
+            source.sendMessage(Text.literal("§ePlaying: victory.ogg"));
+            source.sendMessage(Text.literal("§7Duration: " + (config.victoryMusicDuration / 1000) + " seconds"));
+            source.sendMessage(Text.literal("§7Volume: " + (int)(config.victoryMusicVolume * 100) + "%"));
             
         } else {
             source.sendMessage(Text.literal("§cThis command must be run by a player"));
@@ -137,10 +87,17 @@ public class CustomCobblemonMusicModCommands {
         ServerCommandSource source = context.getSource();
         
         if (source.getEntity() instanceof ServerPlayerEntity player) {
-            source.sendMessage(Text.literal("§6Testing evolution music sequence..."));
-            source.sendMessage(Text.literal("§dStep 1: evo.ogg (during evolution)"));
-            source.sendMessage(Text.literal("§dStep 2: evo_congrat.ogg (after 3 seconds)"));
-            source.sendMessage(Text.literal("§7Real trigger: Pokemon evolution events"));
+            CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+            
+            if (!config.enableEvolutionMusic) {
+                source.sendMessage(Text.literal("§cEvolution music is disabled in config"));
+                return 0;
+            }
+            
+            source.sendMessage(Text.literal("§6Testing evolution music..."));
+            source.sendMessage(Text.literal("§ePlaying: evo.ogg"));
+            source.sendMessage(Text.literal("§7Volume: " + (int)(config.evolutionMusicVolume * 100) + "%"));
+            source.sendMessage(Text.literal("§7Real trigger: Pokemon evolution start"));
             
         } else {
             source.sendMessage(Text.literal("§cThis command must be run by a player"));
@@ -150,14 +107,21 @@ public class CustomCobblemonMusicModCommands {
         return 1;
     }
     
-    private static int testEvolutionSequence(CommandContext<ServerCommandSource> context) {
+    private static int testEvolutionCongratMusic(CommandContext<ServerCommandSource> context) {
         ServerCommandSource source = context.getSource();
         
         if (source.getEntity() instanceof ServerPlayerEntity player) {
-            source.sendMessage(Text.literal("§6Testing evolution music sequence..."));
-            source.sendMessage(Text.literal("§dStep 1: evo.ogg (during evolution)"));
-            source.sendMessage(Text.literal("§dStep 2: evo_congrat.ogg (after 3 seconds)"));
-            source.sendMessage(Text.literal("§7Real trigger: Pokemon evolution events"));
+            CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+            
+            if (!config.enableEvolutionMusic) {
+                source.sendMessage(Text.literal("§cEvolution music is disabled in config"));
+                return 0;
+            }
+            
+            source.sendMessage(Text.literal("§6Testing evolution congratulations music..."));
+            source.sendMessage(Text.literal("§ePlaying: evo_congrat.ogg"));
+            source.sendMessage(Text.literal("§7Volume: " + (int)(config.evolutionCongratMusicVolume * 100) + "%"));
+            source.sendMessage(Text.literal("§7Real trigger: Pokemon evolution complete"));
             
         } else {
             source.sendMessage(Text.literal("§cThis command must be run by a player"));
@@ -171,9 +135,17 @@ public class CustomCobblemonMusicModCommands {
         ServerCommandSource source = context.getSource();
         
         if (source.getEntity() instanceof ServerPlayerEntity player) {
+            CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+            
+            if (!config.enableCatchMusic) {
+                source.sendMessage(Text.literal("§cCatch music is disabled in config"));
+                return 0;
+            }
+            
             source.sendMessage(Text.literal("§6Testing catch music..."));
-            source.sendMessage(Text.literal("§2Would play: catch_congrat.ogg"));
-            source.sendMessage(Text.literal("§7Real trigger: Successful Pokemon capture"));
+            source.sendMessage(Text.literal("§ePlaying: catch_congrat.ogg"));
+            source.sendMessage(Text.literal("§7Volume: " + (int)(config.catchCongratMusicVolume * 100) + "%"));
+            source.sendMessage(Text.literal("§7Real trigger: Pokemon caught"));
             
         } else {
             source.sendMessage(Text.literal("§cThis command must be run by a player"));
@@ -187,11 +159,9 @@ public class CustomCobblemonMusicModCommands {
         ServerCommandSource source = context.getSource();
         
         if (source.getEntity() instanceof ServerPlayerEntity player) {
-            source.sendMessage(Text.literal("§6Stopping all music..."));
-            
-            // This is a debug command - actual music stopping is handled client-side
-            source.sendMessage(Text.literal("§7Note: Music control is handled client-side by Cobblemon events"));
-            source.sendMessage(Text.literal("§aCommand executed (client-side music should stop when battle ends)"));
+            source.sendMessage(Text.literal("§6Stopping all custom music..."));
+            source.sendMessage(Text.literal("§7Note: This only stops mod's custom music"));
+            source.sendMessage(Text.literal("§7Battle music is handled by Cobblemon/Resource Packs"));
             
         } else {
             source.sendMessage(Text.literal("§cThis command must be run by a player"));
@@ -201,13 +171,19 @@ public class CustomCobblemonMusicModCommands {
         return 1;
     }
     
-    private static int showVersion(CommandContext<ServerCommandSource> context) {
+    private static int showConfig(CommandContext<ServerCommandSource> context) {
         ServerCommandSource source = context.getSource();
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
         
-        source.sendMessage(Text.literal("§6Custom Cobblemon Music Mod §fv1.0.0"));
-        source.sendMessage(Text.literal("§7For Minecraft 1.21.1 + Cobblemon 1.6.1+"));
-        source.sendMessage(Text.literal("§7Implements authentic Pokemon battle music system"));
-        source.sendMessage(Text.literal("§7GitHub: github.com/vryakafree/cbm"));
+        source.sendMessage(Text.literal("§6=== Configuration Settings ==="));
+        source.sendMessage(Text.literal("§eVictory Music: §f" + config.enableVictoryMusic + " (Vol: " + (int)(config.victoryMusicVolume * 100) + "%)"));
+        source.sendMessage(Text.literal("§eEvolution Music: §f" + config.enableEvolutionMusic + " (Vol: " + (int)(config.evolutionMusicVolume * 100) + "%)"));
+        source.sendMessage(Text.literal("§eEvolution Congrat: §f" + config.enableEvolutionMusic + " (Vol: " + (int)(config.evolutionCongratMusicVolume * 100) + "%)"));
+        source.sendMessage(Text.literal("§eCatch Music: §f" + config.enableCatchMusic + " (Vol: " + (int)(config.catchCongratMusicVolume * 100) + "%)"));
+        source.sendMessage(Text.literal("§eVictory Duration: §f" + (config.victoryMusicDuration / 1000) + " seconds"));
+        source.sendMessage(Text.literal("§eDebug Logging: §f" + config.debugLogging));
+        source.sendMessage(Text.literal(""));
+        source.sendMessage(Text.literal("§7Use ModMenu for GUI configuration"));
         
         return 1;
     }
