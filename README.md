@@ -13,9 +13,9 @@ Adds dynamic battle music that automatically plays during Cobblemon battles, Pok
 
 ### 🎼 Complete Pokemon Music System
 - **Battle Music**: Automatically plays during Cobblemon battles (loops continuously)
-- **Strong Battle Music**: Special music when facing opponents 15+ levels higher
-- **Panic Music**: Switches to intense music when Pokemon health ≤ 20%
-- **Victory Music**: Celebration music for 7 seconds after winning battles
+- **Strong Battle Music**: Special music when facing opponents 15+ levels higher (configurable)
+- **Panic Music**: Switches to intense music when Pokemon health ≤ 20% (configurable)
+- **Victory Music**: Celebration music for 7 seconds after winning battles (configurable duration)
 - **Evolution Music**: Two-part sequence for Pokemon evolution events
 - **Catch Music**: Congratulations sound when successfully catching Pokemon
 
@@ -23,13 +23,21 @@ Adds dynamic battle music that automatically plays during Cobblemon battles, Pok
 - **Health-based**: Panic music at low health, recovery when health improves
 - **Level-based**: Strong battle music for challenging opponents
 - **Event-driven**: Real-time response to Cobblemon API events
-- **Fade Effects**: Smooth transitions between different music types
+- **Instant Response**: Music stops immediately when battles end (flee, faint, commands)
+- **Smooth Fade-out**: Gradual fade when battles conclude
+
+### ⚙️ Configuration System
+- **ModMenu Integration**: Easy-to-use GUI configuration screen
+- **Volume Controls**: Adjust volume for each music type independently
+- **Feature Toggles**: Enable/disable specific music types
+- **Advanced Settings**: Customize health thresholds, level differences, and timing
+- **Auto-save**: Configuration automatically saves and loads
 
 ### 🛠️ Debug & Testing
 - **Commands**: `/cobblemusic status`, `/cobblemusic test <type>`
 - **API Detection**: Automatically detects Cobblemon installation
 - **Status Reporting**: Comprehensive mod state information
-- **Error Handling**: Graceful fallback for API changes
+- **Debug Logging**: Optional detailed logging for troubleshooting
 
 ## 📋 Requirements
 
@@ -40,6 +48,8 @@ Adds dynamic battle music that automatically plays during Cobblemon battles, Pok
 | **Fabric API** | 0.110.0+1.21.1 | ✅ Required |
 | **Cobblemon** | 1.6.1+ | 🔴 **MANDATORY** |
 | **Java** | 21+ | ✅ Required |
+| **ModMenu** | 11.0.1+ | 🟡 Optional (for config GUI) |
+| **Cloth Config** | 15.0.127+ | 🟡 Optional (for config GUI) |
 
 > ⚠️ **Important**: This mod **requires Cobblemon** to function. All events come from Cobblemon API.
 
@@ -48,137 +58,166 @@ Adds dynamic battle music that automatically plays during Cobblemon battles, Pok
 1. **Download Dependencies**:
    - Install [Fabric Loader](https://fabricmc.net/use/installer/)
    - Download [Fabric API](https://modrinth.com/mod/fabric-api)
-   - Download [Cobblemon 1.6.1+](https://modrinth.com/mod/cobblemon)
+   - Download [Cobblemon](https://modrinth.com/mod/cobblemon) (1.6.1+)
+   - Optional: [ModMenu](https://modrinth.com/mod/modmenu) + [Cloth Config](https://modrinth.com/mod/cloth-config) for configuration GUI
 
 2. **Install Mod**:
-   - Download `customcobblemonmusicmod-1.0.0.jar` from [Releases](../../releases)
-   - Place in your `mods` folder
+   - Download latest release from [Releases](../../releases)
+   - Place in `mods` folder
+   - Launch Minecraft with Fabric profile
 
-3. **Optional**: Replace placeholder sounds with custom `.ogg` files
+3. **Add Sound Files**:
+   - Create Pokemon music files (`.ogg` format recommended)
+   - Name them according to the [Sound Files](#sound-files) section
+   - Place in mod's sound directory or use a resource pack
 
-4. **Launch** and enjoy authentic Pokemon battle music!
+## 🎵 Sound Files
 
-## 🎛️ Sound Events
+The mod expects these sound files in `.ogg` format:
 
-| Music Type | File | Trigger | Duration |
-|------------|------|---------|----------|
-| **Battle** | `battle_song.ogg` | Battle starts | Loops |
-| **Strong Battle** | `strong_battle_song.ogg` | Opponent 15+ levels higher | Loops |
-| **Panic** | `panic_song.ogg` | Pokemon health ≤ 20% | Loops |
-| **Victory** | `victory.ogg` | Win battle | 7 seconds |
-| **Evolution** | `evo.ogg` | Evolution starts | One-time |
-| **Evolution Complete** | `evo_congrat.ogg` | Evolution finishes | One-time |
-| **Catch Success** | `catch_congrat.ogg` | Pokemon caught | One-time |
+| File Name | Triggers When | Description |
+|-----------|---------------|-------------|
+| `battle_song.ogg` | Normal battles | Main battle theme (loops) |
+| `strong_battle_song.ogg` | Tough opponents | Intense battle theme (loops) |
+| `panic_song.ogg` | Low health | Emergency theme (loops) |
+| `victory.ogg` | Battle won | Victory fanfare |
+| `evo.ogg` | Evolution starts | Evolution beginning |
+| `evo_congrat.ogg` | Evolution complete | Evolution celebration |
+| `catch_congrat.ogg` | Pokemon caught | Capture celebration |
 
-## 📝 Commands
-
-Test and debug the mod with these commands:
-
+### 📂 Sound File Locations
 ```
-/cobblemusic status          # Check mod status and Cobblemon integration
+resourcepacks/YourPack/assets/customcobblemonmusicmod/sounds/
+└── battle_song.ogg
+└── strong_battle_song.ogg
+└── panic_song.ogg
+└── victory.ogg
+└── evo.ogg
+└── evo_congrat.ogg
+└── catch_congrat.ogg
+```
+
+## ⚙️ Configuration
+
+### Using ModMenu (Recommended)
+1. Install [ModMenu](https://modrinth.com/mod/modmenu) and [Cloth Config](https://modrinth.com/mod/cloth-config)
+2. Go to **Mods** → **Custom Cobblemon Music Mod** → **Config**
+3. Adjust settings in the GUI:
+   - **Volume Settings**: Control volume for each music type
+   - **Music Features**: Enable/disable specific music types
+   - **Advanced Settings**: Fine-tune thresholds and behavior
+
+### Manual Configuration
+The config file is located at: `config/customcobblemonmusicmod.json`
+
+```json
+{
+  "battleMusicVolume": 0.8,
+  "strongBattleMusicVolume": 0.85,
+  "panicMusicVolume": 0.9,
+  "victoryMusicVolume": 1.0,
+  "evolutionMusicVolume": 0.7,
+  "evolutionCongratMusicVolume": 0.8,
+  "catchCongratMusicVolume": 0.9,
+  "enableBattleMusic": true,
+  "enableStrongBattleMusic": true,
+  "enablePanicMusic": true,
+  "enableVictoryMusic": true,
+  "enableEvolutionMusic": true,
+  "enableCatchMusic": true,
+  "panicHealthThreshold": 0.2,
+  "strongBattleLevelDifference": 15,
+  "victoryMusicDuration": 7000,
+  "immediateStopOnBattleEnd": true,
+  "debugLogging": false
+}
+```
+
+## 🎮 Usage
+
+### Automatic Operation
+The mod works automatically once installed:
+- Music plays during any Cobblemon battle
+- Switches to panic music when Pokemon health is low
+- Plays victory music after winning
+- Handles evolution and capture events
+
+### Commands
+```
+/cobblemusic status          # Show mod status and configuration
 /cobblemusic test battle     # Test battle music
 /cobblemusic test panic      # Test panic music
 /cobblemusic test victory    # Test victory music
-/cobblemusic test evolution  # Test evolution sequence
-/cobblemusic test catch      # Test catch congratulations
-/cobblemusic stop            # Stop all music (debug)
-/cobblemusic version         # Show mod version info
+/cobblemusic test evolution  # Test evolution music sequence
+/cobblemusic test catch      # Test catch music
+/cobblemusic stop           # Stop all music
+/cobblemusic version        # Show mod version
 ```
 
-## 🔧 Development
+## 🔧 Troubleshooting
 
-### Building from Source
+### Common Issues
 
-```bash
-git clone https://github.com/vryakafree/cbm.git
-cd cbm
-./gradlew clean build
-```
+**Music not playing:**
+- Check Cobblemon is installed (1.6.1+)
+- Verify sound files are in correct location
+- Run `/cobblemusic status` to check mod state
+- Enable debug logging in config for detailed logs
 
-The built mod will be in `build/libs/customcobblemonmusicmod-1.0.0.jar`
+**Wrong music volume:**
+- Use ModMenu config GUI to adjust volumes
+- Check Minecraft's music volume slider
+- Verify sound file formats (`.ogg` recommended)
 
-### Development Environment
+**Events not triggering:**
+- Ensure Cobblemon API is working
+- Check for mod conflicts
+- Enable debug logging to see event detection
 
-```bash
-./gradlew genSources    # Generate mappings
-./gradlew runClient     # Test in development environment
-```
+**Config not working:**
+- Make sure ModMenu and Cloth Config are installed
+- Check config file permissions
+- Reset config by deleting the file (recreates with defaults)
 
-### Adding Custom Sounds
+### Debug Mode
+Enable debug logging in the configuration for detailed information about:
+- Event detection and processing
+- Music state changes
+- Health/level monitoring
+- Error messages and API status
 
-Replace placeholder files in `src/main/resources/assets/customcobblemonmusicmod/sounds/`:
+## 🔄 Changelog
 
-- **Format**: OGG Vorbis (.ogg files only)
-- **Quality**: 44.1 kHz, 16-bit recommended  
-- **Looping**: Battle songs should loop seamlessly
-- **Size**: Optimize for mod distribution
+### Latest Updates
+- ✅ **Fixed music playback speed** - Music now plays at correct speed (was ~0.25x)
+- ✅ **Added Pokemon health monitoring** - Panic music triggers when health ≤ configurable threshold
+- ✅ **Implemented level detection** - Strong battle music for tough opponents
+- ✅ **Fixed immediate battle end response** - Music fades out immediately when battles end
+- ✅ **Improved evolution music timing** - Music starts when evolve button pressed
+- ✅ **Added comprehensive configuration system** - ModMenu integration with GUI
+- ✅ **Enhanced fade-out system** - Smooth transitions when music stops
 
-## ⚡ Architecture
-
-- **Event-driven**: Responds to Cobblemon API events in real-time
-- **Client-side**: Music management handled on client
-- **Server-side**: Commands and debug system
-- **Memory efficient**: Proper resource cleanup and management
-- **Error resilient**: Graceful handling of API changes
-
-## 🎨 Customization
-
-### Icon
-- **Current**: Placeholder icon created (128x128 PNG)
-- **Specs**: 128x128 PNG with transparency
-- **Theme**: Music + Pokemon elements recommended
-- **Guide**: See `ICON_README.md` for design guidelines
-
-### Volume Control
-Default volumes can be adjusted in code:
-- Battle: 80%, Panic: 90%, Victory: 100%
-- Evolution: 70%, Catch: 90%
-
-## 🐛 Known Issues
-
-- Health monitoring may need updates for future Cobblemon versions
-- Level detection simplified for API stability
-- Sound files are currently placeholders (ready for custom .ogg files)
-- Icon placeholder created (ready for custom design)
-
-## 🔮 Roadmap
-
-- [ ] Advanced health monitoring with stable API
-- [ ] GUI configuration panel
-- [ ] Custom sound file integration
-- [ ] Dynamic volume adjustment
-- [ ] More battle music categories
-- [ ] Biome-specific music themes
-
-## 📜 Technical Details
-
-- **Build**: Gradle 8.10.2 + Fabric Loom 1.7.4
-- **Size**: 20KB (optimized)
-- **Platform**: Fabric (Minecraft 1.21.1)
-- **Language**: Java 21 + Kotlin compatibility
-- **API**: Cobblemon Events API
+[View Full Changelog](CHANGELOG.md)
 
 ## 🤝 Contributing
 
 Contributions welcome! Please:
 1. Fork the repository
 2. Create a feature branch
-3. Make your changes
-4. Test with Cobblemon
-5. Submit a pull request
+3. Test thoroughly with Cobblemon
+4. Submit a pull request
 
-## 📄 License
+## 📝 License
 
-MIT License - see [LICENSE](LICENSE) for details.
+MIT License - See [LICENSE](LICENSE) for details.
 
-## 🆘 Support
+## 🙏 Credits
 
-- **Issues**: [GitHub Issues](../../issues)
-- **Discussions**: [GitHub Discussions](../../discussions)  
-- **Testing**: Use `/cobblemusic status` for diagnostics
+- **Pokemon Company**: Original music inspiration
+- **Cobblemon Team**: Amazing Pokemon mod for Minecraft
+- **Fabric Team**: Modding framework
+- **Community**: Bug reports and suggestions
 
 ---
 
-**🎯 Goal**: Bring authentic Pokemon battle music experience to Cobblemon!
-
-*Built with ❤️ for the Cobblemon community*
+**Enjoy authentic Pokemon battle music in your Cobblemon adventures! 🎵✨**

@@ -22,6 +22,9 @@
     ],
     "client": [
       "com.cbm.customcobblemonmusicmod.CustomCobblemonMusicModClient"
+    ],
+    "modmenu": [
+      "com.cbm.customcobblemonmusicmod.CustomCobblemonMusicModMenuIntegration"
     ]
   },
 
@@ -36,6 +39,7 @@
     "cobblemon": "1.6.1"
   },
   "suggests": {
-    "modmenu": "*"
+    "modmenu": "*",
+    "cloth-config2": "*"
   }
 }

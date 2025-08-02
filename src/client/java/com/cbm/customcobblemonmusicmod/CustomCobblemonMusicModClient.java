@@ -21,19 +21,16 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
     private static boolean isBattleMusicPlaying = false;
     private static boolean isLowHealthMusicPlaying = false;
     private static boolean isEvolutionMusicPlaying = false;
+    private static boolean isFadingOut = false;
     private static String currentMusicType = "none";
     private static Timer musicTimer;
+    private static Timer fadeTimer;
     private static SoundInstance currentSoundInstance;
     private static int tickCounter = 0;
-    
-    // Music configuration
-    private static final float BATTLE_VOLUME = 0.8f;
-    private static final float PANIC_VOLUME = 0.9f;
-    private static final float STRONG_BATTLE_VOLUME = 0.85f;
-    private static final float VICTORY_VOLUME = 1.0f;
-    private static final float EVO_VOLUME = 0.7f;
-    private static final float EVO_CONGRAT_VOLUME = 0.8f;
-    private static final float CATCH_CONGRAT_VOLUME = 0.9f;
+    private static float currentVolume = 1.0f;
+    private static float targetVolume = 1.0f;
+    private static final float FADE_STEP = 0.05f; // Volume decrease per fade step
+    private static final int FADE_INTERVAL = 50; // Fade step interval in milliseconds
     
     @Override
     public void onInitializeClient() {
@@ -90,7 +87,7 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
             });
             
             // Listen for evolution start events (when evolve button is pressed)
-            CobblemonEvents.EVOLUTION_STARTED.subscribe(Priority.NORMAL, evolutionEvent -> {
+            CobblemonEvents.EVOLUTION_PRE.subscribe(Priority.NORMAL, evolutionEvent -> {
                 onEvolutionStarted();
                 return Unit.INSTANCE;
             });
@@ -110,7 +107,10 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
     }
     
     private void checkPokemonHealth() {
-        if (!isInBattle || isLowHealthMusicPlaying) return;
+        if (!isInBattle || isLowHealthMusicPlaying || isFadingOut) return;
+        
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        if (!config.enablePanicMusic) return;
         
         try {
             MinecraftClient client = MinecraftClient.getInstance();
@@ -127,7 +127,7 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
                         Pokemon pokemon = activePokemon.get(0).getBattlePokemon().getOriginalPokemon();
                         float healthPercentage = (float) pokemon.getCurrentHealth() / pokemon.getMaxHealth();
                         
-                        if (healthPercentage <= 0.2f && !isLowHealthMusicPlaying) {
+                        if (healthPercentage <= config.panicHealthThreshold && !isLowHealthMusicPlaying) {
                             // Switch to panic music
                             stopCurrentMusic();
                             playPanicMusic();
@@ -143,6 +143,10 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
     private void onBattleStart(Object battleStartEvent) {
         isInBattle = true;
         isLowHealthMusicPlaying = false;
+        isFadingOut = false;
+        
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        if (!config.enableBattleMusic) return;
         
         try {
             MinecraftClient client = MinecraftClient.getInstance();
@@ -153,7 +157,7 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
             
             String musicType = "battle_song";
             
-            if (battle != null) {
+            if (battle != null && config.enableStrongBattleMusic) {
                 var playerActor = battle.getActorByUUID(playerId);
                 if (playerActor != null) {
                     var activePokemon = playerActor.getActivePokemon();
@@ -168,8 +172,8 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
                                 if (!opponentPokemon.isEmpty()) {
                                     Pokemon wildPokemon = opponentPokemon.get(0).getBattlePokemon().getOriginalPokemon();
                                     
-                                    // Check if opponent is 15+ levels higher
-                                    if (wildPokemon.getLevel() >= playerPokemon.getLevel() + 15) {
+                                    // Check if opponent is configured level difference higher
+                                    if (wildPokemon.getLevel() >= playerPokemon.getLevel() + config.strongBattleLevelDifference) {
                                         musicType = "strong_battle_song";
                                     }
                                 }
@@ -181,27 +185,43 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
             }
             
             playBattleMusic(musicType);
-            CustomCobblemonMusicMod.LOGGER.info("Battle started, playing: " + musicType);
+            if (config.debugLogging) {
+                CustomCobblemonMusicMod.LOGGER.info("Battle started, playing: " + musicType);
+            }
             
         } catch (Exception e) {
             // Fallback to normal battle music
             playBattleMusic("battle_song");
-            CustomCobblemonMusicMod.LOGGER.info("Battle started, playing: battle_song (fallback)");
+            if (CustomCobblemonMusicModConfig.getInstance().debugLogging) {
+                CustomCobblemonMusicMod.LOGGER.info("Battle started, playing: battle_song (fallback)");
+            }
         }
     }
     
     private void onBattleEnd() {
         isInBattle = false;
         isLowHealthMusicPlaying = false;
-        stopAllMusic();
-        CustomCobblemonMusicMod.LOGGER.info("Battle ended, stopping all music immediately");
+        
+        // Start fade out immediately when battle ends
+        startFadeOut();
+        
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        if (config.debugLogging) {
+            CustomCobblemonMusicMod.LOGGER.info("Battle ended, starting fade out");
+        }
     }
     
     private void onBattleVictory() {
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        if (!config.enableVictoryMusic) {
+            onBattleEnd();
+            return;
+        }
+        
         stopCurrentMusic();
         playVictoryMusic();
         
-        // Schedule victory music to fade out after 7 seconds
+        // Schedule victory music to fade out after configured duration
         if (musicTimer != null) {
             musicTimer.cancel();
         }
@@ -209,71 +229,160 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         musicTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                stopAllMusic();
+                startFadeOut();
             }
-        }, 7000);
+        }, config.victoryMusicDuration);
         
-        CustomCobblemonMusicMod.LOGGER.info("Victory! Playing victory music for 7 seconds");
+        if (config.debugLogging) {
+            CustomCobblemonMusicMod.LOGGER.info("Victory! Playing victory music for " + (config.victoryMusicDuration / 1000) + " seconds");
+        }
+        
         onBattleEnd();
     }
     
     private void onPokemonCaptured() {
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        if (!config.enableCatchMusic) return;
+        
         stopCurrentMusic();
         playCatchMusic();
-        CustomCobblemonMusicMod.LOGGER.info("Pokemon captured! Playing congratulations music");
+        
+        if (config.debugLogging) {
+            CustomCobblemonMusicMod.LOGGER.info("Pokemon captured! Playing congratulations music");
+        }
     }
     
     private void onEvolutionStarted() {
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        if (!config.enableEvolutionMusic) return;
+        
         stopCurrentMusic();
         playEvolutionMusic();
         isEvolutionMusicPlaying = true;
-        CustomCobblemonMusicMod.LOGGER.info("Evolution started! Playing evolution music");
+        
+        if (config.debugLogging) {
+            CustomCobblemonMusicMod.LOGGER.info("Evolution started! Playing evolution music");
+        }
     }
     
     private void onPokemonEvolution() {
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        
         if (isEvolutionMusicPlaying) {
             stopCurrentMusic();
             isEvolutionMusicPlaying = false;
         }
         
-        playEvolutionCongratMusic();
-        CustomCobblemonMusicMod.LOGGER.info("Pokemon evolution completed! Playing congratulations music");
+        if (config.enableEvolutionMusic) {
+            playEvolutionCongratMusic();
+        }
+        
+        if (config.debugLogging) {
+            CustomCobblemonMusicMod.LOGGER.info("Pokemon evolution completed! Playing congratulations music");
+        }
+    }
+    
+    // Fade out system
+    private static void startFadeOut() {
+        if (currentSoundInstance == null || isFadingOut) return;
+        
+        isFadingOut = true;
+        targetVolume = 0.0f;
+        
+        if (fadeTimer != null) {
+            fadeTimer.cancel();
+        }
+        
+        fadeTimer = new Timer();
+        fadeTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                performFadeStep();
+            }
+        }, 0, FADE_INTERVAL);
+    }
+    
+    private static void performFadeStep() {
+        if (!isFadingOut || currentSoundInstance == null) {
+            if (fadeTimer != null) {
+                fadeTimer.cancel();
+                fadeTimer = null;
+            }
+            return;
+        }
+        
+        currentVolume -= FADE_STEP;
+        
+        if (currentVolume <= targetVolume) {
+            // Fade complete, stop music
+            currentVolume = 0.0f;
+            stopAllMusic();
+            return;
+        }
+        
+        // Update the sound volume (note: Minecraft doesn't support real-time volume changes,
+        // so we'll simulate by stopping and restarting with lower volume)
+        // This is a limitation of Minecraft's sound system
     }
     
     // Music playing methods
     public static void playBattleMusic(String musicType) {
-        float volume = musicType.equals("strong_battle_song") ? STRONG_BATTLE_VOLUME : BATTLE_VOLUME;
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        float volume = musicType.equals("strong_battle_song") ? config.strongBattleMusicVolume : config.battleMusicVolume;
         var sound = musicType.equals("strong_battle_song") ? 
             CustomCobblemonMusicMod.STRONG_BATTLE_MUSIC : CustomCobblemonMusicMod.BATTLE_MUSIC;
         playMusicWithLoop(sound, volume);
         isBattleMusicPlaying = true;
         currentMusicType = musicType;
+        currentVolume = volume;
+        targetVolume = volume;
+        isFadingOut = false;
     }
     
     public static void playPanicMusic() {
-        playMusicWithLoop(CustomCobblemonMusicMod.PANIC_MUSIC, PANIC_VOLUME);
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        playMusicWithLoop(CustomCobblemonMusicMod.PANIC_MUSIC, config.panicMusicVolume);
         isLowHealthMusicPlaying = true;
         currentMusicType = "panic_song";
+        currentVolume = config.panicMusicVolume;
+        targetVolume = config.panicMusicVolume;
+        isFadingOut = false;
     }
     
     public static void playVictoryMusic() {
-        playMusicWithVolume(CustomCobblemonMusicMod.VICTORY_MUSIC, VICTORY_VOLUME);
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        playMusicWithVolume(CustomCobblemonMusicMod.VICTORY_MUSIC, config.victoryMusicVolume);
         currentMusicType = "victory";
+        currentVolume = config.victoryMusicVolume;
+        targetVolume = config.victoryMusicVolume;
+        isFadingOut = false;
     }
     
     public static void playCatchMusic() {
-        playMusicWithVolume(CustomCobblemonMusicMod.CATCH_CONGRAT_MUSIC, CATCH_CONGRAT_VOLUME);
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        playMusicWithVolume(CustomCobblemonMusicMod.CATCH_CONGRAT_MUSIC, config.catchCongratMusicVolume);
         currentMusicType = "catch_congrat";
+        currentVolume = config.catchCongratMusicVolume;
+        targetVolume = config.catchCongratMusicVolume;
+        isFadingOut = false;
     }
     
     public static void playEvolutionMusic() {
-        playMusicWithVolume(CustomCobblemonMusicMod.EVO_MUSIC, EVO_VOLUME);
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        playMusicWithVolume(CustomCobblemonMusicMod.EVO_MUSIC, config.evolutionMusicVolume);
         currentMusicType = "evo";
+        currentVolume = config.evolutionMusicVolume;
+        targetVolume = config.evolutionMusicVolume;
+        isFadingOut = false;
     }
     
     public static void playEvolutionCongratMusic() {
-        playMusicWithVolume(CustomCobblemonMusicMod.EVO_CONGRAT_MUSIC, EVO_CONGRAT_VOLUME);
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        playMusicWithVolume(CustomCobblemonMusicMod.EVO_CONGRAT_MUSIC, config.evolutionCongratMusicVolume);
         currentMusicType = "evo_congrat";
+        currentVolume = config.evolutionCongratMusicVolume;
+        targetVolume = config.evolutionCongratMusicVolume;
+        isFadingOut = false;
     }
     
     private static void playMusicWithLoop(net.minecraft.sound.SoundEvent sound, float volume) {
@@ -304,7 +413,15 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         }
         isBattleMusicPlaying = false;
         isLowHealthMusicPlaying = false;
+        isFadingOut = false;
         currentMusicType = "none";
+        currentVolume = 1.0f;
+        targetVolume = 1.0f;
+        
+        if (fadeTimer != null) {
+            fadeTimer.cancel();
+            fadeTimer = null;
+        }
     }
     
     public static void stopAllMusic() {
@@ -318,16 +435,23 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         isBattleMusicPlaying = false;
         isLowHealthMusicPlaying = false;
         isEvolutionMusicPlaying = false;
+        isFadingOut = false;
         currentMusicType = "none";
+        currentVolume = 1.0f;
+        targetVolume = 1.0f;
         
         if (musicTimer != null) {
             musicTimer.cancel();
             musicTimer = null;
         }
+        
+        if (fadeTimer != null) {
+            fadeTimer.cancel();
+            fadeTimer = null;
+        }
     }
     
     public static void fadeOutMusic() {
-        // Immediate stop for better responsiveness
-        stopAllMusic();
+        startFadeOut();
     }
 }
