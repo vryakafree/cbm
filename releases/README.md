@@ -1,6 +1,6 @@
-# 📦 Releases - Cobblemon Battle Music
+# 📦 Releases - Custom Cobblemon Music Mod
 
-## 🎵 cobblemonbattlemusic-1.0.0.jar
+## 🎵 customcobblemonmusicmod-1.0.0.jar
 
 **Final Release with Full Assets Integration**
 
@@ -13,7 +13,7 @@
 
 ### 🎛️ Assets Inside JAR:
 ```
-assets/cobblemonbattlemusic/
+assets/customcobblemonmusicmod/
 ├── icon.png (placeholder - 0 bytes)
 ├── sounds.json (music configuration)
 ├── ICON_README.md (design guidelines)
@@ -29,7 +29,7 @@ assets/cobblemonbattlemusic/
 ```
 
 ### 🚀 Installation:
-1. **Download**: `cobblemonbattlemusic-1.0.0.jar`
+1. **Download**: `customcobblemonmusicmod-1.0.0.jar`
 2. **Requirements**: Minecraft 1.21.1 + Cobblemon 1.6.1+ + Fabric
 3. **Install**: Place in `mods` folder
 4. **Test**: `/cobblemusic status` in-game

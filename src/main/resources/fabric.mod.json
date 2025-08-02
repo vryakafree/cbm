@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "cobblemonbattlemusic",
+  "id": "customcobblemonmusicmod",
   "version": "1.0.0",
-  "name": "Cobblemon Battle Music",
+  "name": "Custom Cobblemon Music Mod",
   "description": "Adds authentic Pokemon-style battle music system for Cobblemon - automatically plays music during battles, Pokemon events, evolutions, and captures with dynamic health-based switching",
   "authors": [
     "Trần Duy Anh"
@@ -13,15 +13,15 @@
     "issues": "https://github.com/vryakafree/cbm/issues"
   },
   "license": "MIT",
-  "icon": "assets/cobblemonbattlemusic/icon.png",
+  "icon": "assets/customcobblemonmusicmod/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.cbm.cobblemonbattlemusic.CobblemonBattleMusic"
+      "com.cbm.customcobblemonmusicmod.CustomCobblemonMusicMod"
     ],
     "client": [
-      "com.cbm.cobblemonbattlemusic.CobblemonBattleMusicClient"
+      "com.cbm.customcobblemonmusicmod.CustomCobblemonMusicModClient"
     ]
   },
 

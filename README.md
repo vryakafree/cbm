@@ -1,4 +1,4 @@
-# 🎵 Cobblemon Battle Music
+# 🎵 Custom Cobblemon Music Mod
 
 > **Authentic Pokemon-style battle music system for Cobblemon**
 
@@ -51,7 +51,7 @@ Adds dynamic battle music that automatically plays during Cobblemon battles, Pok
    - Download [Cobblemon 1.6.1+](https://modrinth.com/mod/cobblemon)
 
 2. **Install Mod**:
-   - Download `cobblemonbattlemusic-1.0.0.jar` from [Releases](../../releases)
+   - Download `customcobblemonmusicmod-1.0.0.jar` from [Releases](../../releases)
    - Place in your `mods` folder
 
 3. **Optional**: Replace placeholder sounds with custom `.ogg` files
@@ -95,7 +95,7 @@ cd cbm
 ./gradlew clean build
 ```
 
-The built mod will be in `build/libs/cobblemonbattlemusic-1.0.0.jar`
+The built mod will be in `build/libs/customcobblemonmusicmod-1.0.0.jar`
 
 ### Development Environment
 
@@ -106,7 +106,7 @@ The built mod will be in `build/libs/cobblemonbattlemusic-1.0.0.jar`
 
 ### Adding Custom Sounds
 
-Replace placeholder files in `src/main/resources/assets/cobblemonbattlemusic/sounds/`:
+Replace placeholder files in `src/main/resources/assets/customcobblemonmusicmod/sounds/`:
 
 - **Format**: OGG Vorbis (.ogg files only)
 - **Quality**: 44.1 kHz, 16-bit recommended  

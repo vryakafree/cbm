@@ -1,4 +1,4 @@
-# Cobblemon Battle Music v1.0.0 - Optimized Release
+# Custom Cobblemon Music Mod v1.0.0 - Optimized Release
 
 ## 🎵 Tính năng chính
 
@@ -43,7 +43,7 @@
 
 ## 🔧 Cài đặt
 
-1. Tải `cobblemonbattlemusic-1.0.0.jar`
+1. Tải `customcobblemonmusicmod-1.0.0.jar`
 2. Đặt vào thư mục `mods`
 3. Đảm bảo Cobblemon 1.6.1+ đã cài
 4. Thay thế placeholder sounds bằng file .ogg thật (optional)

@@ -3,7 +3,7 @@
     "subtitle": "Battle music playing",
     "sounds": [
       {
-        "name": "cobblemonbattlemusic:battle_song",
+        "name": "customcobblemonmusicmod:battle_song",
         "volume": 0.8,
         "pitch": 1.0,
         "weight": 1,
@@ -15,7 +15,7 @@
     "subtitle": "Intense battle music playing",
     "sounds": [
       {
-        "name": "cobblemonbattlemusic:strong_battle_song",
+        "name": "customcobblemonmusicmod:strong_battle_song",
         "volume": 0.85,
         "pitch": 1.0,
         "weight": 1,
@@ -27,7 +27,7 @@
     "subtitle": "Low health panic music playing",
     "sounds": [
       {
-        "name": "cobblemonbattlemusic:panic_song",
+        "name": "customcobblemonmusicmod:panic_song",
         "volume": 0.9,
         "pitch": 1.0,
         "weight": 1,
@@ -39,7 +39,7 @@
     "subtitle": "Victory music playing",
     "sounds": [
       {
-        "name": "cobblemonbattlemusic:victory",
+        "name": "customcobblemonmusicmod:victory",
         "volume": 1.0,
         "pitch": 1.0,
         "weight": 1,
@@ -51,7 +51,7 @@
     "subtitle": "Evolution music playing",
     "sounds": [
       {
-        "name": "cobblemonbattlemusic:evo",
+        "name": "customcobblemonmusicmod:evo",
         "volume": 0.7,
         "pitch": 1.0,
         "weight": 1,
@@ -63,7 +63,7 @@
     "subtitle": "Evolution completed music playing",
     "sounds": [
       {
-        "name": "cobblemonbattlemusic:evo_congrat",
+        "name": "customcobblemonmusicmod:evo_congrat",
         "volume": 0.8,
         "pitch": 1.0,
         "weight": 1,
@@ -75,7 +75,7 @@
     "subtitle": "Pokemon caught music playing",
     "sounds": [
       {
-        "name": "cobblemonbattlemusic:catch_congrat",
+        "name": "customcobblemonmusicmod:catch_congrat",
         "volume": 0.9,
         "pitch": 1.0,
         "weight": 1,
