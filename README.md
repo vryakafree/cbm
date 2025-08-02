@@ -124,7 +124,7 @@ Replace placeholder files in `src/main/resources/assets/customcobblemonmusicmod/
 ## 🎨 Customization
 
 ### Icon
-- **Current**: Placeholder ready for custom design
+- **Current**: Placeholder icon created (128x128 PNG)
 - **Specs**: 128x128 PNG with transparency
 - **Theme**: Music + Pokemon elements recommended
 - **Guide**: See `ICON_README.md` for design guidelines
@@ -138,8 +138,8 @@ Default volumes can be adjusted in code:
 
 - Health monitoring may need updates for future Cobblemon versions
 - Level detection simplified for API stability
-- Sound files are currently placeholders (0 bytes)
-- Icon awaiting custom design
+- Sound files are currently placeholders (ready for custom .ogg files)
+- Icon placeholder created (ready for custom design)
 
 ## 🔮 Roadmap
 
