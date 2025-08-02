@@ -13,14 +13,32 @@ public class CobblemonBattleMusic implements ModInitializer {
     public static final String MOD_ID = "cobblemonbattlemusic";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    // Sound Events
-    public static final SoundEvent BATTLE_MUSIC = registerSoundEvent("battle_music");
-    public static final SoundEvent LOW_HEALTH_MUSIC = registerSoundEvent("low_health_music");
-    public static final SoundEvent VICTORY_MUSIC = registerSoundEvent("victory_music");
+    // Sound Events - Complete Pokemon music system
+    public static final SoundEvent BATTLE_MUSIC = registerSoundEvent("battle_song");
+    public static final SoundEvent STRONG_BATTLE_MUSIC = registerSoundEvent("strong_battle_song");
+    public static final SoundEvent PANIC_MUSIC = registerSoundEvent("panic_song");
+    public static final SoundEvent VICTORY_MUSIC = registerSoundEvent("victory");
+    public static final SoundEvent EVO_MUSIC = registerSoundEvent("evo");
+    public static final SoundEvent EVO_CONGRAT_MUSIC = registerSoundEvent("evo_congrat");
+    public static final SoundEvent CATCH_CONGRAT_MUSIC = registerSoundEvent("catch_congrat");
 
     @Override
     public void onInitialize() {
         LOGGER.info("Initializing Cobblemon Battle Music mod");
+        
+        // Register debug commands
+        CobblemonBattleMusicCommands.register();
+        
+        LOGGER.info("Registered sound events:");
+        LOGGER.info("- battle_song.ogg (loops during normal battles)");
+        LOGGER.info("- strong_battle_song.ogg (when opponent 15+ levels higher)");
+        LOGGER.info("- panic_song.ogg (when Pokemon health < 20%)");
+        LOGGER.info("- victory.ogg (plays for 7 seconds after winning)");
+        LOGGER.info("- evo.ogg (during Pokemon evolution)");
+        LOGGER.info("- evo_congrat.ogg (after evolution completes)");
+        LOGGER.info("- catch_congrat.ogg (when Pokemon is caught)");
+        LOGGER.info("Ready for Cobblemon integration!");
+        LOGGER.info("Use '/cobblemusic status' to check mod status");
     }
 
     private static SoundEvent registerSoundEvent(String name) {

@@ -65,7 +65,7 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
-	// Cobblemon - temporarily commented out due to repository issues
+	// Cobblemon - enabled for full functionality
 	modImplementation "com.cobblemon:fabric:${project.cobblemon_version}"
 	
 	// Kotlin dependency for Cobblemon

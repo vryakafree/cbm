@@ -1,0 +1,86 @@
+{
+  "battle_song": {
+    "subtitle": "Battle music playing",
+    "sounds": [
+      {
+        "name": "cobblemonbattlemusic:battle_song",
+        "volume": 0.8,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": true
+      }
+    ]
+  },
+  "strong_battle_song": {
+    "subtitle": "Intense battle music playing",
+    "sounds": [
+      {
+        "name": "cobblemonbattlemusic:strong_battle_song",
+        "volume": 0.85,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": true
+      }
+    ]
+  },
+  "panic_song": {
+    "subtitle": "Low health panic music playing",
+    "sounds": [
+      {
+        "name": "cobblemonbattlemusic:panic_song",
+        "volume": 0.9,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": true
+      }
+    ]
+  },
+  "victory": {
+    "subtitle": "Victory music playing",
+    "sounds": [
+      {
+        "name": "cobblemonbattlemusic:victory",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false
+      }
+    ]
+  },
+  "evo": {
+    "subtitle": "Evolution music playing",
+    "sounds": [
+      {
+        "name": "cobblemonbattlemusic:evo",
+        "volume": 0.7,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false
+      }
+    ]
+  },
+  "evo_congrat": {
+    "subtitle": "Evolution completed music playing",
+    "sounds": [
+      {
+        "name": "cobblemonbattlemusic:evo_congrat",
+        "volume": 0.8,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false
+      }
+    ]
+  },
+  "catch_congrat": {
+    "subtitle": "Pokemon caught music playing",
+    "sounds": [
+      {
+        "name": "cobblemonbattlemusic:catch_congrat",
+        "volume": 0.9,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false
+      }
+    ]
+  }
+}

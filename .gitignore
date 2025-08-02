@@ -1,19 +1,57 @@
 # Gradle files
 .gradle/
 build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-# IDE files
+# Eclipse
+.project
+.classpath
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+# IntelliJ IDEA
 .idea/
+*.iws
 *.iml
 *.ipr
-*.iws
+out/
 
-# OS files
+# VS Code
+.vscode/
+
+# Mac
 .DS_Store
+
+# Windows
 Thumbs.db
 
 # Fabric
-remapped/
+remapped_mods/
 run/
 
-# Note: File JAR đã được copy vào thư mục releases/ để có thể download trực tiếp từ GitHub
+# Loom
+.loom-cache
+
+# Minecraft
+logs/
+crash-reports/
+screenshots/
+saves/
+
+# JVM Crash Logs
+hs_err_pid*
+
+# Temporary files
+*.log
+*.lock
