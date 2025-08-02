@@ -31,6 +31,8 @@ public class CustomCobblemonMusicModCommands {
                     .executes(CustomCobblemonMusicModCommands::testVictoryMusic))
                 .then(CommandManager.literal("evolution")
                     .executes(CustomCobblemonMusicModCommands::testEvolutionMusic))
+                .then(CommandManager.literal("evo")
+                    .executes(CustomCobblemonMusicModCommands::testEvolutionSequence))
                 .then(CommandManager.literal("catch")
                     .executes(CustomCobblemonMusicModCommands::testCatchMusic)))
             .then(CommandManager.literal("stop")
@@ -132,6 +134,23 @@ public class CustomCobblemonMusicModCommands {
     }
     
     private static int testEvolutionMusic(CommandContext<ServerCommandSource> context) {
+        ServerCommandSource source = context.getSource();
+        
+        if (source.getEntity() instanceof ServerPlayerEntity player) {
+            source.sendMessage(Text.literal("§6Testing evolution music sequence..."));
+            source.sendMessage(Text.literal("§dStep 1: evo.ogg (during evolution)"));
+            source.sendMessage(Text.literal("§dStep 2: evo_congrat.ogg (after 3 seconds)"));
+            source.sendMessage(Text.literal("§7Real trigger: Pokemon evolution events"));
+            
+        } else {
+            source.sendMessage(Text.literal("§cThis command must be run by a player"));
+            return 0;
+        }
+        
+        return 1;
+    }
+    
+    private static int testEvolutionSequence(CommandContext<ServerCommandSource> context) {
         ServerCommandSource source = context.getSource();
         
         if (source.getEntity() instanceof ServerPlayerEntity player) {

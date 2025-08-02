@@ -1,62 +1,92 @@
-# Changelog - Custom Cobblemon Music Mod
+# Changelog
 
-## v1.0.0 - Project Rename (2024)
+All notable changes to Custom Cobblemon Music Mod will be documented in this file.
 
-### 🔄 Major Changes
-- **Project Renamed**: From "Cobblemon Battle Music" to "Custom Cobblemon Music Mod"
-- **Mod ID Changed**: From `cobblemonbattlemusic` to `customcobblemonmusicmod`
-- **Package Structure Updated**: All Java packages updated to reflect new naming
+## [1.0.1] - 2025-08-02
 
-### 📁 File Structure Changes
-- **New Package**: `com.cbm.customcobblemonmusicmod`
-- **New Assets Directory**: `assets/customcobblemonmusicmod/`
-- **Resource Pack**: Added complete resource pack structure for custom assets
+### 🎵 Major Music System Overhaul
 
-### 🔧 Configuration Updates
-- **build.gradle**: Updated mod ID in loom configuration
-- **gradle.properties**: Changed archives_base_name
-- **fabric.mod.json**: Updated mod ID, name, and entrypoints
-- **sounds.json**: Updated all sound references to new mod ID
+#### Fixed
+- **Music Playback Speed**: Fixed slow music playback (was ~0.25x speed, now normal speed)
+- **Battle Music Persistence**: Music now stops immediately when battles end (flee, faint, /stopbattle commands)
+- **Evolution Music Timing**: Evolution music now plays when evolution starts, stops when congratulations play
+- **Music Overlap Prevention**: Fixed victory music overlapping with battle music
 
-### 📦 New Files Created
-- `src/main/java/com/cbm/customcobblemonmusicmod/CustomCobblemonMusicMod.java`
-- `src/main/java/com/cbm/customcobblemonmusicmod/CustomCobblemonMusicModCommands.java`
-- `src/client/java/com/cbm/customcobblemonmusicmod/CustomCobblemonMusicModClient.java`
-- `resourcepack/pack.mcmeta` (Resource pack manifest)
-- `resourcepack/assets/customcobblemonmusicmod/sounds.json`
-- `resourcepack/README.md` (Resource pack documentation)
+#### Added
+- **Enhanced Battle Tracking**: Comprehensive battle ID tracking system for better state management
+- **Immediate Battle End Detection**: Real-time monitoring for external battle termination
+- **Evolution Sound Handler**: Dedicated system for proper evolution music timing
+- **Battle State Monitoring**: Continuous monitoring for responsive music changes
+- **Enhanced Fade System**: Improved fade-out with immediate response capability
 
-### 🗑️ Files Removed
-- Old `cobblemonbattlemusic` package directories
-- Old asset directories
+#### Improved
+- **Event Handling**: More robust Cobblemon event integration
+- **Error Handling**: Better fallback mechanisms for API changes
+- **Performance**: Optimized timer management and resource cleanup
+- **Debug Logging**: Enhanced logging for troubleshooting
 
-### 📝 Documentation Updates
-- **README.md**: Updated all references to new mod name and JAR file
-- **RELEASE_NOTES.md**: Updated project name and file references
-- **releases/README.md**: Updated release information
+### 🎛️ Configuration System
 
-### 🎵 Resource Pack Features
-- **Complete Resource Pack Structure**: Ready for custom music files
-- **Manifest File**: Proper pack.mcmeta for Minecraft 1.21.1
-- **Sound Definitions**: All 7 music types defined
-- **Installation Guide**: Step-by-step resource pack setup
+#### Added
+- **ModMenu Integration**: Full GUI configuration through ModMenu
+- **Volume Controls**: Individual volume settings for each music type
+- **Feature Toggles**: Enable/disable specific music types
+- **Advanced Settings**: Configurable thresholds and timing
+- **Auto-save Configuration**: Settings automatically save and load
 
-### ✅ Build Verification
-- **Successful Build**: All files compile and package correctly
-- **JAR Output**: `customcobblemonmusicmod-1.0.0.jar` (30KB)
-- **Sources JAR**: `customcobblemonmusicmod-1.0.0-sources.jar` (16KB)
+#### Features
+- **Battle Music Volume** (0.0 - 1.0, default: 0.8)
+- **Strong Battle Music Volume** (0.0 - 1.0, default: 0.85)
+- **Panic Music Volume** (0.0 - 1.0, default: 0.9)
+- **Victory Music Volume** (0.0 - 1.0, default: 1.0)
+- **Evolution Music Volume** (0.0 - 1.0, default: 0.7)
+- **Evolution Congratulations Volume** (0.0 - 1.0, default: 0.8)
+- **Catch Congratulations Volume** (0.0 - 1.0, default: 0.9)
+- **Panic Health Threshold** (configurable, default: 20%)
+- **Strong Battle Level Difference** (configurable, default: 15 levels)
+- **Victory Music Duration** (configurable, default: 7 seconds)
+- **Debug Logging** (optional detailed logging)
 
-### 🎯 Compatibility
-- **Minecraft**: 1.21.1
-- **Fabric**: 0.16.9+
-- **Cobblemon**: 1.6.1+
-- **Java**: 21+
+### 🛠️ Dependencies
+- **Added**: ModMenu 11.0.1+ (optional, for configuration GUI)
+- **Added**: Cloth Config 15.0.127+ (optional, for configuration GUI)
 
-### 🔮 Future Ready
-- **Resource Pack Support**: Easy custom music integration
-- **Modular Design**: Clean separation of mod and assets
-- **Extensible**: Ready for additional music types and features
+### 🎮 Commands
+- **Added**: `/cobblemusic test evo` - Test evolution music sequence
+- **Improved**: All test commands now reflect actual system behavior
+
+### 📝 Documentation
+- **Updated**: Comprehensive README with configuration instructions
+- **Added**: English language file for ModMenu integration
+- **Cleaned**: Removed unnecessary documentation files
+
+## [1.0.0] - 2025-08-01
+
+### Initial Release
+- **Battle Music**: Automatic music during Cobblemon battles
+- **Victory Music**: Celebration sound after winning battles  
+- **Evolution Music**: Two-part evolution music sequence
+- **Catch Music**: Congratulations when catching Pokemon
+- **Commands**: Debug and testing commands
+- **Sound Events**: Support for 7 different music types
+
+### Dependencies
+- Minecraft 1.21.1
+- Fabric Loader 0.16.9+
+- Fabric API 0.110.0+1.21.1
+- Cobblemon 1.6.1+
+- Java 21+
 
 ---
 
-**Migration Complete**: All functionality preserved with improved naming and structure!
+## Planned Features
+- **Health Monitoring**: Real-time Pokemon health tracking for panic music (when API stabilizes)
+- **Level Detection**: Automatic strong battle music based on level differences (when API stabilizes)
+- **Sound Event Hooking**: Direct integration with Cobblemon's evolution_full sound event
+- **Biome-Specific Music**: Different battle themes based on biome
+- **Trainer Battle Music**: Special music for trainer battles vs wild Pokemon
+
+## Notes
+- Some advanced features are simplified pending Cobblemon API stabilization
+- Health and level monitoring use fallback detection methods
+- Evolution music timing uses event-based triggers for better synchronization
