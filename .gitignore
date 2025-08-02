@@ -5,6 +5,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+# Allow releases folder for distribution
+!releases/
+
 # Eclipse
 .project
 .classpath
