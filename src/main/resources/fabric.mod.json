@@ -13,6 +13,7 @@
     "issues": "https://github.com/vryakafree/cbm/issues"
   },
   "license": "MIT",
+  "icon": "assets/cobblemonbattlemusic/icon.png",
 
   "environment": "*",
   "entrypoints": {

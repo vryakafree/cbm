@@ -74,6 +74,7 @@
 - **Health monitoring** có thể cần API updates trong future Cobblemon versions
 - **Level detection** đơn giản hóa để tránh API instability
 - **Sound files** hiện tại là placeholders (0 bytes)
+- **Icon** chưa có design, đang chờ bổ sung icon.png (128x128px)
 
 ## 🔮 Future Plans
 
