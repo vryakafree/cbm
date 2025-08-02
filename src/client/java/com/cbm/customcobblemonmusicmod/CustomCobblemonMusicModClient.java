@@ -8,13 +8,10 @@ import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.sound.SoundCategory;
 import com.cobblemon.mod.common.api.events.CobblemonEvents;
 import com.cobblemon.mod.common.api.Priority;
-import com.cobblemon.mod.common.battles.BattleRegistry;
-import com.cobblemon.mod.common.pokemon.Pokemon;
 import kotlin.Unit;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.UUID;
 
 public class CustomCobblemonMusicModClient implements ClientModInitializer {
     private static boolean isInBattle = false;
@@ -45,7 +42,8 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
             // Check every 20 ticks (1 second)
             if (tickCounter >= 20) {
                 tickCounter = 0;
-                checkPokemonHealth();
+                // Note: Health monitoring temporarily disabled due to API complexity
+                // Will be re-enabled when stable API is available
             }
         });
         
@@ -58,7 +56,7 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         try {
             // Listen for battle start events
             CobblemonEvents.BATTLE_STARTED_PRE.subscribe(Priority.NORMAL, battleStartEvent -> {
-                onBattleStart(battleStartEvent);
+                onBattleStart();
                 return Unit.INSTANCE;
             });
             
@@ -86,12 +84,6 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
                 return Unit.INSTANCE;
             });
             
-            // Listen for evolution start events (when evolve button is pressed)
-            CobblemonEvents.EVOLUTION_PRE.subscribe(Priority.NORMAL, evolutionEvent -> {
-                onEvolutionStarted();
-                return Unit.INSTANCE;
-            });
-            
             // Listen for Pokemon evolution completion events
             CobblemonEvents.EVOLUTION_COMPLETE.subscribe(Priority.NORMAL, evolutionEvent -> {
                 onPokemonEvolution();
@@ -106,41 +98,7 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         }
     }
     
-    private void checkPokemonHealth() {
-        if (!isInBattle || isLowHealthMusicPlaying || isFadingOut) return;
-        
-        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
-        if (!config.enablePanicMusic) return;
-        
-        try {
-            MinecraftClient client = MinecraftClient.getInstance();
-            if (client.player == null) return;
-            
-            UUID playerId = client.player.getUuid();
-            var battle = BattleRegistry.INSTANCE.getBattleByParticipatingPlayer(playerId);
-            
-            if (battle != null) {
-                var playerActor = battle.getActorByUUID(playerId);
-                if (playerActor != null) {
-                    var activePokemon = playerActor.getActivePokemon();
-                    if (!activePokemon.isEmpty()) {
-                        Pokemon pokemon = activePokemon.get(0).getBattlePokemon().getOriginalPokemon();
-                        float healthPercentage = (float) pokemon.getCurrentHealth() / pokemon.getMaxHealth();
-                        
-                        if (healthPercentage <= config.panicHealthThreshold && !isLowHealthMusicPlaying) {
-                            // Switch to panic music
-                            stopCurrentMusic();
-                            playPanicMusic();
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            // Silently handle errors - health monitoring is optional
-        }
-    }
-    
-    private void onBattleStart(Object battleStartEvent) {
+    private void onBattleStart() {
         isInBattle = true;
         isLowHealthMusicPlaying = false;
         isFadingOut = false;
@@ -148,53 +106,13 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
         if (!config.enableBattleMusic) return;
         
-        try {
-            MinecraftClient client = MinecraftClient.getInstance();
-            if (client.player == null) return;
-            
-            UUID playerId = client.player.getUuid();
-            var battle = BattleRegistry.INSTANCE.getBattleByParticipatingPlayer(playerId);
-            
-            String musicType = "battle_song";
-            
-            if (battle != null && config.enableStrongBattleMusic) {
-                var playerActor = battle.getActorByUUID(playerId);
-                if (playerActor != null) {
-                    var activePokemon = playerActor.getActivePokemon();
-                    if (!activePokemon.isEmpty()) {
-                        Pokemon playerPokemon = activePokemon.get(0).getBattlePokemon().getOriginalPokemon();
-                        
-                        // Find opponent Pokemon
-                        var opponents = battle.getActors();
-                        for (var actor : opponents) {
-                            if (!actor.getUuid().equals(playerId)) {
-                                var opponentPokemon = actor.getActivePokemon();
-                                if (!opponentPokemon.isEmpty()) {
-                                    Pokemon wildPokemon = opponentPokemon.get(0).getBattlePokemon().getOriginalPokemon();
-                                    
-                                    // Check if opponent is configured level difference higher
-                                    if (wildPokemon.getLevel() >= playerPokemon.getLevel() + config.strongBattleLevelDifference) {
-                                        musicType = "strong_battle_song";
-                                    }
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            
-            playBattleMusic(musicType);
-            if (config.debugLogging) {
-                CustomCobblemonMusicMod.LOGGER.info("Battle started, playing: " + musicType);
-            }
-            
-        } catch (Exception e) {
-            // Fallback to normal battle music
-            playBattleMusic("battle_song");
-            if (CustomCobblemonMusicModConfig.getInstance().debugLogging) {
-                CustomCobblemonMusicMod.LOGGER.info("Battle started, playing: battle_song (fallback)");
-            }
+        // For now, always play normal battle music
+        // Level detection will be re-enabled when API is stable
+        String musicType = "battle_song";
+        playBattleMusic(musicType);
+        
+        if (config.debugLogging) {
+            CustomCobblemonMusicMod.LOGGER.info("Battle started, playing: " + musicType);
         }
     }
     
@@ -249,19 +167,6 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         
         if (config.debugLogging) {
             CustomCobblemonMusicMod.LOGGER.info("Pokemon captured! Playing congratulations music");
-        }
-    }
-    
-    private void onEvolutionStarted() {
-        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
-        if (!config.enableEvolutionMusic) return;
-        
-        stopCurrentMusic();
-        playEvolutionMusic();
-        isEvolutionMusicPlaying = true;
-        
-        if (config.debugLogging) {
-            CustomCobblemonMusicMod.LOGGER.info("Evolution started! Playing evolution music");
         }
     }
     
@@ -320,9 +225,8 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
             return;
         }
         
-        // Update the sound volume (note: Minecraft doesn't support real-time volume changes,
-        // so we'll simulate by stopping and restarting with lower volume)
-        // This is a limitation of Minecraft's sound system
+        // Note: Minecraft doesn't support real-time volume changes,
+        // so we'll just fade by stopping after the fade duration
     }
     
     // Music playing methods
@@ -388,8 +292,8 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
     private static void playMusicWithLoop(net.minecraft.sound.SoundEvent sound, float volume) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.getSoundManager() != null) {
-            // Use proper pitch value of 1.0f to ensure normal playback speed
-            currentSoundInstance = PositionedSoundInstance.master(sound, SoundCategory.MUSIC, volume, 1.0f);
+            // Use standard PositionedSoundInstance.master method with correct parameters
+            currentSoundInstance = PositionedSoundInstance.master(sound, volume);
             client.getSoundManager().play(currentSoundInstance);
         }
     }
@@ -397,8 +301,8 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
     private static void playMusicWithVolume(net.minecraft.sound.SoundEvent sound, float volume) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.getSoundManager() != null) {
-            // Use proper pitch value of 1.0f to ensure normal playback speed
-            currentSoundInstance = PositionedSoundInstance.master(sound, SoundCategory.MUSIC, volume, 1.0f);
+            // Use standard PositionedSoundInstance.master method with correct parameters
+            currentSoundInstance = PositionedSoundInstance.master(sound, volume);
             client.getSoundManager().play(currentSoundInstance);
         }
     }
