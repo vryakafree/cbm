@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "customcobblemonmusicmod",
-  "version": "1.0.1",
-  "name": "Custom Cobblemon Music Mod",
-  "description": "Adds authentic Pokemon-style battle music system for Cobblemon - automatically plays music during battles, Pokemon events, evolutions, and captures with dynamic health-based switching",
+  "id": "customcongratsoundforcobblemon",
+  "version": "1.0.2",
+  "name": "Custom Congrat Sound For Cobblemon",
+  "description": "Adds authentic Pokemon-style congratulatory sounds for Cobblemon - plays victory music, evolution congratulations, and catch congratulations with fade out effects",
   "authors": [
     "Trần Duy Anh"
   ],
@@ -13,7 +13,7 @@
     "issues": "https://github.com/vryakafree/cbm/issues"
   },
   "license": "MIT",
-  "icon": "assets/customcobblemonmusicmod/icon.png",
+  "icon": "assets/customcongratsoundforcobblemon/icon.png",
 
   "environment": "*",
   "entrypoints": {

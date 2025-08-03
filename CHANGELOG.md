@@ -1,74 +1,68 @@
 # Changelog
 
-All notable changes to Custom Cobblemon Music Mod will be documented in this file.
+All notable changes to Custom Congrat Sound For Cobblemon will be documented in this file.
+
+## [1.0.2] - 2025-08-02
+
+### 🎉 Major Rename & Refinement
+
+#### Changed
+- **Mod Name**: Renamed from "Custom Cobblemon Music Mod" to "Custom Congrat Sound For Cobblemon"
+- **Mod ID**: Changed from `customcobblemonmusicmod` to `customcongratsoundforcobblemon`
+- **Command**: Updated from `/cobblemusic` to `/cobblecongrat`
+- **Focus**: Simplified to focus on congratulatory sounds only
+
+#### Removed
+- **Evolution Music**: Removed `evo.ogg` sound and related functionality
+- **Evolution Volume Setting**: Removed `evolutionMusicVolume` from configuration
+- **Evolution Test Command**: Removed `/cobblecongrat test evolution` command
+
+#### Enhanced
+- **Victory Music**: Improved fade out functionality with configurable duration
+- **Test Commands**: All test commands now actually play sounds instead of just showing info
+- **Sound Playback**: Added actual sound playing to `test evo_congrat` and `test catch` commands
+- **Configuration**: Added `victoryMusicFadeOutDuration` setting (default: 2000ms)
+
+#### Updated
+- **Documentation**: Complete README update with new mod name and features
+- **Language Files**: Updated all translation keys to new mod ID
+- **Assets**: Renamed assets directory to match new mod ID
+- **Configuration**: Updated config file path to new mod ID
+
+### 🎵 Sound System
+- **Victory Music**: Plays with fade out after battle victory
+- **Evolution Congratulations**: Plays after evolution completes
+- **Catch Congratulations**: Plays when Pokemon is caught
+
+### 🎮 Commands
+- `/cobblecongrat status` - Show mod status and enabled features
+- `/cobblecongrat test victory` - Test victory music (plays with fade out info)
+- `/cobblecongrat test evo_congrat` - Test evolution congratulations (plays sound)
+- `/cobblecongrat test catch` - Test catch congratulations (plays sound)
+- `/cobblecongrat stop` - Stop all custom sounds
+- `/cobblecongrat config` - Show current configuration
 
 ## [1.0.1] - 2025-08-02
 
-### 🎵 Major Music System Overhaul
-
-#### Fixed
-- **Music Playback Speed**: Fixed slow music playback (was ~0.25x speed, now normal speed)
-- **Battle Music Persistence**: Music now stops immediately when battles end (flee, faint, /stopbattle commands)
-- **Evolution Music Timing**: Evolution music now plays when evolution starts, stops when congratulations play
-- **Music Overlap Prevention**: Fixed victory music overlapping with battle music
+### 🎵 Victory Music Fade Out Implementation
 
 #### Added
-- **Enhanced Battle Tracking**: Comprehensive battle ID tracking system for better state management
-- **Immediate Battle End Detection**: Real-time monitoring for external battle termination
-- **Evolution Sound Handler**: Dedicated system for proper evolution music timing
-- **Battle State Monitoring**: Continuous monitoring for responsive music changes
-- **Enhanced Fade System**: Improved fade-out with immediate response capability
+- **Victory Music Fade Out**: Victory music now fades out gradually instead of cutting off
+- **Fade Out Duration**: Configurable fade out duration (default: 2 seconds)
+- **Enhanced Test Command**: Victory test command now shows fade out information
 
 #### Improved
-- **Event Handling**: More robust Cobblemon event integration
-- **Error Handling**: Better fallback mechanisms for API changes
-- **Performance**: Optimized timer management and resource cleanup
-- **Debug Logging**: Enhanced logging for troubleshooting
-
-### 🎛️ Configuration System
-
-#### Added
-- **ModMenu Integration**: Full GUI configuration through ModMenu
-- **Volume Controls**: Individual volume settings for each music type
-- **Feature Toggles**: Enable/disable specific music types
-- **Advanced Settings**: Configurable thresholds and timing
-- **Auto-save Configuration**: Settings automatically save and load
-
-#### Features
-- **Battle Music Volume** (0.0 - 1.0, default: 0.8)
-- **Strong Battle Music Volume** (0.0 - 1.0, default: 0.85)
-- **Panic Music Volume** (0.0 - 1.0, default: 0.9)
-- **Victory Music Volume** (0.0 - 1.0, default: 1.0)
-- **Evolution Music Volume** (0.0 - 1.0, default: 0.7)
-- **Evolution Congratulations Volume** (0.0 - 1.0, default: 0.8)
-- **Catch Congratulations Volume** (0.0 - 1.0, default: 0.9)
-- **Panic Health Threshold** (configurable, default: 20%)
-- **Strong Battle Level Difference** (configurable, default: 15 levels)
-- **Victory Music Duration** (configurable, default: 7 seconds)
-- **Debug Logging** (optional detailed logging)
-
-### 🛠️ Dependencies
-- **Added**: ModMenu 11.0.1+ (optional, for configuration GUI)
-- **Added**: Cloth Config 15.0.127+ (optional, for configuration GUI)
-
-### 🎮 Commands
-- **Added**: `/cobblemusic test evo` - Test evolution music sequence
-- **Improved**: All test commands now reflect actual system behavior
-
-### 📝 Documentation
-- **Updated**: Comprehensive README with configuration instructions
-- **Added**: English language file for ModMenu integration
-- **Cleaned**: Removed unnecessary documentation files
+- **Stability**: Simplified architecture for better stability
+- **User Experience**: Better feedback in test commands
 
 ## [1.0.0] - 2025-08-01
 
 ### Initial Release
-- **Battle Music**: Automatic music during Cobblemon battles
 - **Victory Music**: Celebration sound after winning battles  
 - **Evolution Music**: Two-part evolution music sequence
 - **Catch Music**: Congratulations when catching Pokemon
 - **Commands**: Debug and testing commands
-- **Sound Events**: Support for 7 different music types
+- **Sound Events**: Support for multiple music types
 
 ### Dependencies
 - Minecraft 1.21.1
@@ -80,13 +74,12 @@ All notable changes to Custom Cobblemon Music Mod will be documented in this fil
 ---
 
 ## Planned Features
-- **Health Monitoring**: Real-time Pokemon health tracking for panic music (when API stabilizes)
-- **Level Detection**: Automatic strong battle music based on level differences (when API stabilizes)
-- **Sound Event Hooking**: Direct integration with Cobblemon's evolution_full sound event
-- **Biome-Specific Music**: Different battle themes based on biome
-- **Trainer Battle Music**: Special music for trainer battles vs wild Pokemon
+- **Enhanced Fade System**: More sophisticated fade out with volume ramping
+- **Sound Event Hooking**: Direct integration with Cobblemon's sound events
+- **Biome-Specific Sounds**: Different congratulatory sounds based on biome
+- **Trainer Battle Sounds**: Special sounds for trainer battles vs wild Pokemon
 
 ## Notes
-- Some advanced features are simplified pending Cobblemon API stabilization
-- Health and level monitoring use fallback detection methods
-- Evolution music timing uses event-based triggers for better synchronization
+- Mod focuses on congratulatory sounds only
+- Battle music is handled by Cobblemon's native system or resource packs
+- All sounds are configurable through ModMenu or manual config file

@@ -1,30 +1,28 @@
-# Custom Cobblemon Music Mod
+# Custom Congrat Sound For Cobblemon
 
-A lightweight Fabric mod that adds **Victory**, **Evolution**, and **Catch** music to your Cobblemon experience. Battle music is handled by Cobblemon's native system or compatible resource packs.
+A lightweight Fabric mod that adds **Victory**, **Evolution Congratulations**, and **Catch Congratulations** sounds to your Cobblemon experience. Battle music is handled by Cobblemon's native system or compatible resource packs.
 
 ## ✨ Features
 
-### 🎵 **Music Types**
-- **🏆 Victory Music** - Plays immediately after winning battles (configurable duration)
-- **🔄 Evolution Music** - Plays during Pokemon evolution sequences  
+### 🎵 **Sound Types**
+- **🏆 Victory Music** - Plays immediately after winning battles (configurable duration with fade out)
 - **🎉 Evolution Congratulations** - Plays when evolution completes
 - **⭐ Catch Congratulations** - Plays when you successfully catch Pokemon
 
 ### ⚙️ **Configuration System**
 - **ModMenu Integration**: Full GUI configuration through ModMenu
-- **Volume Controls**: Individual volume settings for each music type (0-100%)
-- **Feature Toggles**: Enable/disable specific music types
-- **Advanced Settings**: Victory duration, debug logging
+- **Volume Controls**: Individual volume settings for each sound type (0-100%)
+- **Feature Toggles**: Enable/disable specific sound types
+- **Advanced Settings**: Victory duration, fade out duration, debug logging
 - **Auto-save Configuration**: Settings automatically save and load
 
 ### 🎮 **Commands**
-- `/cobblemusic status` - Show mod status and enabled features
-- `/cobblemusic test victory` - Test victory music
-- `/cobblemusic test evolution` - Test evolution music  
-- `/cobblemusic test evo_congrat` - Test evolution congratulations
-- `/cobblemusic test catch` - Test catch music
-- `/cobblemusic stop` - Stop all custom music
-- `/cobblemusic config` - Show current configuration
+- `/cobblecongrat status` - Show mod status and enabled features
+- `/cobblecongrat test victory` - Test victory music
+- `/cobblecongrat test evo_congrat` - Test evolution congratulations
+- `/cobblecongrat test catch` - Test catch congratulations
+- `/cobblecongrat stop` - Stop all custom sounds
+- `/cobblecongrat config` - Show current configuration
 
 ## 🎼 **Battle Music**
 
@@ -54,19 +52,18 @@ This design prevents conflicts and allows you to choose your preferred battle mu
 3. Install optional dependencies for GUI configuration
 4. Launch Minecraft with Fabric
 
-## 🎵 **Adding Music Files**
+## 🎵 **Adding Sound Files**
 
-Create a resource pack with your custom music:
+Create a resource pack with your custom sounds:
 
 ### Resource Pack Structure
 ```
 your_resource_pack/
 ├── pack.mcmeta
 └── assets/
-    └── customcobblemonmusicmod/
+    └── customcongratsoundforcobblemon/
         └── sounds/
             ├── victory.ogg
-            ├── evo.ogg
             ├── evo_congrat.ogg
             └── catch_congrat.ogg
 ```
@@ -76,7 +73,7 @@ your_resource_pack/
 {
   "pack": {
     "pack_format": 34,
-    "description": "Custom Cobblemon Music"
+    "description": "Custom Congrat Sound For Cobblemon"
   }
 }
 ```
@@ -90,23 +87,23 @@ your_resource_pack/
 
 ### ModMenu GUI (Recommended)
 1. Install ModMenu + Cloth Config
-2. Go to **Mods** → **Custom Cobblemon Music Mod** → **Config**
+2. Go to **Mods** → **Custom Congrat Sound For Cobblemon** → **Config**
 3. Adjust settings in the GUI
 4. Settings save automatically
 
 ### Manual Configuration
-Edit `config/customcobblemonmusicmod.json`:
+Edit `config/customcongratsoundforcobblemon.json`:
 
 ```json
 {
   "victoryMusicVolume": 1.0,
-  "evolutionMusicVolume": 0.7,
   "evolutionCongratMusicVolume": 0.8,
   "catchCongratMusicVolume": 0.9,
   "enableVictoryMusic": true,
   "enableEvolutionMusic": true,
   "enableCatchMusic": true,
   "victoryMusicDuration": 7000,
+  "victoryMusicFadeOutDuration": 2000,
   "debugLogging": false
 }
 ```
@@ -116,13 +113,13 @@ Edit `config/customcobblemonmusicmod.json`:
 | Setting | Default | Description |
 |---------|---------|-------------|
 | `victoryMusicVolume` | 1.0 | Victory music volume (0.0-1.0) |
-| `evolutionMusicVolume` | 0.7 | Evolution music volume (0.0-1.0) |
 | `evolutionCongratMusicVolume` | 0.8 | Evolution congratulations volume (0.0-1.0) |
 | `catchCongratMusicVolume` | 0.9 | Catch congratulations volume (0.0-1.0) |
 | `enableVictoryMusic` | true | Enable victory music |
-| `enableEvolutionMusic` | true | Enable evolution music |
-| `enableCatchMusic` | true | Enable catch music |
+| `enableEvolutionMusic` | true | Enable evolution congratulations |
+| `enableCatchMusic` | true | Enable catch congratulations |
 | `victoryMusicDuration` | 7000 | Victory music duration (milliseconds) |
+| `victoryMusicFadeOutDuration` | 2000 | Victory music fade out duration (milliseconds) |
 | `debugLogging` | false | Enable debug logging |
 
 ## 🔧 **Troubleshooting**
@@ -138,10 +135,9 @@ Edit `config/customcobblemonmusicmod.json`:
 - Install ModMenu and Cloth Config mods
 - Check mods are compatible with your Minecraft version
 
-### Evolution Music Issues
-- Evolution music timing depends on Cobblemon's events
-- Only `evo_congrat` plays after evolution completes
-- Custom `evo` music requires manual implementation
+### Evolution Sound Issues
+- Evolution congratulations only play after evolution completes
+- Uses Cobblemon's `EVOLUTION_COMPLETE` event
 
 ## 🎯 **Compatibility**
 
@@ -157,17 +153,17 @@ Edit `config/customcobblemonmusicmod.json`:
 ## 🔄 **Changelog**
 
 ### v1.0.2 (Latest)
-#### 🔧 **Simplified & Optimized**
-- **Removed**: Battle music system (use resource packs instead)
-- **Fixed**: Victory music now plays immediately after battle win
-- **Fixed**: Evolution music timing improved
-- **Optimized**: Cleaner code, better performance
-- **Updated**: Configuration GUI simplified
+#### 🎉 **Renamed & Refined**
+- **Renamed**: Mod to "Custom Congrat Sound For Cobblemon"
+- **Removed**: Evolution music (evo.ogg) - kept only evo_congrat
+- **Updated**: Command from `/cobblemusic` to `/cobblecongrat`
+- **Improved**: Victory music fade out functionality
+- **Enhanced**: Test commands now actually play sounds
+- **Simplified**: Focus on congratulatory sounds only
 
 ### v1.0.1
-- Major overhaul with comprehensive features
-- Full battle tracking system
-- ModMenu integration
+- Victory music fade out implementation
+- Simplified architecture for stability
 
 ### v1.0.0
 - Initial release with all music types
@@ -188,4 +184,4 @@ MIT License - See LICENSE file for details.
 
 ---
 
-**Enjoy your enhanced Cobblemon musical experience!** 🎵✨
+**Enjoy your enhanced Cobblemon congratulatory experience!** 🎵✨

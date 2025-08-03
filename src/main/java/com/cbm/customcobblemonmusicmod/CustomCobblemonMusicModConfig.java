@@ -11,12 +11,11 @@ import java.nio.file.Path;
 
 public class CustomCobblemonMusicModConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("customcobblemonmusicmod.json");
+    private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("customcongratsoundforcobblemon.json");
     private static CustomCobblemonMusicModConfig INSTANCE;
     
-    // Music volume settings (only for custom sounds)
+    // Music volume settings (only for custom congrat sounds)
     public float victoryMusicVolume = 1.0f;
-    public float evolutionMusicVolume = 0.7f;
     public float evolutionCongratMusicVolume = 0.8f;
     public float catchCongratMusicVolume = 0.9f;
     
@@ -73,7 +72,6 @@ public class CustomCobblemonMusicModConfig {
     private void validate() {
         // Ensure volume values are within valid range
         victoryMusicVolume = Math.max(0.0f, Math.min(1.0f, victoryMusicVolume));
-        evolutionMusicVolume = Math.max(0.0f, Math.min(1.0f, evolutionMusicVolume));
         evolutionCongratMusicVolume = Math.max(0.0f, Math.min(1.0f, evolutionCongratMusicVolume));
         catchCongratMusicVolume = Math.max(0.0f, Math.min(1.0f, catchCongratMusicVolume));
         

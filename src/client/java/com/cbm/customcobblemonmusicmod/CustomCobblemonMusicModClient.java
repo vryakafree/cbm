@@ -24,7 +24,7 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
     
     @Override
     public void onInitializeClient() {
-        CustomCobblemonMusicMod.LOGGER.info("Initializing Custom Cobblemon Music Mod client - Victory, Evolution & Catch music only");
+        CustomCobblemonMusicMod.LOGGER.info("Initializing Custom Congrat Sound For Cobblemon client - Victory, Evolution Congrat & Catch Congrat music only");
         
         // Register event listeners
         registerCobblemonEvents();
@@ -38,11 +38,11 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
             }
         });
         
-        CustomCobblemonMusicMod.LOGGER.info("Custom Cobblemon Music Mod client initialized! Battle music handled by resource packs.");
+        CustomCobblemonMusicMod.LOGGER.info("Custom Congrat Sound For Cobblemon client initialized!");
     }
     
     private void registerCobblemonEvents() {
-        CustomCobblemonMusicMod.LOGGER.info("Registering Cobblemon event listeners for victory, evolution, and catch music...");
+        CustomCobblemonMusicMod.LOGGER.info("Registering Cobblemon event listeners for victory, evolution congrat, and catch congrat music...");
         
         try {
             // Battle victory - immediate response
@@ -130,7 +130,7 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         
         if (!config.enableEvolutionMusic) {
             if (config.debugLogging) {
-                CustomCobblemonMusicMod.LOGGER.info("Evolution music disabled in config");
+                CustomCobblemonMusicMod.LOGGER.info("Evolution congrat music disabled in config");
             }
             return;
         }
@@ -154,13 +154,6 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
         playMusic(CustomCobblemonMusicMod.VICTORY_MUSIC, config.victoryMusicVolume);
         currentMusicType = "victory";
-    }
-    
-    public static void playEvolutionMusic() {
-        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
-        playMusic(CustomCobblemonMusicMod.EVO_MUSIC, config.evolutionMusicVolume);
-        isEvolutionMusicPlaying = true;
-        currentMusicType = "evo";
     }
     
     public static void playEvolutionCongratMusic() {
