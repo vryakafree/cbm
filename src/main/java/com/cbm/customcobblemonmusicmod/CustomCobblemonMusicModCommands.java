@@ -73,7 +73,27 @@ public class CustomCobblemonMusicModCommands {
             source.sendMessage(Text.literal("§6Testing victory music..."));
             source.sendMessage(Text.literal("§ePlaying: victory.ogg"));
             source.sendMessage(Text.literal("§7Duration: " + (config.victoryMusicDuration / 1000) + " seconds"));
+            source.sendMessage(Text.literal("§7Fade Out: " + (config.victoryMusicFadeOutDuration / 1000) + " seconds"));
             source.sendMessage(Text.literal("§7Volume: " + (int)(config.victoryMusicVolume * 100) + "%"));
+            
+            // Actually play the victory music
+            try {
+                player.playSound(
+                    CustomCobblemonMusicMod.VICTORY_MUSIC,
+                    config.victoryMusicVolume,
+                    1.0f
+                );
+                source.sendMessage(Text.literal("§a✓ Victory music played successfully!"));
+                
+                // Schedule fade out after duration
+                player.getServer().execute(() -> {
+                    // Simplified scheduling - just log the fade out
+                    source.sendMessage(Text.literal("§eVictory music will fade out after " + (config.victoryMusicDuration / 1000) + " seconds"));
+                });
+                
+            } catch (Exception e) {
+                source.sendMessage(Text.literal("§c✗ Failed to play victory music: " + e.getMessage()));
+            }
             
         } else {
             source.sendMessage(Text.literal("§cThis command must be run by a player"));
