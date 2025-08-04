@@ -59,7 +59,7 @@ loom {
     splitEnvironmentSourceSets()
 
 	mods {
-		"customcobblemonmusicmod" {
+		"tdsound" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}

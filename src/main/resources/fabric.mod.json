@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "customcongratsoundforcobblemon",
-  "version": "1.0.2",
-  "name": "Custom Congrat Sound For Cobblemon",
-  "description": "Adds authentic Pokemon-style congratulatory sounds for Cobblemon - plays victory music, evolution congratulations, and catch congratulations with fade out effects",
+  "id": "tdsound",
+  "version": "1.0.7",
+  "name": "TDsound",
+  "description": "Adds authentic Pokemon-style congratulatory sounds for Cobblemon - plays victory music, evolution congratulations, catch congratulations, and flee sounds",
   "authors": [
     "Trần Duy Anh"
   ],
@@ -13,7 +13,7 @@
     "issues": "https://github.com/vryakafree/cbm/issues"
   },
   "license": "MIT",
-  "icon": "assets/customcongratsoundforcobblemon/icon.png",
+  "icon": "assets/tdsound/icon.png",
 
   "environment": "*",
   "entrypoints": {

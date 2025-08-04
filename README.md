@@ -1,6 +1,6 @@
-# Custom Congrat Sound For Cobblemon
+# TDsound
 
-A lightweight Fabric mod that adds **Victory**, **Evolution Congratulations**, and **Catch Congratulations** sounds to your Cobblemon experience. Battle music is handled by Cobblemon's native system or compatible resource packs.
+A lightweight Fabric mod that adds **Victory**, **Evolution Congratulations**, and **Catch Congratulations** sounds to your Cobblemon experience with smooth fade out effects. Battle music is handled by Cobblemon's native system or compatible resource packs.
 
 ## ✨ Features
 
@@ -61,7 +61,7 @@ Create a resource pack with your custom sounds:
 your_resource_pack/
 ├── pack.mcmeta
 └── assets/
-    └── customcongratsoundforcobblemon/
+    └── tdsound/
         └── sounds/
             ├── victory.ogg
             ├── evo_congrat.ogg
@@ -92,7 +92,7 @@ your_resource_pack/
 4. Settings save automatically
 
 ### Manual Configuration
-Edit `config/customcongratsoundforcobblemon.json`:
+Edit `config/tdsound.json`:
 
 ```json
 {

@@ -29,6 +29,8 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         // Register event listeners
         registerCobblemonEvents();
         
+
+        
         // Register client tick event for evolution sound monitoring
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             tickCounter++;
@@ -63,6 +65,12 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
                 return Unit.INSTANCE;
             });
             
+            // Battle flee - for flee sound
+            CobblemonEvents.BATTLE_FLED.subscribe(Priority.NORMAL, battleFledEvent -> {
+                onBattleFled();
+                return Unit.INSTANCE;
+            });
+            
             CustomCobblemonMusicMod.LOGGER.info("Cobblemon event listeners registered successfully!");
             
         } catch (Exception e) {
@@ -70,6 +78,8 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
             CustomCobblemonMusicMod.LOGGER.error("Make sure Cobblemon 1.6.1+ is installed!");
         }
     }
+    
+
     
     private void monitorEvolutionSounds() {
         // Monitor for Cobblemon's native evolution sounds
@@ -106,11 +116,10 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
             public void run() {
                 stopCurrentMusic();
             }
-        }, config.victoryMusicDuration);
+        }, 15000); // 15 seconds fixed duration
         
         if (config.debugLogging) {
-            CustomCobblemonMusicMod.LOGGER.info("Victory! Playing victory music immediately for " + 
-                (config.victoryMusicDuration / 1000) + " seconds");
+            CustomCobblemonMusicMod.LOGGER.info("Victory! Playing victory music immediately for 15 seconds");
         }
     }
     
@@ -122,6 +131,17 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         
         if (config.debugLogging) {
             CustomCobblemonMusicMod.LOGGER.info("Pokemon captured! Playing congratulations music");
+        }
+    }
+    
+    private void onBattleFled() {
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        if (!config.enableFleeMusic) return;
+        
+        playFleeMusic();
+        
+        if (config.debugLogging) {
+            CustomCobblemonMusicMod.LOGGER.info("Player fled from battle! Playing flee music");
         }
     }
     
@@ -168,6 +188,12 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         currentMusicType = "catch_congrat";
     }
     
+    public static void playFleeMusic() {
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        playMusic(CustomCobblemonMusicMod.FLEE_MUSIC, config.fleeMusicVolume);
+        currentMusicType = "flee";
+    }
+    
     private static void playMusic(SoundEvent sound, float volume) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.getSoundManager() != null) {
@@ -177,6 +203,14 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
             // Play new music
             currentSoundInstance = PositionedSoundInstance.master(sound, volume);
             client.getSoundManager().play(currentSoundInstance);
+            
+            // Debug logging
+            CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+            if (config.debugLogging) {
+                CustomCobblemonMusicMod.LOGGER.info("Playing sound: " + sound.getId() + " with volume: " + volume);
+            }
+        } else {
+            CustomCobblemonMusicMod.LOGGER.error("Sound manager is null, cannot play music");
         }
     }
     
@@ -190,6 +224,21 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         }
         
         resetMusicState();
+    }
+    
+    private static SoundEvent getCurrentSoundEvent() {
+        switch (currentMusicType) {
+            case "victory":
+                return CustomCobblemonMusicMod.VICTORY_MUSIC;
+            case "evo_congrat":
+                return CustomCobblemonMusicMod.EVO_CONGRAT_MUSIC;
+            case "catch_congrat":
+                return CustomCobblemonMusicMod.CATCH_CONGRAT_MUSIC;
+            case "flee":
+                return CustomCobblemonMusicMod.FLEE_MUSIC;
+            default:
+                return null;
+        }
     }
     
     public static void stopAllMusic() {
