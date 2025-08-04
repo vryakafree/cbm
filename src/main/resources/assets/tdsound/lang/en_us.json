@@ -2,6 +2,7 @@
   "config.tdsound.title": "TDsound",
   
   "config.tdsound.category.volume": "Volume Settings",
+  "config.tdsound.category.pitch": "Pitch Settings",
   "config.tdsound.category.features": "Music Features",
   "config.tdsound.category.advanced": "Advanced Settings",
   
@@ -17,6 +18,18 @@
   "config.tdsound.flee_volume": "Flee Music Volume",
   "config.tdsound.flee_volume.tooltip": "Volume for flee music when player flees from battle (0.0 - 1.0)",
   
+  "config.tdsound.victory_pitch": "Victory Music Pitch",
+  "config.tdsound.victory_pitch.tooltip": "Pitch for victory music after winning battles (0.5 - 2.0, 1.0 = normal)",
+  
+  "config.tdsound.evolution_congrat_pitch": "Evolution Congratulations Pitch",
+  "config.tdsound.evolution_congrat_pitch.tooltip": "Pitch for congratulations music after evolution completes (0.5 - 2.0, 1.0 = normal)",
+  
+  "config.tdsound.catch_congrat_pitch": "Catch Congratulations Pitch",
+  "config.tdsound.catch_congrat_pitch.tooltip": "Pitch for congratulations music when catching Pokemon (0.5 - 2.0, 1.0 = normal)",
+  
+  "config.tdsound.flee_pitch": "Flee Music Pitch",
+  "config.tdsound.flee_pitch.tooltip": "Pitch for flee music when player flees from battle (0.5 - 2.0, 1.0 = normal)",
+  
   "config.tdsound.enable_victory_music": "Enable Victory Music",
   "config.tdsound.enable_victory_music.tooltip": "Enable victory music after winning battles",
   
@@ -28,9 +41,6 @@
   
   "config.tdsound.enable_flee_music": "Enable Flee Music",
   "config.tdsound.enable_flee_music.tooltip": "Enable flee music when player flees from battle",
-  
-  "config.tdsound.victory_music_duration": "Victory Music Duration (ms)",
-  "config.tdsound.victory_music_duration.tooltip": "How long victory music plays in milliseconds (default: 15000 = 15 seconds)",
   
   "config.tdsound.debug_logging": "Debug Logging",
   "config.tdsound.debug_logging.tooltip": "Enable debug logging for troubleshooting (check console logs)"

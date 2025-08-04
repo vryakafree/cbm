@@ -30,7 +30,7 @@ public class CustomCobblemonMusicMod implements ModInitializer {
         CustomCobblemonMusicModCommands.register();
         
         LOGGER.info("Registered sound events:");
-        LOGGER.info("- victory.ogg (plays for 15 seconds after winning)");
+        LOGGER.info("- victory.ogg (after winning)");
         LOGGER.info("- evo_congrat.ogg (after evolution completes)");
         LOGGER.info("- catch_congrat.ogg (when Pokemon is caught)");
         LOGGER.info("- flee.ogg (when player flees from battle)");

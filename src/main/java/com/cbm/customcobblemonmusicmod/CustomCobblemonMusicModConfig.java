@@ -20,6 +20,12 @@ public class CustomCobblemonMusicModConfig {
     public float catchCongratMusicVolume = 0.3f; // 30% volume
     public float fleeMusicVolume = 0.3f; // 30% volume
     
+    // Music pitch settings (separate from volume)
+    public float victoryMusicPitch = 1.0f; // Normal pitch
+    public float evolutionCongratMusicPitch = 1.0f; // Normal pitch
+    public float catchCongratMusicPitch = 1.0f; // Normal pitch
+    public float fleeMusicPitch = 1.0f; // Normal pitch
+    
     // Music behavior settings
     public boolean enableVictoryMusic = true;
     public boolean enableEvolutionMusic = true;
@@ -69,10 +75,16 @@ public class CustomCobblemonMusicModConfig {
     }
     
     private void validate() {
-        // Ensure volume values are within valid range
+        // Ensure volume values are within valid range (0.0 to 1.0)
         victoryMusicVolume = Math.max(0.0f, Math.min(1.0f, victoryMusicVolume));
         evolutionCongratMusicVolume = Math.max(0.0f, Math.min(1.0f, evolutionCongratMusicVolume));
         catchCongratMusicVolume = Math.max(0.0f, Math.min(1.0f, catchCongratMusicVolume));
         fleeMusicVolume = Math.max(0.0f, Math.min(1.0f, fleeMusicVolume));
+        
+        // Ensure pitch values are within valid range (0.5 to 2.0)
+        victoryMusicPitch = Math.max(0.5f, Math.min(2.0f, victoryMusicPitch));
+        evolutionCongratMusicPitch = Math.max(0.5f, Math.min(2.0f, evolutionCongratMusicPitch));
+        catchCongratMusicPitch = Math.max(0.5f, Math.min(2.0f, catchCongratMusicPitch));
+        fleeMusicPitch = Math.max(0.5f, Math.min(2.0f, fleeMusicPitch));
     }
 }

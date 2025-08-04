@@ -64,6 +64,46 @@ public class CustomCobblemonMusicModMenuIntegration implements ModMenuApi {
                     .setSaveConsumer(newValue -> config.fleeMusicVolume = newValue)
                     .build());
             
+            // Pitch Settings Category
+            ConfigCategory pitchCategory = builder.getOrCreateCategory(
+                    Text.translatable("config.tdsound.category.pitch"));
+                    
+            pitchCategory.addEntry(entryBuilder
+                    .startFloatField(Text.translatable("config.tdsound.victory_pitch"), config.victoryMusicPitch)
+                    .setDefaultValue(1.0f)
+                    .setMin(0.5f)
+                    .setMax(2.0f)
+                    .setTooltip(Text.translatable("config.tdsound.victory_pitch.tooltip"))
+                    .setSaveConsumer(newValue -> config.victoryMusicPitch = newValue)
+                    .build());
+                    
+            pitchCategory.addEntry(entryBuilder
+                    .startFloatField(Text.translatable("config.tdsound.evolution_congrat_pitch"), config.evolutionCongratMusicPitch)
+                    .setDefaultValue(1.0f)
+                    .setMin(0.5f)
+                    .setMax(2.0f)
+                    .setTooltip(Text.translatable("config.tdsound.evolution_congrat_pitch.tooltip"))
+                    .setSaveConsumer(newValue -> config.evolutionCongratMusicPitch = newValue)
+                    .build());
+                    
+            pitchCategory.addEntry(entryBuilder
+                    .startFloatField(Text.translatable("config.tdsound.catch_congrat_pitch"), config.catchCongratMusicPitch)
+                    .setDefaultValue(1.0f)
+                    .setMin(0.5f)
+                    .setMax(2.0f)
+                    .setTooltip(Text.translatable("config.tdsound.catch_congrat_pitch.tooltip"))
+                    .setSaveConsumer(newValue -> config.catchCongratMusicPitch = newValue)
+                    .build());
+                    
+            pitchCategory.addEntry(entryBuilder
+                    .startFloatField(Text.translatable("config.tdsound.flee_pitch"), config.fleeMusicPitch)
+                    .setDefaultValue(1.0f)
+                    .setMin(0.5f)
+                    .setMax(2.0f)
+                    .setTooltip(Text.translatable("config.tdsound.flee_pitch.tooltip"))
+                    .setSaveConsumer(newValue -> config.fleeMusicPitch = newValue)
+                    .build());
+            
             // Music Features Category
             ConfigCategory featuresCategory = builder.getOrCreateCategory(
                     Text.translatable("config.tdsound.category.features"));

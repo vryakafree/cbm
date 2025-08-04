@@ -41,7 +41,7 @@ public class CustomCobblemonMusicModCommands {
         CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
         
         source.sendMessage(Text.literal("§6=== Custom Congrat Sound For Cobblemon Status ==="));
-        source.sendMessage(Text.literal("§eVersion: §f1.0.2"));
+        source.sendMessage(Text.literal("§eVersion: §f1.0.8"));
         source.sendMessage(Text.literal("§eActive Sound System: §fVictory, Evolution Congrat & Catch Congrat"));
         source.sendMessage(Text.literal(""));
         source.sendMessage(Text.literal("§6Enabled Features:"));
@@ -73,15 +73,15 @@ public class CustomCobblemonMusicModCommands {
             
             source.sendMessage(Text.literal("§6Testing victory music..."));
             source.sendMessage(Text.literal("§ePlaying: victory.ogg"));
-            source.sendMessage(Text.literal("§7Duration: 15 seconds"));
             source.sendMessage(Text.literal("§7Volume: " + (int)(config.victoryMusicVolume * 100) + "%"));
+            source.sendMessage(Text.literal("§7Pitch: " + String.format("%.1f", config.victoryMusicPitch)));
             
             // Play victory music on server side for testing
             try {
                 player.playSound(
                     CustomCobblemonMusicMod.VICTORY_MUSIC,
                     config.victoryMusicVolume,
-                    1.0f
+                    config.victoryMusicPitch
                 );
                 source.sendMessage(Text.literal("§a✓ Victory music played on server!"));
                 source.sendMessage(Text.literal("§eNote: For full client-side music, win a battle in Cobblemon."));
@@ -112,6 +112,7 @@ public class CustomCobblemonMusicModCommands {
             source.sendMessage(Text.literal("§6Testing evolution congratulations music..."));
             source.sendMessage(Text.literal("§ePlaying: evo_congrat.ogg"));
             source.sendMessage(Text.literal("§7Volume: " + (int)(config.evolutionCongratMusicVolume * 100) + "%"));
+            source.sendMessage(Text.literal("§7Pitch: " + String.format("%.1f", config.evolutionCongratMusicPitch)));
             source.sendMessage(Text.literal("§7Real trigger: Pokemon evolution complete"));
             
             // Play evolution congrat music on server side for testing
@@ -119,7 +120,7 @@ public class CustomCobblemonMusicModCommands {
                 player.playSound(
                     CustomCobblemonMusicMod.EVO_CONGRAT_MUSIC,
                     config.evolutionCongratMusicVolume,
-                    1.0f
+                    config.evolutionCongratMusicPitch
                 );
                 source.sendMessage(Text.literal("§a✓ Evolution congrat music played on server!"));
                 
@@ -149,6 +150,7 @@ public class CustomCobblemonMusicModCommands {
             source.sendMessage(Text.literal("§6Testing catch congratulations music..."));
             source.sendMessage(Text.literal("§ePlaying: catch_congrat.ogg"));
             source.sendMessage(Text.literal("§7Volume: " + (int)(config.catchCongratMusicVolume * 100) + "%"));
+            source.sendMessage(Text.literal("§7Pitch: " + String.format("%.1f", config.catchCongratMusicPitch)));
             source.sendMessage(Text.literal("§7Real trigger: Pokemon caught"));
             
             // Play catch congrat music on server side for testing
@@ -156,7 +158,7 @@ public class CustomCobblemonMusicModCommands {
                 player.playSound(
                     CustomCobblemonMusicMod.CATCH_CONGRAT_MUSIC,
                     config.catchCongratMusicVolume,
-                    1.0f
+                    config.catchCongratMusicPitch
                 );
                 source.sendMessage(Text.literal("§a✓ Catch congrat music played on server!"));
                 
@@ -186,6 +188,7 @@ public class CustomCobblemonMusicModCommands {
             source.sendMessage(Text.literal("§6Testing flee music..."));
             source.sendMessage(Text.literal("§ePlaying: flee.ogg"));
             source.sendMessage(Text.literal("§7Volume: " + (int)(config.fleeMusicVolume * 100) + "%"));
+            source.sendMessage(Text.literal("§7Pitch: " + String.format("%.1f", config.fleeMusicPitch)));
             source.sendMessage(Text.literal("§7Real trigger: Player flees from battle"));
             
             // Play flee music on server side for testing
@@ -193,7 +196,7 @@ public class CustomCobblemonMusicModCommands {
                 player.playSound(
                     CustomCobblemonMusicMod.FLEE_MUSIC,
                     config.fleeMusicVolume,
-                    1.0f
+                    config.fleeMusicPitch
                 );
                 source.sendMessage(Text.literal("§a✓ Flee music played on server!"));
                 
@@ -229,10 +232,10 @@ public class CustomCobblemonMusicModCommands {
         CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
         
         source.sendMessage(Text.literal("§6=== Configuration Settings ==="));
-        source.sendMessage(Text.literal("§eVictory Music: §f" + config.enableVictoryMusic + " (Vol: " + (int)(config.victoryMusicVolume * 100) + "%)"));
-        source.sendMessage(Text.literal("§eEvolution Congrat: §f" + config.enableEvolutionMusic + " (Vol: " + (int)(config.evolutionCongratMusicVolume * 100) + "%)"));
-        source.sendMessage(Text.literal("§eCatch Congrat: §f" + config.enableCatchMusic + " (Vol: " + (int)(config.catchCongratMusicVolume * 100) + "%)"));
-        source.sendMessage(Text.literal("§eVictory Duration: §f15 seconds"));
+        source.sendMessage(Text.literal("§eVictory Music: §f" + config.enableVictoryMusic + " (Vol: " + (int)(config.victoryMusicVolume * 100) + "%, Pitch: " + String.format("%.1f", config.victoryMusicPitch) + ")"));
+        source.sendMessage(Text.literal("§eEvolution Congrat: §f" + config.enableEvolutionMusic + " (Vol: " + (int)(config.evolutionCongratMusicVolume * 100) + "%, Pitch: " + String.format("%.1f", config.evolutionCongratMusicPitch) + ")"));
+        source.sendMessage(Text.literal("§eCatch Congrat: §f" + config.enableCatchMusic + " (Vol: " + (int)(config.catchCongratMusicVolume * 100) + "%, Pitch: " + String.format("%.1f", config.catchCongratMusicPitch) + ")"));
+        source.sendMessage(Text.literal("§eFlee Music: §f" + config.enableFleeMusic + " (Vol: " + (int)(config.fleeMusicVolume * 100) + "%, Pitch: " + String.format("%.1f", config.fleeMusicPitch) + ")"));
         source.sendMessage(Text.literal("§eDebug Logging: §f" + config.debugLogging));
         source.sendMessage(Text.literal(""));
         source.sendMessage(Text.literal("§7Use ModMenu for GUI configuration"));

@@ -13,7 +13,6 @@ import kotlin.Unit;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.UUID;
 
 public class CustomCobblemonMusicModClient implements ClientModInitializer {
     private static boolean isEvolutionMusicPlaying = false;
@@ -172,42 +171,42 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
     // Music playing methods
     public static void playVictoryMusic() {
         CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
-        playMusic(CustomCobblemonMusicMod.VICTORY_MUSIC, config.victoryMusicVolume);
+        playMusic(CustomCobblemonMusicMod.VICTORY_MUSIC, config.victoryMusicVolume, config.victoryMusicPitch);
         currentMusicType = "victory";
     }
     
     public static void playEvolutionCongratMusic() {
         CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
-        playMusic(CustomCobblemonMusicMod.EVO_CONGRAT_MUSIC, config.evolutionCongratMusicVolume);
+        playMusic(CustomCobblemonMusicMod.EVO_CONGRAT_MUSIC, config.evolutionCongratMusicVolume, config.evolutionCongratMusicPitch);
         currentMusicType = "evo_congrat";
     }
     
     public static void playCatchMusic() {
         CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
-        playMusic(CustomCobblemonMusicMod.CATCH_CONGRAT_MUSIC, config.catchCongratMusicVolume);
+        playMusic(CustomCobblemonMusicMod.CATCH_CONGRAT_MUSIC, config.catchCongratMusicVolume, config.catchCongratMusicPitch);
         currentMusicType = "catch_congrat";
     }
     
     public static void playFleeMusic() {
         CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
-        playMusic(CustomCobblemonMusicMod.FLEE_MUSIC, config.fleeMusicVolume);
+        playMusic(CustomCobblemonMusicMod.FLEE_MUSIC, config.fleeMusicVolume, config.fleeMusicPitch);
         currentMusicType = "flee";
     }
     
-    private static void playMusic(SoundEvent sound, float volume) {
+    private static void playMusic(SoundEvent sound, float volume, float pitch) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.getSoundManager() != null) {
             // Stop any current music first
             stopCurrentMusic();
             
-            // Play new music
-            currentSoundInstance = PositionedSoundInstance.master(sound, volume);
+            // Play new music with separate volume and pitch
+            currentSoundInstance = PositionedSoundInstance.master(sound, pitch, volume);
             client.getSoundManager().play(currentSoundInstance);
             
             // Debug logging
             CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
             if (config.debugLogging) {
-                CustomCobblemonMusicMod.LOGGER.info("Playing sound: " + sound.getId() + " with volume: " + volume);
+                CustomCobblemonMusicMod.LOGGER.info("Playing sound: " + sound.getId() + " with volume: " + volume + ", pitch: " + pitch);
             }
         } else {
             CustomCobblemonMusicMod.LOGGER.error("Sound manager is null, cannot play music");
