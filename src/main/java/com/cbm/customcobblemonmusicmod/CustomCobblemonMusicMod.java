@@ -38,6 +38,9 @@ public class CustomCobblemonMusicMod implements ModInitializer {
 
     private static SoundEvent registerSoundEvent(String name) {
         Identifier id = Identifier.of(MOD_ID, name);
-        return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
+        SoundEvent soundEvent = SoundEvent.of(id);
+        Registry.register(Registries.SOUND_EVENT, id, soundEvent);
+        LOGGER.info("Registered sound event: " + id);
+        return soundEvent;
     }
 }

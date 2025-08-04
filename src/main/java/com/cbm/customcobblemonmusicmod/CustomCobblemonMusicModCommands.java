@@ -73,20 +73,15 @@ public class CustomCobblemonMusicModCommands {
             source.sendMessage(Text.literal("§7Fade Out: " + (config.victoryMusicFadeOutDuration / 1000) + " seconds"));
             source.sendMessage(Text.literal("§7Volume: " + (int)(config.victoryMusicVolume * 100) + "%"));
             
-            // Actually play the victory music
+            // Play victory music on server side for testing
             try {
                 player.playSound(
                     CustomCobblemonMusicMod.VICTORY_MUSIC,
                     config.victoryMusicVolume,
                     1.0f
                 );
-                source.sendMessage(Text.literal("§a✓ Victory music played successfully!"));
-                
-                // Schedule fade out after duration
-                player.getServer().execute(() -> {
-                    // Simplified scheduling - just log the fade out
-                    source.sendMessage(Text.literal("§eVictory music will fade out after " + (config.victoryMusicDuration / 1000) + " seconds"));
-                });
+                source.sendMessage(Text.literal("§a✓ Victory music played on server!"));
+                source.sendMessage(Text.literal("§eNote: For full client-side music with fade out, win a battle in Cobblemon."));
                 
             } catch (Exception e) {
                 source.sendMessage(Text.literal("§c✗ Failed to play victory music: " + e.getMessage()));
@@ -116,14 +111,14 @@ public class CustomCobblemonMusicModCommands {
             source.sendMessage(Text.literal("§7Volume: " + (int)(config.evolutionCongratMusicVolume * 100) + "%"));
             source.sendMessage(Text.literal("§7Real trigger: Pokemon evolution complete"));
             
-            // Actually play the evolution congrat music
+            // Play evolution congrat music on server side for testing
             try {
                 player.playSound(
                     CustomCobblemonMusicMod.EVO_CONGRAT_MUSIC,
                     config.evolutionCongratMusicVolume,
                     1.0f
                 );
-                source.sendMessage(Text.literal("§a✓ Evolution congrat music played successfully!"));
+                source.sendMessage(Text.literal("§a✓ Evolution congrat music played on server!"));
                 
             } catch (Exception e) {
                 source.sendMessage(Text.literal("§c✗ Failed to play evolution congrat music: " + e.getMessage()));
@@ -153,14 +148,14 @@ public class CustomCobblemonMusicModCommands {
             source.sendMessage(Text.literal("§7Volume: " + (int)(config.catchCongratMusicVolume * 100) + "%"));
             source.sendMessage(Text.literal("§7Real trigger: Pokemon caught"));
             
-            // Actually play the catch congrat music
+            // Play catch congrat music on server side for testing
             try {
                 player.playSound(
                     CustomCobblemonMusicMod.CATCH_CONGRAT_MUSIC,
                     config.catchCongratMusicVolume,
                     1.0f
                 );
-                source.sendMessage(Text.literal("§a✓ Catch congrat music played successfully!"));
+                source.sendMessage(Text.literal("§a✓ Catch congrat music played on server!"));
                 
             } catch (Exception e) {
                 source.sendMessage(Text.literal("§c✗ Failed to play catch congrat music: " + e.getMessage()));

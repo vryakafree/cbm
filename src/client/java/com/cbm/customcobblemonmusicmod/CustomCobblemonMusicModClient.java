@@ -31,6 +31,8 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         // Register event listeners
         registerCobblemonEvents();
         
+
+        
         // Register client tick event for evolution sound monitoring
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             tickCounter++;
@@ -72,6 +74,8 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
             CustomCobblemonMusicMod.LOGGER.error("Make sure Cobblemon 1.6.1+ is installed!");
         }
     }
+    
+
     
     private void monitorEvolutionSounds() {
         // Monitor for Cobblemon's native evolution sounds
@@ -182,6 +186,14 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
             // Play new music
             currentSoundInstance = PositionedSoundInstance.master(sound, volume);
             client.getSoundManager().play(currentSoundInstance);
+            
+            // Debug logging
+            CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+            if (config.debugLogging) {
+                CustomCobblemonMusicMod.LOGGER.info("Playing sound: " + sound.getId() + " with volume: " + volume);
+            }
+        } else {
+            CustomCobblemonMusicMod.LOGGER.error("Sound manager is null, cannot play music");
         }
     }
     
