@@ -15,19 +15,19 @@ public class CustomCobblemonMusicModConfig {
     private static CustomCobblemonMusicModConfig INSTANCE;
     
     // Music volume settings (only for custom congrat sounds)
-    public float victoryMusicVolume = 1.0f;
-    public float evolutionCongratMusicVolume = 0.8f;
-    public float catchCongratMusicVolume = 0.9f;
+    public float victoryMusicVolume = 0.1f; // 10% volume
+    public float evolutionCongratMusicVolume = 0.1f; // 10% volume
+    public float catchCongratMusicVolume = 0.1f; // 10% volume
+    public float fleeMusicVolume = 0.1f; // 10% volume
     
     // Music behavior settings
     public boolean enableVictoryMusic = true;
     public boolean enableEvolutionMusic = true;
     public boolean enableCatchMusic = true;
+    public boolean enableFleeMusic = true;
     
     // Advanced settings
-    public int victoryMusicDuration = 7000; // 7 seconds in milliseconds
-    public int victoryMusicFadeOutDuration = 2000; // 2 seconds fade out
-    public boolean immediateStopOnBattleEnd = true;
+    public int victoryMusicDuration = 15000; // 15 seconds in milliseconds
     public boolean debugLogging = false;
     
     public static CustomCobblemonMusicModConfig getInstance() {
@@ -74,9 +74,9 @@ public class CustomCobblemonMusicModConfig {
         victoryMusicVolume = Math.max(0.0f, Math.min(1.0f, victoryMusicVolume));
         evolutionCongratMusicVolume = Math.max(0.0f, Math.min(1.0f, evolutionCongratMusicVolume));
         catchCongratMusicVolume = Math.max(0.0f, Math.min(1.0f, catchCongratMusicVolume));
+        fleeMusicVolume = Math.max(0.0f, Math.min(1.0f, fleeMusicVolume));
         
         // Ensure duration is within valid range
         victoryMusicDuration = Math.max(1000, Math.min(30000, victoryMusicDuration));
-        victoryMusicFadeOutDuration = Math.max(500, Math.min(5000, victoryMusicFadeOutDuration));
     }
 }

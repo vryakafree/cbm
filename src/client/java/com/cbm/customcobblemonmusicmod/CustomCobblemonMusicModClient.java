@@ -19,10 +19,8 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
     private static boolean isEvolutionMusicPlaying = false;
     private static String currentMusicType = "none";
     private static Timer musicTimer;
-    private static Timer fadeOutTimer;
     private static SoundInstance currentSoundInstance;
     private static int tickCounter = 0;
-    private static float originalVolume = 1.0f;
     
     @Override
     public void onInitializeClient() {
@@ -64,6 +62,12 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
             // Evolution complete - for evo_congrat
             CobblemonEvents.EVOLUTION_COMPLETE.subscribe(Priority.NORMAL, evolutionEvent -> {
                 onEvolutionComplete();
+                return Unit.INSTANCE;
+            });
+            
+            // Battle flee - for flee sound
+            CobblemonEvents.BATTLE_FLED.subscribe(Priority.NORMAL, battleFledEvent -> {
+                onBattleFled();
                 return Unit.INSTANCE;
             });
             
@@ -110,7 +114,7 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         musicTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                fadeOutMusic();
+                stopCurrentMusic();
             }
         }, config.victoryMusicDuration);
         
@@ -128,6 +132,17 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         
         if (config.debugLogging) {
             CustomCobblemonMusicMod.LOGGER.info("Pokemon captured! Playing congratulations music");
+        }
+    }
+    
+    private void onBattleFled() {
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        if (!config.enableFleeMusic) return;
+        
+        playFleeMusic();
+        
+        if (config.debugLogging) {
+            CustomCobblemonMusicMod.LOGGER.info("Player fled from battle! Playing flee music");
         }
     }
     
@@ -174,14 +189,17 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         currentMusicType = "catch_congrat";
     }
     
+    public static void playFleeMusic() {
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        playMusic(CustomCobblemonMusicMod.FLEE_MUSIC, config.fleeMusicVolume);
+        currentMusicType = "flee";
+    }
+    
     private static void playMusic(SoundEvent sound, float volume) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.getSoundManager() != null) {
             // Stop any current music first
             stopCurrentMusic();
-            
-            // Store original volume for fade out
-            originalVolume = volume;
             
             // Play new music
             currentSoundInstance = PositionedSoundInstance.master(sound, volume);
@@ -209,63 +227,6 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         resetMusicState();
     }
     
-    public static void fadeOutMusic() {
-        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
-        
-        if (currentSoundInstance == null || fadeOutTimer != null) {
-            return; // Already fading out or no music playing
-        }
-        
-        // Cancel the regular stop timer
-        if (musicTimer != null) {
-            musicTimer.cancel();
-            musicTimer = null;
-        }
-        
-        // Start fade out timer
-        fadeOutTimer = new Timer();
-        final int fadeOutDuration = config.victoryMusicFadeOutDuration;
-        final int steps = 20; // 20 steps for smooth fade
-        final int stepDuration = fadeOutDuration / steps;
-        final float volumeStep = originalVolume / steps;
-        
-        fadeOutTimer.scheduleAtFixedRate(new TimerTask() {
-            private int currentStep = 0;
-            
-            @Override
-            public void run() {
-                if (currentStep >= steps || currentSoundInstance == null) {
-                    // Fade out complete, stop the music
-                    stopCurrentMusic();
-                    if (fadeOutTimer != null) {
-                        fadeOutTimer.cancel();
-                        fadeOutTimer = null;
-                    }
-                    return;
-                }
-                
-                // Reduce volume gradually
-                float newVolume = originalVolume - (volumeStep * currentStep);
-                if (newVolume < 0) newVolume = 0;
-                
-                // Update volume if possible
-                MinecraftClient client = MinecraftClient.getInstance();
-                if (client.getSoundManager() != null && currentSoundInstance != null) {
-                    // Create new sound instance with reduced volume
-                    SoundEvent currentSound = getCurrentSoundEvent();
-                    if (currentSound != null) {
-                        SoundInstance newInstance = PositionedSoundInstance.master(currentSound, newVolume);
-                        client.getSoundManager().stop(currentSoundInstance);
-                        currentSoundInstance = newInstance;
-                        client.getSoundManager().play(currentSoundInstance);
-                    }
-                }
-                
-                currentStep++;
-            }
-        }, 0, stepDuration);
-    }
-    
     private static SoundEvent getCurrentSoundEvent() {
         switch (currentMusicType) {
             case "victory":
@@ -274,6 +235,8 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
                 return CustomCobblemonMusicMod.EVO_CONGRAT_MUSIC;
             case "catch_congrat":
                 return CustomCobblemonMusicMod.CATCH_CONGRAT_MUSIC;
+            case "flee":
+                return CustomCobblemonMusicMod.FLEE_MUSIC;
             default:
                 return null;
         }
@@ -296,11 +259,6 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         if (musicTimer != null) {
             musicTimer.cancel();
             musicTimer = null;
-        }
-        
-        if (fadeOutTimer != null) {
-            fadeOutTimer.cancel();
-            fadeOutTimer = null;
         }
     }
     
