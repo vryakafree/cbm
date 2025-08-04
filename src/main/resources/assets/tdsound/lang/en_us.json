@@ -14,6 +14,9 @@
   "config.tdsound.catch_congrat_volume": "Catch Congratulations Volume",
   "config.tdsound.catch_congrat_volume.tooltip": "Volume for congratulations music when catching Pokemon (0.0 - 1.0)",
   
+  "config.tdsound.flee_volume": "Flee Music Volume",
+  "config.tdsound.flee_volume.tooltip": "Volume for flee music when player flees from battle (0.0 - 1.0)",
+  
   "config.tdsound.enable_victory_music": "Enable Victory Music",
   "config.tdsound.enable_victory_music.tooltip": "Enable victory music after winning battles",
   
@@ -23,8 +26,11 @@
   "config.tdsound.enable_catch_music": "Enable Catch Congratulations",
   "config.tdsound.enable_catch_music.tooltip": "Enable congratulations music when catching Pokemon",
   
+  "config.tdsound.enable_flee_music": "Enable Flee Music",
+  "config.tdsound.enable_flee_music.tooltip": "Enable flee music when player flees from battle",
+  
   "config.tdsound.victory_music_duration": "Victory Music Duration (ms)",
-  "config.tdsound.victory_music_duration.tooltip": "How long victory music plays in milliseconds (default: 7000 = 7 seconds)",
+  "config.tdsound.victory_music_duration.tooltip": "How long victory music plays in milliseconds (default: 15000 = 15 seconds)",
   
   "config.tdsound.debug_logging": "Debug Logging",
   "config.tdsound.debug_logging.tooltip": "Enable debug logging for troubleshooting (check console logs)"

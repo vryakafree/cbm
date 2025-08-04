@@ -29,17 +29,17 @@ public class CustomCobblemonMusicModMenuIntegration implements ModMenuApi {
                     Text.translatable("config.tdsound.category.volume"));
                     
             volumeCategory.addEntry(entryBuilder
-                                          .startFloatField(Text.translatable("config.tdsound.victory_volume"), config.victoryMusicVolume)
-                      .setDefaultValue(1.0f)
-                      .setMin(0.0f)
-                      .setMax(1.0f)
-                      .setTooltip(Text.translatable("config.tdsound.victory_volume.tooltip"))
+                    .startFloatField(Text.translatable("config.tdsound.victory_volume"), config.victoryMusicVolume)
+                    .setDefaultValue(0.1f)
+                    .setMin(0.0f)
+                    .setMax(1.0f)
+                    .setTooltip(Text.translatable("config.tdsound.victory_volume.tooltip"))
                     .setSaveConsumer(newValue -> config.victoryMusicVolume = newValue)
                     .build());
                     
             volumeCategory.addEntry(entryBuilder
                     .startFloatField(Text.translatable("config.tdsound.evolution_congrat_volume"), config.evolutionCongratMusicVolume)
-                    .setDefaultValue(0.8f)
+                    .setDefaultValue(0.1f)
                     .setMin(0.0f)
                     .setMax(1.0f)
                     .setTooltip(Text.translatable("config.tdsound.evolution_congrat_volume.tooltip"))
@@ -48,11 +48,20 @@ public class CustomCobblemonMusicModMenuIntegration implements ModMenuApi {
                     
             volumeCategory.addEntry(entryBuilder
                     .startFloatField(Text.translatable("config.tdsound.catch_congrat_volume"), config.catchCongratMusicVolume)
-                    .setDefaultValue(0.9f)
+                    .setDefaultValue(0.1f)
                     .setMin(0.0f)
                     .setMax(1.0f)
                     .setTooltip(Text.translatable("config.tdsound.catch_congrat_volume.tooltip"))
                     .setSaveConsumer(newValue -> config.catchCongratMusicVolume = newValue)
+                    .build());
+                    
+            volumeCategory.addEntry(entryBuilder
+                    .startFloatField(Text.translatable("config.tdsound.flee_volume"), config.fleeMusicVolume)
+                    .setDefaultValue(0.1f)
+                    .setMin(0.0f)
+                    .setMax(1.0f)
+                    .setTooltip(Text.translatable("config.tdsound.flee_volume.tooltip"))
+                    .setSaveConsumer(newValue -> config.fleeMusicVolume = newValue)
                     .build());
             
             // Music Features Category
@@ -79,6 +88,13 @@ public class CustomCobblemonMusicModMenuIntegration implements ModMenuApi {
                     .setTooltip(Text.translatable("config.tdsound.enable_catch_music.tooltip"))
                     .setSaveConsumer(newValue -> config.enableCatchMusic = newValue)
                     .build());
+                    
+            featuresCategory.addEntry(entryBuilder
+                    .startBooleanToggle(Text.translatable("config.tdsound.enable_flee_music"), config.enableFleeMusic)
+                    .setDefaultValue(true)
+                    .setTooltip(Text.translatable("config.tdsound.enable_flee_music.tooltip"))
+                    .setSaveConsumer(newValue -> config.enableFleeMusic = newValue)
+                    .build());
             
             // Advanced Settings Category
             ConfigCategory advancedCategory = builder.getOrCreateCategory(
@@ -86,7 +102,7 @@ public class CustomCobblemonMusicModMenuIntegration implements ModMenuApi {
                     
             advancedCategory.addEntry(entryBuilder
                     .startIntField(Text.translatable("config.tdsound.victory_music_duration"), config.victoryMusicDuration)
-                    .setDefaultValue(7000)
+                    .setDefaultValue(15000)
                     .setMin(1000)
                     .setMax(30000)
                     .setTooltip(Text.translatable("config.tdsound.victory_music_duration.tooltip"))
