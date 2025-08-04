@@ -16,7 +16,7 @@ public class CustomCobblemonMusicModMenuIntegration implements ModMenuApi {
             
             ConfigBuilder builder = ConfigBuilder.create()
                     .setParentScreen(parent)
-                    .setTitle(Text.translatable("config.customcongratsoundforcobblemon.title"))
+                    .setTitle(Text.translatable("config.tdsound.title"))
                     .setSavingRunnable(() -> {
                         config.save();
                         CustomCobblemonMusicMod.LOGGER.info("Configuration saved");
@@ -26,77 +26,77 @@ public class CustomCobblemonMusicModMenuIntegration implements ModMenuApi {
             
             // Volume Settings Category
             ConfigCategory volumeCategory = builder.getOrCreateCategory(
-                    Text.translatable("config.customcongratsoundforcobblemon.category.volume"));
+                    Text.translatable("config.tdsound.category.volume"));
                     
             volumeCategory.addEntry(entryBuilder
-                    .startFloatField(Text.translatable("config.customcongratsoundforcobblemon.victory_volume"), config.victoryMusicVolume)
-                    .setDefaultValue(1.0f)
-                    .setMin(0.0f)
-                    .setMax(1.0f)
-                    .setTooltip(Text.translatable("config.customcongratsoundforcobblemon.victory_volume.tooltip"))
+                                          .startFloatField(Text.translatable("config.tdsound.victory_volume"), config.victoryMusicVolume)
+                      .setDefaultValue(1.0f)
+                      .setMin(0.0f)
+                      .setMax(1.0f)
+                      .setTooltip(Text.translatable("config.tdsound.victory_volume.tooltip"))
                     .setSaveConsumer(newValue -> config.victoryMusicVolume = newValue)
                     .build());
                     
             volumeCategory.addEntry(entryBuilder
-                    .startFloatField(Text.translatable("config.customcongratsoundforcobblemon.evolution_congrat_volume"), config.evolutionCongratMusicVolume)
+                    .startFloatField(Text.translatable("config.tdsound.evolution_congrat_volume"), config.evolutionCongratMusicVolume)
                     .setDefaultValue(0.8f)
                     .setMin(0.0f)
                     .setMax(1.0f)
-                    .setTooltip(Text.translatable("config.customcongratsoundforcobblemon.evolution_congrat_volume.tooltip"))
+                    .setTooltip(Text.translatable("config.tdsound.evolution_congrat_volume.tooltip"))
                     .setSaveConsumer(newValue -> config.evolutionCongratMusicVolume = newValue)
                     .build());
                     
             volumeCategory.addEntry(entryBuilder
-                    .startFloatField(Text.translatable("config.customcongratsoundforcobblemon.catch_congrat_volume"), config.catchCongratMusicVolume)
+                    .startFloatField(Text.translatable("config.tdsound.catch_congrat_volume"), config.catchCongratMusicVolume)
                     .setDefaultValue(0.9f)
                     .setMin(0.0f)
                     .setMax(1.0f)
-                    .setTooltip(Text.translatable("config.customcongratsoundforcobblemon.catch_congrat_volume.tooltip"))
+                    .setTooltip(Text.translatable("config.tdsound.catch_congrat_volume.tooltip"))
                     .setSaveConsumer(newValue -> config.catchCongratMusicVolume = newValue)
                     .build());
             
             // Music Features Category
             ConfigCategory featuresCategory = builder.getOrCreateCategory(
-                    Text.translatable("config.customcongratsoundforcobblemon.category.features"));
+                    Text.translatable("config.tdsound.category.features"));
                     
             featuresCategory.addEntry(entryBuilder
-                    .startBooleanToggle(Text.translatable("config.customcongratsoundforcobblemon.enable_victory_music"), config.enableVictoryMusic)
+                    .startBooleanToggle(Text.translatable("config.tdsound.enable_victory_music"), config.enableVictoryMusic)
                     .setDefaultValue(true)
-                    .setTooltip(Text.translatable("config.customcongratsoundforcobblemon.enable_victory_music.tooltip"))
+                    .setTooltip(Text.translatable("config.tdsound.enable_victory_music.tooltip"))
                     .setSaveConsumer(newValue -> config.enableVictoryMusic = newValue)
                     .build());
                     
             featuresCategory.addEntry(entryBuilder
-                    .startBooleanToggle(Text.translatable("config.customcongratsoundforcobblemon.enable_evolution_music"), config.enableEvolutionMusic)
+                    .startBooleanToggle(Text.translatable("config.tdsound.enable_evolution_music"), config.enableEvolutionMusic)
                     .setDefaultValue(true)
-                    .setTooltip(Text.translatable("config.customcongratsoundforcobblemon.enable_evolution_music.tooltip"))
+                    .setTooltip(Text.translatable("config.tdsound.enable_evolution_music.tooltip"))
                     .setSaveConsumer(newValue -> config.enableEvolutionMusic = newValue)
                     .build());
                     
             featuresCategory.addEntry(entryBuilder
-                    .startBooleanToggle(Text.translatable("config.customcongratsoundforcobblemon.enable_catch_music"), config.enableCatchMusic)
+                    .startBooleanToggle(Text.translatable("config.tdsound.enable_catch_music"), config.enableCatchMusic)
                     .setDefaultValue(true)
-                    .setTooltip(Text.translatable("config.customcongratsoundforcobblemon.enable_catch_music.tooltip"))
+                    .setTooltip(Text.translatable("config.tdsound.enable_catch_music.tooltip"))
                     .setSaveConsumer(newValue -> config.enableCatchMusic = newValue)
                     .build());
             
             // Advanced Settings Category
             ConfigCategory advancedCategory = builder.getOrCreateCategory(
-                    Text.translatable("config.customcongratsoundforcobblemon.category.advanced"));
+                    Text.translatable("config.tdsound.category.advanced"));
                     
             advancedCategory.addEntry(entryBuilder
-                    .startIntField(Text.translatable("config.customcongratsoundforcobblemon.victory_music_duration"), config.victoryMusicDuration)
+                    .startIntField(Text.translatable("config.tdsound.victory_music_duration"), config.victoryMusicDuration)
                     .setDefaultValue(7000)
                     .setMin(1000)
                     .setMax(30000)
-                    .setTooltip(Text.translatable("config.customcongratsoundforcobblemon.victory_music_duration.tooltip"))
+                    .setTooltip(Text.translatable("config.tdsound.victory_music_duration.tooltip"))
                     .setSaveConsumer(newValue -> config.victoryMusicDuration = newValue)
                     .build());
                     
             advancedCategory.addEntry(entryBuilder
-                    .startBooleanToggle(Text.translatable("config.customcongratsoundforcobblemon.debug_logging"), config.debugLogging)
+                    .startBooleanToggle(Text.translatable("config.tdsound.debug_logging"), config.debugLogging)
                     .setDefaultValue(false)
-                    .setTooltip(Text.translatable("config.customcongratsoundforcobblemon.debug_logging.tooltip"))
+                    .setTooltip(Text.translatable("config.tdsound.debug_logging.tooltip"))
                     .setSaveConsumer(newValue -> config.debugLogging = newValue)
                     .build());
             

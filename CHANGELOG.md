@@ -1,6 +1,40 @@
 # Changelog
 
-All notable changes to Custom Congrat Sound For Cobblemon will be documented in this file.
+All notable changes to TDsound will be documented in this file.
+
+## [1.0.3] - 2025-08-02
+
+### 🎉 Major Rename & Enhanced Fade Out
+
+#### Changed
+- **Mod Name**: Renamed from "Custom Congrat Sound For Cobblemon" to "TDsound"
+- **Mod ID**: Changed from `customcongratsoundforcobblemon` to `tdsound`
+- **Focus**: Enhanced focus on smooth fade out effects
+
+#### Enhanced
+- **Victory Music Fade Out**: Implemented smooth volume fade out instead of abrupt stop
+- **Fade Out System**: Added sophisticated fade out with 20-step volume reduction
+- **Volume Control**: Dynamic volume adjustment during fade out process
+- **Timer Management**: Improved timer handling for fade out and stop operations
+
+#### Updated
+- **Documentation**: Complete README update with new mod name and fade out features
+- **Language Files**: Updated all translation keys to new mod ID
+- **Assets**: Renamed assets directory to match new mod ID
+- **Configuration**: Updated config file path to new mod ID
+
+### 🎵 Sound System
+- **Victory Music**: Plays with smooth fade out after battle victory
+- **Evolution Congratulations**: Plays after evolution completes
+- **Catch Congratulations**: Plays when Pokemon is caught
+
+### 🎮 Commands
+- `/cobblecongrat status` - Show mod status and enabled features
+- `/cobblecongrat test victory` - Test victory music (plays with fade out info)
+- `/cobblecongrat test evo_congrat` - Test evolution congratulations (plays sound)
+- `/cobblecongrat test catch` - Test catch congratulations (plays sound)
+- `/cobblecongrat stop` - Stop all custom sounds
+- `/cobblecongrat config` - Show current configuration
 
 ## [1.0.2] - 2025-08-02
 

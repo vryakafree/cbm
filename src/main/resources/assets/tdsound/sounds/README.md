@@ -1,4 +1,4 @@
-# Sound Files for Cobblemon Battle Music
+# Sound Files for TDsound
 
 ## Required Sound Files
 
@@ -47,8 +47,7 @@ Place the following `.ogg` audio files in this directory:
 
 ## Testing
 
-Use `/cobblemusic` commands (from CBM-CC) to test music:
-- `/cobblemusic play battle_song`
-- `/cobblemusic simulate health 0.1` (trigger panic)
-- `/cobblemusic simulate evolution`
-- `/cobblemusic simulate catch`
+Use `/cobblecongrat` commands to test music:
+- `/cobblecongrat test victory`
+- `/cobblecongrat test evolution`
+- `/cobblecongrat test catch`

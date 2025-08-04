@@ -1,4 +1,4 @@
-# Icon Guidelines for Cobblemon Battle Music
+# Icon Guidelines for TDsound
 
 ## 📱 Icon Requirements
 
