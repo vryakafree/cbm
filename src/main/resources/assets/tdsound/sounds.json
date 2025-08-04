@@ -3,7 +3,7 @@
     "category": "music",
     "sounds": [
       {
-        "name": "customcongratsoundforcobblemon:victory",
+        "name": "tdsound:victory",
         "stream": true,
         "volume": 1.0,
         "pitch": 1.0
@@ -14,7 +14,7 @@
     "category": "music",
     "sounds": [
       {
-        "name": "customcongratsoundforcobblemon:evo_congrat",
+        "name": "tdsound:evo_congrat",
         "stream": true,
         "volume": 0.8,
         "pitch": 1.0
@@ -25,7 +25,7 @@
     "category": "music",
     "sounds": [
       {
-        "name": "customcongratsoundforcobblemon:catch_congrat",
+        "name": "tdsound:catch_congrat",
         "stream": true,
         "volume": 0.9,
         "pitch": 1.0

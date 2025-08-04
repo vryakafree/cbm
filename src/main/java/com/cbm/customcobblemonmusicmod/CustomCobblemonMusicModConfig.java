@@ -11,7 +11,7 @@ import java.nio.file.Path;
 
 public class CustomCobblemonMusicModConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("customcongratsoundforcobblemon.json");
+    private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("tdsound.json");
     private static CustomCobblemonMusicModConfig INSTANCE;
     
     // Music volume settings (only for custom congrat sounds)
