@@ -116,11 +116,10 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
             public void run() {
                 stopCurrentMusic();
             }
-        }, config.victoryMusicDuration);
+        }, 15000); // 15 seconds fixed duration
         
         if (config.debugLogging) {
-            CustomCobblemonMusicMod.LOGGER.info("Victory! Playing victory music immediately for " + 
-                (config.victoryMusicDuration / 1000) + " seconds");
+            CustomCobblemonMusicMod.LOGGER.info("Victory! Playing victory music immediately for 15 seconds");
         }
     }
     

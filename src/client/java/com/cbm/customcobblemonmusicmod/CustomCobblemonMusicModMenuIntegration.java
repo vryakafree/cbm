@@ -30,7 +30,7 @@ public class CustomCobblemonMusicModMenuIntegration implements ModMenuApi {
                     
             volumeCategory.addEntry(entryBuilder
                     .startFloatField(Text.translatable("config.tdsound.victory_volume"), config.victoryMusicVolume)
-                    .setDefaultValue(0.1f)
+                    .setDefaultValue(0.3f)
                     .setMin(0.0f)
                     .setMax(1.0f)
                     .setTooltip(Text.translatable("config.tdsound.victory_volume.tooltip"))
@@ -39,7 +39,7 @@ public class CustomCobblemonMusicModMenuIntegration implements ModMenuApi {
                     
             volumeCategory.addEntry(entryBuilder
                     .startFloatField(Text.translatable("config.tdsound.evolution_congrat_volume"), config.evolutionCongratMusicVolume)
-                    .setDefaultValue(0.1f)
+                    .setDefaultValue(0.3f)
                     .setMin(0.0f)
                     .setMax(1.0f)
                     .setTooltip(Text.translatable("config.tdsound.evolution_congrat_volume.tooltip"))
@@ -48,7 +48,7 @@ public class CustomCobblemonMusicModMenuIntegration implements ModMenuApi {
                     
             volumeCategory.addEntry(entryBuilder
                     .startFloatField(Text.translatable("config.tdsound.catch_congrat_volume"), config.catchCongratMusicVolume)
-                    .setDefaultValue(0.1f)
+                    .setDefaultValue(0.3f)
                     .setMin(0.0f)
                     .setMax(1.0f)
                     .setTooltip(Text.translatable("config.tdsound.catch_congrat_volume.tooltip"))
@@ -57,7 +57,7 @@ public class CustomCobblemonMusicModMenuIntegration implements ModMenuApi {
                     
             volumeCategory.addEntry(entryBuilder
                     .startFloatField(Text.translatable("config.tdsound.flee_volume"), config.fleeMusicVolume)
-                    .setDefaultValue(0.1f)
+                    .setDefaultValue(0.3f)
                     .setMin(0.0f)
                     .setMax(1.0f)
                     .setTooltip(Text.translatable("config.tdsound.flee_volume.tooltip"))
@@ -100,14 +100,7 @@ public class CustomCobblemonMusicModMenuIntegration implements ModMenuApi {
             ConfigCategory advancedCategory = builder.getOrCreateCategory(
                     Text.translatable("config.tdsound.category.advanced"));
                     
-            advancedCategory.addEntry(entryBuilder
-                    .startIntField(Text.translatable("config.tdsound.victory_music_duration"), config.victoryMusicDuration)
-                    .setDefaultValue(15000)
-                    .setMin(1000)
-                    .setMax(30000)
-                    .setTooltip(Text.translatable("config.tdsound.victory_music_duration.tooltip"))
-                    .setSaveConsumer(newValue -> config.victoryMusicDuration = newValue)
-                    .build());
+
                     
             advancedCategory.addEntry(entryBuilder
                     .startBooleanToggle(Text.translatable("config.tdsound.debug_logging"), config.debugLogging)

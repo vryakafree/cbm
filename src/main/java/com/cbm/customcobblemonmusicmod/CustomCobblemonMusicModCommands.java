@@ -73,7 +73,7 @@ public class CustomCobblemonMusicModCommands {
             
             source.sendMessage(Text.literal("§6Testing victory music..."));
             source.sendMessage(Text.literal("§ePlaying: victory.ogg"));
-            source.sendMessage(Text.literal("§7Duration: " + (config.victoryMusicDuration / 1000) + " seconds"));
+            source.sendMessage(Text.literal("§7Duration: 15 seconds"));
             source.sendMessage(Text.literal("§7Volume: " + (int)(config.victoryMusicVolume * 100) + "%"));
             
             // Play victory music on server side for testing
@@ -232,7 +232,7 @@ public class CustomCobblemonMusicModCommands {
         source.sendMessage(Text.literal("§eVictory Music: §f" + config.enableVictoryMusic + " (Vol: " + (int)(config.victoryMusicVolume * 100) + "%)"));
         source.sendMessage(Text.literal("§eEvolution Congrat: §f" + config.enableEvolutionMusic + " (Vol: " + (int)(config.evolutionCongratMusicVolume * 100) + "%)"));
         source.sendMessage(Text.literal("§eCatch Congrat: §f" + config.enableCatchMusic + " (Vol: " + (int)(config.catchCongratMusicVolume * 100) + "%)"));
-        source.sendMessage(Text.literal("§eVictory Duration: §f" + (config.victoryMusicDuration / 1000) + " seconds"));
+        source.sendMessage(Text.literal("§eVictory Duration: §f15 seconds"));
         source.sendMessage(Text.literal("§eDebug Logging: §f" + config.debugLogging));
         source.sendMessage(Text.literal(""));
         source.sendMessage(Text.literal("§7Use ModMenu for GUI configuration"));
