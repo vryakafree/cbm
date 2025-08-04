@@ -1,11 +1,11 @@
-# Custom Congrat Sound For Cobblemon
+# TDsound
 
-A lightweight Fabric mod that adds **Victory**, **Evolution Congratulations**, and **Catch Congratulations** sounds to your Cobblemon experience. Battle music is handled by Cobblemon's native system or compatible resource packs.
+A lightweight Fabric mod that adds **Victory**, **Evolution Congratulations**, and **Catch Congratulations** sounds to your Cobblemon experience with **smooth fade out effects**. Battle music is handled by Cobblemon's native system or compatible resource packs.
 
 ## ✨ Features
 
 ### 🎵 **Sound Types**
-- **🏆 Victory Music** - Plays immediately after winning battles (configurable duration with fade out)
+- **🏆 Victory Music** - Plays immediately after winning battles with smooth fade out (configurable duration)
 - **🎉 Evolution Congratulations** - Plays when evolution completes
 - **⭐ Catch Congratulations** - Plays when you successfully catch Pokemon
 
@@ -13,7 +13,7 @@ A lightweight Fabric mod that adds **Victory**, **Evolution Congratulations**, a
 - **ModMenu Integration**: Full GUI configuration through ModMenu
 - **Volume Controls**: Individual volume settings for each sound type (0-100%)
 - **Feature Toggles**: Enable/disable specific sound types
-- **Advanced Settings**: Victory duration, fade out duration, debug logging
+- **Advanced Settings**: Victory duration, fade out duration (0.5-5 seconds), debug logging
 - **Auto-save Configuration**: Settings automatically save and load
 
 ### 🎮 **Commands**
@@ -61,7 +61,7 @@ Create a resource pack with your custom sounds:
 your_resource_pack/
 ├── pack.mcmeta
 └── assets/
-    └── customcongratsoundforcobblemon/
+    └── tdsound/
         └── sounds/
             ├── victory.ogg
             ├── evo_congrat.ogg
@@ -73,7 +73,7 @@ your_resource_pack/
 {
   "pack": {
     "pack_format": 34,
-    "description": "Custom Congrat Sound For Cobblemon"
+    "description": "TDsound Custom Sounds"
   }
 }
 ```
@@ -87,12 +87,12 @@ your_resource_pack/
 
 ### ModMenu GUI (Recommended)
 1. Install ModMenu + Cloth Config
-2. Go to **Mods** → **Custom Congrat Sound For Cobblemon** → **Config**
+2. Go to **Mods** → **TDsound** → **Config**
 3. Adjust settings in the GUI
 4. Settings save automatically
 
 ### Manual Configuration
-Edit `config/customcongratsoundforcobblemon.json`:
+Edit `config/tdsound.json`:
 
 ```json
 {
