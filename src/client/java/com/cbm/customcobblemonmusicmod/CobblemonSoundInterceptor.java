@@ -30,18 +30,27 @@ public class CobblemonSoundInterceptor {
         
         String soundPath = soundId.getPath();
         
+        // Map specific Cobblemon sound types based on their sound.json configuration
         if (soundPath.contains("pokemon") && soundPath.contains("cry")) {
             // Pokemon cry sounds
             newVolume *= config.cobblemonPokemonCriesVolume;
             newPitch *= config.cobblemonPokemonCriesPitch;
         } else if (soundPath.contains("poke_ball") || soundPath.contains("pokeball")) {
-            // Pokeball sounds
+            // Pokeball sounds (capture, shake, bounce, etc.)
             newVolume *= config.cobblemonPokeballSoundsVolume;
             newPitch *= config.cobblemonPokeballSoundsPitch;
         } else if (soundPath.contains("battle") || soundPath.contains("fight")) {
             // Battle sounds
             newVolume *= config.cobblemonBattleSoundsVolume;
             newPitch *= config.cobblemonBattleSoundsPitch;
+        } else if (soundPath.contains("pc.")) {
+            // PC sounds (on, off, grab, drop, release, click)
+            newVolume *= config.cobblemonSoundsVolume;
+            newPitch *= config.cobblemonSoundsPitch;
+        } else if (soundPath.contains("entity/villager/work_nurse")) {
+            // Nurse Joy sounds
+            newVolume *= config.cobblemonSoundsVolume;
+            newPitch *= config.cobblemonSoundsPitch;
         } else {
             // General Cobblemon sounds
             newVolume *= config.cobblemonSoundsVolume;
@@ -63,7 +72,26 @@ public class CobblemonSoundInterceptor {
      * Check if a sound ID belongs to Cobblemon
      */
     public static boolean isCobblemonSound(Identifier soundId) {
-        return soundId.getNamespace().equals("cobblemon");
+        String namespace = soundId.getNamespace();
+        String path = soundId.getPath();
+        
+        // Check namespace first
+        if (namespace.equals("cobblemon")) {
+            return true;
+        }
+        
+        // Check for common Cobblemon sound patterns in path
+        if (path.contains("cobblemon") || 
+            path.contains("pokemon") || 
+            path.contains("poke_ball") || 
+            path.contains("pokeball") ||
+            path.contains("battle") ||
+            path.contains("pc.") ||
+            path.contains("entity/villager/work_nurse")) {
+            return true;
+        }
+        
+        return false;
     }
     
     /**

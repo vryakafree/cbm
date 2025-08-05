@@ -27,7 +27,7 @@ public class CustomCobblemonMusicModConfig {
     public float fleeMusicPitch = 1.0f; // Normal pitch
     
     // Cobblemon sound control settings
-    public boolean enableCobblemonSoundControl = false; // Disabled by default to avoid conflicts
+    public boolean enableCobblemonSoundControl = true; // Enabled by default to control Cobblemon sounds
     public float cobblemonSoundsVolume = 1.0f; // Global volume for Cobblemon sounds
     public float cobblemonSoundsPitch = 1.0f; // Global pitch for Cobblemon sounds
     public float cobblemonPokemonCriesVolume = 1.0f; // Volume for Pokemon cries specifically

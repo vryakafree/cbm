@@ -24,9 +24,15 @@ public class CobblemonSoundMixin {
         // Get the sound ID
         Identifier soundId = sound.getId();
         
-        // Check if this is a Cobblemon sound
-        if (!soundId.getNamespace().equals("cobblemon")) {
+        // Check if this is a Cobblemon sound (check both namespace and path)
+        if (!CobblemonSoundInterceptor.isCobblemonSound(soundId)) {
             return;
+        }
+        
+        // Debug logging for all Cobblemon sounds
+        if (config.debugLogging) {
+            CustomCobblemonMusicMod.LOGGER.info("Intercepted Cobblemon sound: " + soundId + 
+                " | Original vol: " + sound.getVolume() + ", pitch: " + sound.getPitch());
         }
         
         // Cancel the original sound
@@ -41,11 +47,5 @@ public class CobblemonSoundMixin {
         
         // Play the modified sound
         ((SoundManager) (Object) this).play(modifiedSound);
-        
-        // Debug logging
-        if (config.debugLogging) {
-            CustomCobblemonMusicMod.LOGGER.info("Intercepted Cobblemon sound: " + soundId + 
-                " | Original vol: " + sound.getVolume() + ", pitch: " + sound.getPitch());
-        }
     }
 }
