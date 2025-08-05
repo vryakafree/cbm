@@ -60,7 +60,7 @@ public class CustomCobblemonMusicModConfig {
     public boolean enableFleeMusic = true;
     
     // Advanced settings
-    public boolean debugLogging = false;
+    public boolean debugLogging = true; // Enabled by default to help diagnose sound issues
     
     public static CustomCobblemonMusicModConfig getInstance() {
         if (INSTANCE == null) {

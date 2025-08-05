@@ -77,8 +77,16 @@ public class CobblemonSoundMixin {
             }
         } catch (Exception e) {
             CustomCobblemonMusicMod.LOGGER.error("Error creating modified Cobblemon sound for " + soundId + ": " + e.getMessage());
+            e.printStackTrace();
             // Fallback: play original sound if modification fails
-            ((SoundManager) (Object) this).play(sound);
+            try {
+                ((SoundManager) (Object) this).play(sound);
+                if (config.debugLogging) {
+                    CustomCobblemonMusicMod.LOGGER.info("Fallback: played original sound for: " + soundId);
+                }
+            } catch (Exception fallbackError) {
+                CustomCobblemonMusicMod.LOGGER.error("Failed to play fallback sound for " + soundId + ": " + fallbackError.getMessage());
+            }
         }
     }
 }

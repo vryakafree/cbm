@@ -5,6 +5,7 @@ import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
+import net.minecraft.registry.Registries;
 
 public class CobblemonSoundInterceptor {
     
@@ -16,12 +17,12 @@ public class CobblemonSoundInterceptor {
         
         // Only process if Cobblemon sound control is enabled
         if (!config.enableCobblemonSoundControl) {
-            return PositionedSoundInstance.master(SoundEvent.of(soundId), pitch, volume);
+            return createOriginalSoundInstance(soundId, volume, pitch);
         }
         
         // Check if this is a Cobblemon sound
         if (!isCobblemonSound(soundId)) {
-            return PositionedSoundInstance.master(SoundEvent.of(soundId), pitch, volume);
+            return createOriginalSoundInstance(soundId, volume, pitch);
         }
         
         // Determine sound category and apply appropriate volume/pitch
@@ -94,15 +95,44 @@ public class CobblemonSoundInterceptor {
         }
         
         try {
-            // Create the SoundEvent first to ensure it's valid
-            SoundEvent soundEvent = SoundEvent.of(soundId);
+            // Get the existing SoundEvent from the registry instead of creating a new one
+            SoundEvent soundEvent = Registries.SOUND_EVENT.get(soundId);
+            if (soundEvent == null) {
+                CustomCobblemonMusicMod.LOGGER.warn("SoundEvent not found in registry for: " + soundId);
+                return createOriginalSoundInstance(soundId, newVolume, newPitch);
+            }
             
             // Create modified sound instance with proper category
-            return PositionedSoundInstance.master(soundEvent, newPitch, newVolume);
+            return createAppropriateSoundInstance(soundEvent, newVolume, newPitch, soundPath);
         } catch (Exception e) {
-            CustomCobblemonMusicMod.LOGGER.error("Error creating SoundEvent for " + soundId + ": " + e.getMessage());
-            // Fallback to master category
-            return PositionedSoundInstance.master(SoundEvent.of(soundId), newPitch, newVolume);
+            CustomCobblemonMusicMod.LOGGER.error("Error creating modified sound for " + soundId + ": " + e.getMessage());
+            // Fallback to original sound
+            return createOriginalSoundInstance(soundId, newVolume, newPitch);
+        }
+    }
+    
+    /**
+     * Create the appropriate type of sound instance based on the sound path
+     */
+    private static SoundInstance createAppropriateSoundInstance(SoundEvent soundEvent, float volume, float pitch, String soundPath) {
+        // Use master category for all sounds since positioning isn't critical for volume/pitch control
+        return PositionedSoundInstance.master(soundEvent, pitch, volume);
+    }
+    
+    /**
+     * Create the original sound instance without modifications
+     */
+    private static SoundInstance createOriginalSoundInstance(Identifier soundId, float volume, float pitch) {
+        try {
+            SoundEvent soundEvent = Registries.SOUND_EVENT.get(soundId);
+            if (soundEvent == null) {
+                // Fallback to creating a new SoundEvent if not in registry
+                soundEvent = SoundEvent.of(soundId);
+            }
+            return PositionedSoundInstance.master(soundEvent, pitch, volume);
+        } catch (Exception e) {
+            CustomCobblemonMusicMod.LOGGER.error("Error creating original sound instance for " + soundId + ": " + e.getMessage());
+            return PositionedSoundInstance.master(SoundEvent.of(soundId), pitch, volume);
         }
     }
     
