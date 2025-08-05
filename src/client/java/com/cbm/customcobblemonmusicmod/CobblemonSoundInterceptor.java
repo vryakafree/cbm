@@ -81,6 +81,10 @@ public class CobblemonSoundInterceptor {
             newPitch *= config.cobblemonSoundsPitch;
         }
         
+        // Ensure values are within valid ranges
+        newVolume = Math.max(0.0f, Math.min(1.0f, newVolume));
+        newPitch = Math.max(0.5f, Math.min(2.0f, newPitch));
+        
         // Debug logging
         if (config.debugLogging) {
             CustomCobblemonMusicMod.LOGGER.info("Creating modified Cobblemon sound: " + soundId + 
@@ -89,8 +93,17 @@ public class CobblemonSoundInterceptor {
                 " | Category: " + getCobblemonSoundCategory(soundId));
         }
         
-        // Create modified sound instance
-        return PositionedSoundInstance.master(SoundEvent.of(soundId), newPitch, newVolume);
+        try {
+            // Create the SoundEvent first to ensure it's valid
+            SoundEvent soundEvent = SoundEvent.of(soundId);
+            
+            // Create modified sound instance with proper category
+            return PositionedSoundInstance.master(soundEvent, newPitch, newVolume);
+        } catch (Exception e) {
+            CustomCobblemonMusicMod.LOGGER.error("Error creating SoundEvent for " + soundId + ": " + e.getMessage());
+            // Fallback to master category
+            return PositionedSoundInstance.master(SoundEvent.of(soundId), newPitch, newVolume);
+        }
     }
     
     /**

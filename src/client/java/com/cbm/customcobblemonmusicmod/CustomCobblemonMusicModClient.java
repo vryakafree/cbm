@@ -13,6 +13,11 @@ import kotlin.Unit;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.minecraft.client.sound.SoundInstance;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
 public class CustomCobblemonMusicModClient implements ClientModInitializer {
     private static boolean isEvolutionMusicPlaying = false;
@@ -41,6 +46,9 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         });
         
         CustomCobblemonMusicMod.LOGGER.info("Custom Congrat Sound For Cobblemon client initialized!");
+        
+        // Register test command for debugging
+        registerTestCommands();
     }
     
     private void initializeCobblemonSoundControl() {
@@ -280,5 +288,94 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
     
     public static boolean isMusicPlaying() {
         return currentSoundInstance != null;
+    }
+    
+    private void registerTestCommands() {
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+            dispatcher.register(ClientCommandManager.literal("tdsound")
+                .then(ClientCommandManager.literal("test")
+                    .executes(context -> {
+                        testCobblemonSoundInterception();
+                        context.getSource().sendFeedback(Text.literal("Testing Cobblemon sound interception... Check logs for details."));
+                        return 1;
+                    }))
+                .then(ClientCommandManager.literal("debug")
+                    .executes(context -> {
+                        toggleDebugLogging();
+                        context.getSource().sendFeedback(Text.literal("Debug logging toggled. Check config for current state."));
+                        return 1;
+                    }))
+                .then(ClientCommandManager.literal("config")
+                    .executes(context -> {
+                        showCurrentConfig();
+                        context.getSource().sendFeedback(Text.literal("Current config displayed in chat. Check logs for full details."));
+                        return 1;
+                    }))
+            );
+        });
+    }
+    
+    private void testCobblemonSoundInterception() {
+        CustomCobblemonMusicMod.LOGGER.info("=== TESTING COBBLEMON SOUND INTERCEPTION ===");
+        
+        // Test various Cobblemon sound IDs
+        String[] testSounds = {
+            "cobblemon:pokemon.bulbasaur.cry",
+            "cobblemon:pokemon.pikachu.cry", 
+            "cobblemon:move.tackle",
+            "cobblemon:impact.tackle",
+            "cobblemon:evolution.full",
+            "cobblemon:poke_ball.capture_succeeded",
+            "cobblemon:pc.on",
+            "cobblemon:ui.menu"
+        };
+        
+        for (String soundIdStr : testSounds) {
+            Identifier soundId = Identifier.of(soundIdStr);
+            boolean isCobblemon = CobblemonSoundInterceptor.isCobblemonSound(soundId);
+            String category = CobblemonSoundInterceptor.getCobblemonSoundCategory(soundId);
+            
+            CustomCobblemonMusicMod.LOGGER.info("Testing sound: " + soundIdStr);
+            CustomCobblemonMusicMod.LOGGER.info("  - Is Cobblemon sound: " + isCobblemon);
+            CustomCobblemonMusicMod.LOGGER.info("  - Category: " + category);
+            
+            if (isCobblemon) {
+                try {
+                    SoundInstance testSound = CobblemonSoundInterceptor.createModifiedCobblemonSound(soundId, 1.0f, 1.0f);
+                    CustomCobblemonMusicMod.LOGGER.info("  - Successfully created modified sound instance");
+                } catch (Exception e) {
+                    CustomCobblemonMusicMod.LOGGER.error("  - Error creating sound instance: " + e.getMessage());
+                }
+            }
+        }
+        
+        CustomCobblemonMusicMod.LOGGER.info("=== END TEST ===");
+    }
+    
+    private void toggleDebugLogging() {
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        config.debugLogging = !config.debugLogging;
+        config.save();
+        
+        CustomCobblemonMusicMod.LOGGER.info("Debug logging " + (config.debugLogging ? "ENABLED" : "DISABLED"));
+    }
+    
+    private void showCurrentConfig() {
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        
+        CustomCobblemonMusicMod.LOGGER.info("=== CURRENT CONFIG ===");
+        CustomCobblemonMusicMod.LOGGER.info("Cobblemon sound control enabled: " + config.enableCobblemonSoundControl);
+        CustomCobblemonMusicMod.LOGGER.info("Debug logging: " + config.debugLogging);
+        CustomCobblemonMusicMod.LOGGER.info("Global Cobblemon volume: " + config.cobblemonSoundsVolume);
+        CustomCobblemonMusicMod.LOGGER.info("Global Cobblemon pitch: " + config.cobblemonSoundsPitch);
+        CustomCobblemonMusicMod.LOGGER.info("Pokemon cries volume: " + config.cobblemonPokemonCriesVolume);
+        CustomCobblemonMusicMod.LOGGER.info("Pokemon cries pitch: " + config.cobblemonPokemonCriesPitch);
+        CustomCobblemonMusicMod.LOGGER.info("Pokeball sounds volume: " + config.cobblemonPokeballSoundsVolume);
+        CustomCobblemonMusicMod.LOGGER.info("Pokeball sounds pitch: " + config.cobblemonPokeballSoundsPitch);
+        CustomCobblemonMusicMod.LOGGER.info("Move sounds volume: " + config.cobblemonMoveSoundsVolume);
+        CustomCobblemonMusicMod.LOGGER.info("Move sounds pitch: " + config.cobblemonMoveSoundsPitch);
+        CustomCobblemonMusicMod.LOGGER.info("Evolution sounds volume: " + config.cobblemonEvolutionSoundsVolume);
+        CustomCobblemonMusicMod.LOGGER.info("Evolution sounds pitch: " + config.cobblemonEvolutionSoundsPitch);
+        CustomCobblemonMusicMod.LOGGER.info("=====================");
     }
 }

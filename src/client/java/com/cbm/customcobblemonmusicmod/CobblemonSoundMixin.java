@@ -19,13 +19,18 @@ public class CobblemonSoundMixin {
         // Get the sound ID
         Identifier soundId = sound.getId();
         
-        // Debug logging for all sounds when debug is enabled
+        // Enhanced debug logging for all sounds when debug is enabled
         if (config.debugLogging) {
-            CustomCobblemonMusicMod.LOGGER.info("Sound played: " + soundId + 
-                " | Namespace: " + soundId.getNamespace() + 
-                " | Path: " + soundId.getPath() + 
-                " | Volume: " + sound.getVolume() + 
-                " | Pitch: " + sound.getPitch());
+            CustomCobblemonMusicMod.LOGGER.info("=== SOUND INTERCEPTION DEBUG ===");
+            CustomCobblemonMusicMod.LOGGER.info("Sound played: " + soundId);
+            CustomCobblemonMusicMod.LOGGER.info("Namespace: " + soundId.getNamespace());
+            CustomCobblemonMusicMod.LOGGER.info("Path: " + soundId.getPath());
+            CustomCobblemonMusicMod.LOGGER.info("Volume: " + sound.getVolume());
+            CustomCobblemonMusicMod.LOGGER.info("Pitch: " + sound.getPitch());
+            CustomCobblemonMusicMod.LOGGER.info("Category: " + sound.getCategory());
+            CustomCobblemonMusicMod.LOGGER.info("Cobblemon sound control enabled: " + config.enableCobblemonSoundControl);
+            CustomCobblemonMusicMod.LOGGER.info("Is Cobblemon sound: " + CobblemonSoundInterceptor.isCobblemonSound(soundId));
+            CustomCobblemonMusicMod.LOGGER.info("================================");
         }
         
         // Only process if Cobblemon sound control is enabled
@@ -46,22 +51,34 @@ public class CobblemonSoundMixin {
         
         // Debug logging for intercepted Cobblemon sounds
         if (config.debugLogging) {
-            CustomCobblemonMusicMod.LOGGER.info("Intercepting Cobblemon sound: " + soundId + 
-                " | Original vol: " + sound.getVolume() + ", pitch: " + sound.getPitch() +
-                " | Category: " + CobblemonSoundInterceptor.getCobblemonSoundCategory(soundId));
+            CustomCobblemonMusicMod.LOGGER.info("*** INTERCEPTING COBBLEMON SOUND ***");
+            CustomCobblemonMusicMod.LOGGER.info("Sound ID: " + soundId);
+            CustomCobblemonMusicMod.LOGGER.info("Original volume: " + sound.getVolume() + ", pitch: " + sound.getPitch());
+            CustomCobblemonMusicMod.LOGGER.info("Category: " + CobblemonSoundInterceptor.getCobblemonSoundCategory(soundId));
+            CustomCobblemonMusicMod.LOGGER.info("*******************************");
         }
         
         // Cancel the original sound
         ci.cancel();
         
-        // Create and play the modified sound
-        SoundInstance modifiedSound = CobblemonSoundInterceptor.createModifiedCobblemonSound(
-            soundId, 
-            sound.getVolume(), 
-            sound.getPitch()
-        );
-        
-        // Play the modified sound
-        ((SoundManager) (Object) this).play(modifiedSound);
+        try {
+            // Create and play the modified sound
+            SoundInstance modifiedSound = CobblemonSoundInterceptor.createModifiedCobblemonSound(
+                soundId, 
+                sound.getVolume(), 
+                sound.getPitch()
+            );
+            
+            // Play the modified sound
+            ((SoundManager) (Object) this).play(modifiedSound);
+            
+            if (config.debugLogging) {
+                CustomCobblemonMusicMod.LOGGER.info("Successfully created and played modified sound for: " + soundId);
+            }
+        } catch (Exception e) {
+            CustomCobblemonMusicMod.LOGGER.error("Error creating modified Cobblemon sound for " + soundId + ": " + e.getMessage());
+            // Fallback: play original sound if modification fails
+            ((SoundManager) (Object) this).play(sound);
+        }
     }
 }

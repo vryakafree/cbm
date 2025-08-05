@@ -1,222 +1,186 @@
 # Cobblemon Sound Configuration Troubleshooting Guide
 
-## Issue: "The config for cobblemon sound is not working"
-
-If you're experiencing issues with Cobblemon sound configuration not working, follow this troubleshooting guide.
+## Problem Description
+The mod's Cobblemon sound configuration is not working as expected. This guide will help you diagnose and fix the issue.
 
 ## Quick Diagnosis Steps
 
 ### 1. Enable Debug Logging
-First, enable debug logging to see what's happening:
+1. In-game, run the command: `/tdsound debug`
+2. This will enable detailed logging to help identify the issue
+3. Check the Minecraft logs for detailed information
 
-1. Open your Minecraft game
-2. Go to Mods → TDsound → Config
-3. Set `debugLogging` to `true`
-4. Save the config
-5. Restart Minecraft
+### 2. Test Sound Interception
+1. In-game, run the command: `/tdsound test`
+2. This will test various Cobblemon sound IDs and show if they're being recognized
+3. Check the logs for test results
 
-### 2. Check the Logs
-After enabling debug logging, check your Minecraft logs for:
-- `Sound played: cobblemon:...` - Shows all sounds being played
-- `Intercepting Cobblemon sound: ...` - Shows which sounds are being intercepted
-- `Creating modified Cobblemon sound: ...` - Shows volume/pitch modifications
+### 3. Check Current Configuration
+1. In-game, run the command: `/tdsound config`
+2. This will display your current configuration settings
+3. Verify that `enableCobblemonSoundControl` is set to `true`
 
 ## Common Issues and Solutions
 
-### Issue 1: No Cobblemon Sounds Being Intercepted
+### Issue 1: Cobblemon Sounds Not Being Intercepted
 
 **Symptoms:**
-- Debug logs show no "Intercepting Cobblemon sound" messages
-- Cobblemon sounds play normally without modification
+- Cobblemon sounds play normally without any volume/pitch modifications
+- No debug messages in logs when Cobblemon sounds play
 
 **Possible Causes:**
-1. **Cobblemon Sound Control Disabled**
-   - Check if `enableCobblemonSoundControl` is set to `true` in config
-   
-2. **Sound Namespace Issues**
-   - Ensure Cobblemon sounds use the `cobblemon` namespace
-   - Check debug logs for sound namespace information
-
-3. **Mixin Not Loading**
-   - Verify the mod is properly installed
-   - Check for any crash logs or errors
+1. **Configuration Disabled**: `enableCobblemonSoundControl` is set to `false`
+2. **Sound Recognition Failure**: The mod doesn't recognize the sound as a Cobblemon sound
+3. **Mixin Not Loading**: The sound interception mixin isn't being applied
 
 **Solutions:**
-1. Enable `enableCobblemonSoundControl` in config
-2. Restart Minecraft after changing config
-3. Check mod compatibility with your Cobblemon version
+1. Check your config file (`config/tdsound.json`) and ensure `enableCobblemonSoundControl` is `true`
+2. Enable debug logging and check if Cobblemon sounds are being recognized
+3. Verify the mod is properly installed and loaded
 
-### Issue 2: Sounds Intercepted But No Volume/Pitch Changes
+### Issue 2: Sound Modification Not Working
 
 **Symptoms:**
-- Debug logs show "Intercepting Cobblemon sound" but no volume/pitch changes
-- Sounds still play at original volume/pitch
+- Cobblemon sounds are being intercepted (visible in debug logs)
+- But volume/pitch modifications aren't applied correctly
 
 **Possible Causes:**
-1. **Configuration Values Set to Default**
-   - All volume/pitch values are set to 1.0 (no change)
-   
-2. **Wrong Sound Category Mapping**
-   - Sound not being categorized correctly
-   - Check debug logs for sound category information
+1. **Configuration Values**: Volume/pitch multipliers are set to 1.0 (no change)
+2. **Sound Category Mismatch**: The sound isn't being categorized correctly
+3. **Sound Creation Error**: Error creating the modified sound instance
 
 **Solutions:**
-1. Adjust volume/pitch values in config:
-   - Set values below 1.0 to reduce volume/pitch
-   - Set values above 1.0 to increase volume/pitch
-   
-2. Check sound categorization:
-   - Pokemon cries: `cobblemonPokemonCriesVolume/Pitch`
-   - Move sounds: `cobblemonMoveSoundsVolume/Pitch`
-   - Impact sounds: `cobblemonImpactSoundsVolume/Pitch`
-   - Evolution sounds: `cobblemonEvolutionSoundsVolume/Pitch`
-   - Pokeball sounds: `cobblemonPokeballSoundsVolume/Pitch`
-   - Battle sounds: `cobblemonBattleSoundsVolume/Pitch`
-   - PC sounds: `cobblemonPCSoundsVolume/Pitch`
-   - UI sounds: `cobblemonUISoundsVolume/Pitch`
-   - Item sounds: `cobblemonItemSoundsVolume/Pitch`
-   - Block sounds: `cobblemonBlockSoundsVolume/Pitch`
+1. Check your configuration values - they should be different from 1.0 to see changes
+2. Enable debug logging to see which category the sound is being assigned to
+3. Check logs for any error messages during sound creation
 
-### Issue 3: Only Some Cobblemon Sounds Are Affected
+### Issue 3: Specific Sound Types Not Working
 
 **Symptoms:**
-- Some Cobblemon sounds are modified, others are not
-- Inconsistent behavior across different sound types
+- Some Cobblemon sounds work (e.g., Pokemon cries) but others don't (e.g., move sounds)
 
 **Possible Causes:**
-1. **Sound Pattern Matching Issues**
-   - Some sound paths don't match the expected patterns
-   
-2. **Missing Sound Categories**
-   - New sound types not covered by existing categories
+1. **Category Recognition**: The sound path doesn't match the expected patterns
+2. **Configuration Missing**: Specific category settings aren't configured
 
 **Solutions:**
-1. Check debug logs to see which sounds are being intercepted
-2. Verify sound path patterns in logs
-3. Report missing sound categories for future updates
+1. Enable debug logging to see how sounds are being categorized
+2. Check if the sound path matches the expected patterns in the code
+3. Verify that the specific category settings are properly configured
 
-## Sound Categories Reference
+## Configuration Reference
 
-Based on Cobblemon's `sounds.json`, the mod categorizes sounds as follows:
+### Main Settings
+```json
+{
+  "enableCobblemonSoundControl": true,
+  "debugLogging": true,
+  "cobblemonSoundsVolume": 1.0,
+  "cobblemonSoundsPitch": 1.0
+}
+```
 
-### Pokemon Cries
-- Pattern: `pokemon.*.cry`
-- Examples: `cobblemon:pokemon.bulbasaur.cry`, `cobblemon:pokemon.pikachu.cry`
-- Config: `cobblemonPokemonCriesVolume/Pitch`
+### Category-Specific Settings
+```json
+{
+  "cobblemonPokemonCriesVolume": 1.0,
+  "cobblemonPokemonCriesPitch": 1.0,
+  "cobblemonPokeballSoundsVolume": 1.0,
+  "cobblemonPokeballSoundsPitch": 1.0,
+  "cobblemonMoveSoundsVolume": 1.0,
+  "cobblemonMoveSoundsPitch": 1.0,
+  "cobblemonImpactSoundsVolume": 1.0,
+  "cobblemonImpactSoundsPitch": 1.0,
+  "cobblemonEvolutionSoundsVolume": 1.0,
+  "cobblemonEvolutionSoundsPitch": 1.0,
+  "cobblemonBattleSoundsVolume": 1.0,
+  "cobblemonBattleSoundsPitch": 1.0,
+  "cobblemonPCSoundsVolume": 1.0,
+  "cobblemonPCSoundsPitch": 1.0,
+  "cobblemonUISoundsVolume": 1.0,
+  "cobblemonUISoundsPitch": 1.0,
+  "cobblemonItemSoundsVolume": 1.0,
+  "cobblemonItemSoundsPitch": 1.0,
+  "cobblemonBlockSoundsVolume": 1.0,
+  "cobblemonBlockSoundsPitch": 1.0
+}
+```
 
-### Move Sounds
-- Pattern: `move.*`
-- Examples: `cobblemon:move.tackle`, `cobblemon:move.thunder_shock`
-- Config: `cobblemonMoveSoundsVolume/Pitch`
+## Sound Categories
 
-### Impact Sounds
-- Pattern: `impact.*`
-- Examples: `cobblemon:impact.tackle`, `cobblemon:impact.thunder_shock`
-- Config: `cobblemonImpactSoundsVolume/Pitch`
+The mod categorizes Cobblemon sounds based on their path:
 
-### Evolution Sounds
-- Pattern: `evolution.*`
-- Examples: `cobblemon:evolution.full`, `cobblemon:evolution.start`
-- Config: `cobblemonEvolutionSoundsVolume/Pitch`
+- **Pokemon Cries**: `pokemon.*.cry` (e.g., `pokemon.bulbasaur.cry`)
+- **Pokeball Sounds**: `poke_ball.*` or `pokeball.*` (e.g., `poke_ball.capture_succeeded`)
+- **Move Sounds**: `move.*` (e.g., `move.tackle`)
+- **Impact Sounds**: `impact.*` (e.g., `impact.tackle`)
+- **Evolution Sounds**: `evolution.*` (e.g., `evolution.full`)
+- **Battle Sounds**: `battle.*`
+- **PC Sounds**: `pc.*` (e.g., `pc.on`, `pc.off`)
+- **UI Sounds**: `ui.*` (e.g., `ui.menu`)
+- **Item Sounds**: `item.*`
+- **Block Sounds**: `block.*`
+- **Nurse Sounds**: `entity/villager/work_nurse`
+- **General Sounds**: Everything else
 
-### Pokeball Sounds
-- Pattern: `poke_ball.*` or `pokeball.*`
-- Examples: `cobblemon:poke_ball.capture_succeeded`, `cobblemon:poke_ball.shake`
-- Config: `cobblemonPokeballSoundsVolume/Pitch`
+## Testing Steps
 
-### Battle Sounds
-- Pattern: `battle.*`
-- Examples: `cobblemon:battle.start`, `cobblemon:battle.end`
-- Config: `cobblemonBattleSoundsVolume/Pitch`
+1. **Enable Debug Logging**: `/tdsound debug`
+2. **Test Sound Recognition**: `/tdsound test`
+3. **Check Configuration**: `/tdsound config`
+4. **Trigger Cobblemon Sounds**: 
+   - Spawn a Pokemon to hear cries
+   - Use a Pokeball to hear capture sounds
+   - Use moves in battle to hear move sounds
+   - Check logs for debug messages
 
-### PC Sounds
-- Pattern: `pc.*`
-- Examples: `cobblemon:pc.on`, `cobblemon:pc.off`
-- Config: `cobblemonPCSoundsVolume/Pitch`
+## Log Analysis
 
-### UI Sounds
-- Pattern: `ui.*`
-- Examples: `cobblemon:ui.menu_open`, `cobblemon:ui.button_click`
-- Config: `cobblemonUISoundsVolume/Pitch`
+When debug logging is enabled, look for these messages:
 
-### Item Sounds
-- Pattern: `item.*`
-- Examples: `cobblemon:item.potion`, `cobblemon:item.berry`
-- Config: `cobblemonItemSoundsVolume/Pitch`
+```
+=== SOUND INTERCEPTION DEBUG ===
+Sound played: cobblemon:pokemon.bulbasaur.cry
+Namespace: cobblemon
+Path: pokemon.bulbasaur.cry
+Cobblemon sound control enabled: true
+Is Cobblemon sound: true
+================================
 
-### Block Sounds
-- Pattern: `block.*`
-- Examples: `cobblemon:block.healing_machine`
-- Config: `cobblemonBlockSoundsVolume/Pitch`
+*** INTERCEPTING COBBLEMON SOUND ***
+Sound ID: cobblemon:pokemon.bulbasaur.cry
+Original volume: 1.0, pitch: 1.0
+Category: pokemon_cries
+*******************************
+```
 
-### General Sounds (Fallback)
-- Any Cobblemon sound not matching above patterns
-- Config: `cobblemonSoundsVolume/Pitch`
+## Common Sound IDs from Cobblemon
 
-## Testing Your Configuration
+Based on the provided `sounds.json`, here are some common Cobblemon sound IDs:
 
-### Test 1: Pokemon Cries
-1. Set `cobblemonPokemonCriesVolume` to `0.5` (50% volume)
-2. Set `cobblemonPokemonCriesPitch` to `1.5` (50% higher pitch)
-3. Spawn a Pokemon and make it cry
-4. Verify the sound is quieter and higher pitched
+- `cobblemon:pokemon.bulbasaur.cry`
+- `cobblemon:pokemon.pikachu.cry`
+- `cobblemon:move.tackle`
+- `cobblemon:impact.tackle`
+- `cobblemon:evolution.full`
+- `cobblemon:poke_ball.capture_succeeded`
+- `cobblemon:pc.on`
+- `cobblemon:ui.menu`
 
-### Test 2: Move Sounds
-1. Set `cobblemonMoveSoundsVolume` to `0.3` (30% volume)
-2. Use a Pokemon move in battle
-3. Verify the move sound is much quieter
+## If Nothing Works
 
-### Test 3: Pokeball Sounds
-1. Set `cobblemonPokeballSoundsVolume` to `0.0` (mute)
-2. Try to catch a Pokemon
-3. Verify no pokeball sounds are heard
+1. **Check Mod Compatibility**: Ensure you're using compatible versions of:
+   - Minecraft (1.21.1+)
+   - Fabric Loader (0.16.0+)
+   - Fabric API
+   - Cobblemon (1.6.0+)
 
-## Advanced Debugging
+2. **Check Installation**: Verify the mod is properly installed in your mods folder
 
-### Enable Verbose Logging
-If standard debug logging isn't enough, you can temporarily modify the mod to add more detailed logging:
+3. **Check for Conflicts**: Other mods might interfere with sound processing
 
-1. Look for `CustomCobblemonMusicMod.LOGGER.info()` calls in the code
-2. Add additional logging statements as needed
-3. Rebuild the mod
-
-### Check Sound Registration
-Verify that Cobblemon sounds are properly registered:
-1. Check if Cobblemon mod is loaded correctly
-2. Verify sound files exist in Cobblemon's assets
-3. Check for any sound loading errors in logs
-
-## Version Compatibility
-
-- **Cobblemon 1.6.1+**: Fully supported
-- **Minecraft 1.21.1+**: Required
-- **Fabric Loader 0.16.0+**: Required
-
-## Getting Help
-
-If you're still experiencing issues:
-
-1. **Collect Information:**
+4. **Report Issue**: If the problem persists, report it with:
    - Minecraft version
-   - Cobblemon version
-   - TDsound version
-   - Debug logs with `debugLogging = true`
-   - Any error messages or crash logs
-
-2. **Report the Issue:**
-   - Include all collected information
-   - Describe the expected vs actual behavior
-   - Provide steps to reproduce the issue
-
-3. **Check for Updates:**
-   - Ensure you're using the latest version of both Cobblemon and TDsound
-   - Check for any known compatibility issues
-
-## Configuration File Location
-
-The configuration file is located at:
-- **Windows:** `%APPDATA%/.minecraft/config/tdsound.json`
-- **macOS:** `~/Library/Application Support/minecraft/config/tdsound.json`
-- **Linux:** `~/.minecraft/config/tdsound.json`
-
-You can edit this file directly if the in-game config doesn't work properly.
+   - Mod versions
+   - Debug logs
+   - Configuration file contents
