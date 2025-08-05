@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "tdsound",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "name": "TDsound",
   "description": "Adds authentic Pokemon-style congratulatory sounds for Cobblemon with advanced volume/pitch control system and Cobblemon sound management tools",
   "authors": [

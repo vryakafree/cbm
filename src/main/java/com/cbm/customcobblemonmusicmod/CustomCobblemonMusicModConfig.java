@@ -37,6 +37,22 @@ public class CustomCobblemonMusicModConfig {
     public float cobblemonBattleSoundsVolume = 1.0f; // Volume for battle sounds
     public float cobblemonBattleSoundsPitch = 1.0f; // Pitch for battle sounds
     
+    // Additional granular Cobblemon sound controls
+    public float cobblemonMoveSoundsVolume = 1.0f; // Volume for move sounds
+    public float cobblemonMoveSoundsPitch = 1.0f; // Pitch for move sounds
+    public float cobblemonImpactSoundsVolume = 1.0f; // Volume for impact sounds
+    public float cobblemonImpactSoundsPitch = 1.0f; // Pitch for impact sounds
+    public float cobblemonEvolutionSoundsVolume = 1.0f; // Volume for evolution sounds
+    public float cobblemonEvolutionSoundsPitch = 1.0f; // Pitch for evolution sounds
+    public float cobblemonPCSoundsVolume = 1.0f; // Volume for PC sounds
+    public float cobblemonPCSoundsPitch = 1.0f; // Pitch for PC sounds
+    public float cobblemonUISoundsVolume = 1.0f; // Volume for UI sounds
+    public float cobblemonUISoundsPitch = 1.0f; // Pitch for UI sounds
+    public float cobblemonItemSoundsVolume = 1.0f; // Volume for item sounds
+    public float cobblemonItemSoundsPitch = 1.0f; // Pitch for item sounds
+    public float cobblemonBlockSoundsVolume = 1.0f; // Volume for block sounds
+    public float cobblemonBlockSoundsPitch = 1.0f; // Pitch for block sounds
+    
     // Music behavior settings
     public boolean enableVictoryMusic = true;
     public boolean enableEvolutionMusic = true;
@@ -107,5 +123,21 @@ public class CustomCobblemonMusicModConfig {
         cobblemonPokeballSoundsPitch = Math.max(0.5f, Math.min(2.0f, cobblemonPokeballSoundsPitch));
         cobblemonBattleSoundsVolume = Math.max(0.0f, Math.min(1.0f, cobblemonBattleSoundsVolume));
         cobblemonBattleSoundsPitch = Math.max(0.5f, Math.min(2.0f, cobblemonBattleSoundsPitch));
+        
+        // Validate additional granular sound controls
+        cobblemonMoveSoundsVolume = Math.max(0.0f, Math.min(1.0f, cobblemonMoveSoundsVolume));
+        cobblemonMoveSoundsPitch = Math.max(0.5f, Math.min(2.0f, cobblemonMoveSoundsPitch));
+        cobblemonImpactSoundsVolume = Math.max(0.0f, Math.min(1.0f, cobblemonImpactSoundsVolume));
+        cobblemonImpactSoundsPitch = Math.max(0.5f, Math.min(2.0f, cobblemonImpactSoundsPitch));
+        cobblemonEvolutionSoundsVolume = Math.max(0.0f, Math.min(1.0f, cobblemonEvolutionSoundsVolume));
+        cobblemonEvolutionSoundsPitch = Math.max(0.5f, Math.min(2.0f, cobblemonEvolutionSoundsPitch));
+        cobblemonPCSoundsVolume = Math.max(0.0f, Math.min(1.0f, cobblemonPCSoundsVolume));
+        cobblemonPCSoundsPitch = Math.max(0.5f, Math.min(2.0f, cobblemonPCSoundsPitch));
+        cobblemonUISoundsVolume = Math.max(0.0f, Math.min(1.0f, cobblemonUISoundsVolume));
+        cobblemonUISoundsPitch = Math.max(0.5f, Math.min(2.0f, cobblemonUISoundsPitch));
+        cobblemonItemSoundsVolume = Math.max(0.0f, Math.min(1.0f, cobblemonItemSoundsVolume));
+        cobblemonItemSoundsPitch = Math.max(0.5f, Math.min(2.0f, cobblemonItemSoundsPitch));
+        cobblemonBlockSoundsVolume = Math.max(0.0f, Math.min(1.0f, cobblemonBlockSoundsVolume));
+        cobblemonBlockSoundsPitch = Math.max(0.5f, Math.min(2.0f, cobblemonBlockSoundsPitch));
     }
 }
