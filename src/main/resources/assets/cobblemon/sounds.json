@@ -1,0 +1,83 @@
+{
+  "battle.pvn.default": {
+    "sounds": []
+  },
+  "battle.pvp.default": {
+    "sounds": []
+  },
+  "battle.pvw.default": {
+    "sounds": []
+  },
+  "entity.villager.work_nurse": {
+    "sounds": [ { "name":  "cobblemon:entity/villager/work_nurse", "volume":  0.8 } ]
+  },
+  "pc.on": {
+    "sounds": [ "cobblemon:pc/pc_on" ]
+  },
+  "pc.off": {
+    "sounds": [ "cobblemon:pc/pc_off" ]
+  },
+  "pc.grab": {
+    "sounds": [ { "name":  "cobblemon:pc/pc_grab", "volume":  0.7 }  ]
+  },
+  "pc.drop": {
+    "sounds": [ { "name": "cobblemon:pc/pc_drop", "volume":  0.7 } ]
+  },
+  "pc.release": {
+    "sounds": [ "cobblemon:pc/pc_release" ]
+  },
+  "pc.click": {
+    "sounds": [ "cobblemon:pc/pc_click" ]
+  },
+  "poke_ball.capture_succeeded": {
+    "subtitle": "cobblemon.subtitle.poke_ball.capture_succeeded",
+    "sounds": [ { "name": "cobblemon:poke_ball/poke_ball_capture_succeeded", "volume":  0.7 } ]
+  },
+  "poke_ball.capture_succeeded.ancient": {
+    "subtitle": "cobblemon.subtitle.poke_ball.capture_succeeded",
+    "sounds": [ { "name": "cobblemon:poke_ball/poke_ball_capture_succeeded_ancient", "volume":  0.7 } ]
+  },
+  "poke_ball.shake": {
+    "sounds": [
+      { "name": "cobblemon:poke_ball/poke_ball_shake_1", "volume": 0.7 },
+      { "name": "cobblemon:poke_ball/poke_ball_shake_2", "volume": 0.7 },
+      { "name": "cobblemon:poke_ball/poke_ball_shake_3", "volume": 0.7 },
+      { "name": "cobblemon:poke_ball/poke_ball_shake_4", "volume": 0.7 }
+    ]
+  },
+  "poke_ball.shake.ancient": {
+    "sounds": [
+      { "name": "cobblemon:poke_ball/poke_ball_shake_ancient_1", "volume": 0.7 },
+      { "name": "cobblemon:poke_ball/poke_ball_shake_ancient_2", "volume": 0.7 },
+      { "name": "cobblemon:poke_ball/poke_ball_shake_ancient_3", "volume": 0.7 },
+      { "name": "cobblemon:poke_ball/poke_ball_shake_ancient_4", "volume": 0.7 }
+    ]
+  },
+  "poke_ball.land.ancient": {
+    "sounds": [
+      { "name": "cobblemon:poke_ball/poke_ball_land_ancient_1", "volume": 0.08 },
+      { "name": "cobblemon:poke_ball/poke_ball_land_ancient_2", "volume": 0.08 }
+    ]
+  },
+  "poke_ball.shake.critical": {
+    "sounds": [ { "name": "cobblemon:poke_ball/poke_ball_shake_critical", "volume":  0.6 } ]
+  },
+  "poke_ball.bounce": {
+    "sounds": [ { "name": "cobblemon:poke_ball/poke_ball_bounce", "volume":  0.1 } ]
+  },
+  "poke_ball.bounce.ancient": {
+    "sounds": [ { "name": "cobblemon:poke_ball/poke_ball_bounce_ancient", "volume":  0.1 } ]
+  },
+  "poke_ball.open": {
+    "sounds": [ { "name": "cobblemon:poke_ball/poke_ball_open", "volume":  0.7 } ]
+  },
+  "poke_ball.shut": {
+    "sounds": [ { "name": "cobblemon:poke_ball/poke_ball_shut", "volume":  0.7 } ]
+  },
+  "poke_ball.open.ancient": {
+    "sounds": [ { "name": "cobblemon:poke_ball/poke_ball_open_ancient", "volume":  0.7 } ]
+  },
+  "poke_ball.shut.ancient": {
+    "sounds": [ { "name": "cobblemon:poke_ball/poke_ball_shut_ancient", "volume":  0.7 } ]
+  }
+}

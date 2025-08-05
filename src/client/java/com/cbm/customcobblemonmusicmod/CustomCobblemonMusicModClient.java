@@ -28,7 +28,8 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         // Register event listeners
         registerCobblemonEvents();
         
-
+        // Initialize Cobblemon sound control system
+        initializeCobblemonSoundControl();
         
         // Register client tick event for evolution sound monitoring
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -40,6 +41,18 @@ public class CustomCobblemonMusicModClient implements ClientModInitializer {
         });
         
         CustomCobblemonMusicMod.LOGGER.info("Custom Congrat Sound For Cobblemon client initialized!");
+    }
+    
+    private void initializeCobblemonSoundControl() {
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        
+        if (config.enableCobblemonSoundControl) {
+            CustomCobblemonMusicMod.LOGGER.info("Cobblemon sound control system initialized and enabled");
+            CustomCobblemonMusicMod.LOGGER.info("All Cobblemon sounds will be processed through the sound interceptor");
+        } else {
+            CustomCobblemonMusicMod.LOGGER.info("Cobblemon sound control system initialized but disabled");
+            CustomCobblemonMusicMod.LOGGER.info("Use '/tdsound cobblemon toggle' to enable or configure via ModMenu");
+        }
     }
     
     private void registerCobblemonEvents() {

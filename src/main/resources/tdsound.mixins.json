@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.cbm.customcobblemonmusicmod",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [],
+  "client": [
+    "CobblemonSoundMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

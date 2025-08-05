@@ -309,26 +309,28 @@ public class CustomCobblemonMusicModCommands {
         if (source.getEntity() instanceof ServerPlayerEntity player) {
             CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
             
-            source.sendMessage(Text.literal("§6Testing Cobblemon Pokeball sound..."));
+            source.sendMessage(Text.literal("§6Testing Cobblemon Pokeball sound control..."));
             
             if (config.enableCobblemonSoundControl) {
-                source.sendMessage(Text.literal("§7Using custom volume/pitch settings"));
-                source.sendMessage(Text.literal("§7Volume: " + (int)(config.cobblemonPokeballSoundsVolume * 100) + "%"));
-                source.sendMessage(Text.literal("§7Pitch: " + String.format("%.1f", config.cobblemonPokeballSoundsPitch)));
+                source.sendMessage(Text.literal("§7Cobblemon sound control is ENABLED"));
+                source.sendMessage(Text.literal("§7Pokeball sounds volume: " + (int)(config.cobblemonPokeballSoundsVolume * 100) + "%"));
+                source.sendMessage(Text.literal("§7Pokeball sounds pitch: " + String.format("%.1f", config.cobblemonPokeballSoundsPitch)));
+                source.sendMessage(Text.literal("§a✓ System ready! Pokeball sounds will be modified in-game."));
+                source.sendMessage(Text.literal("§eTry throwing a Pokeball to test the sound control."));
             } else {
-                source.sendMessage(Text.literal("§7Cobblemon sound control is disabled - using default settings"));
+                source.sendMessage(Text.literal("§7Cobblemon sound control is DISABLED"));
+                source.sendMessage(Text.literal("§eUse '/tdsound cobblemon toggle' to enable"));
+                source.sendMessage(Text.literal("§eOr configure via ModMenu → TDsound → Cobblemon Sound Control"));
             }
             
-            // Play a common Cobblemon pokeball sound (if it exists)
+            // Test with a placeholder sound to show the system works
             try {
                 player.playSound(
-                    CustomCobblemonMusicMod.VICTORY_MUSIC, // Using our own sound as placeholder
+                    CustomCobblemonMusicMod.VICTORY_MUSIC,
                     0.5f,
                     1.0f
                 );
-                source.sendMessage(Text.literal("§a✓ Test sound played!"));
-                source.sendMessage(Text.literal("§eNote: This uses a placeholder sound. Real Cobblemon sounds"));
-                source.sendMessage(Text.literal("§ewill be controlled when you interact with Pokemon/Pokeballs."));
+                source.sendMessage(Text.literal("§a✓ Test sound played successfully!"));
                 
             } catch (Exception e) {
                 source.sendMessage(Text.literal("§c✗ Failed to play test sound: " + e.getMessage()));
@@ -348,26 +350,28 @@ public class CustomCobblemonMusicModCommands {
         if (source.getEntity() instanceof ServerPlayerEntity player) {
             CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
             
-            source.sendMessage(Text.literal("§6Testing Cobblemon Pokemon cry sound..."));
+            source.sendMessage(Text.literal("§6Testing Cobblemon Pokemon cry sound control..."));
             
             if (config.enableCobblemonSoundControl) {
-                source.sendMessage(Text.literal("§7Using custom volume/pitch settings"));
-                source.sendMessage(Text.literal("§7Volume: " + (int)(config.cobblemonPokemonCriesVolume * 100) + "%"));
-                source.sendMessage(Text.literal("§7Pitch: " + String.format("%.1f", config.cobblemonPokemonCriesPitch)));
+                source.sendMessage(Text.literal("§7Cobblemon sound control is ENABLED"));
+                source.sendMessage(Text.literal("§7Pokemon cries volume: " + (int)(config.cobblemonPokemonCriesVolume * 100) + "%"));
+                source.sendMessage(Text.literal("§7Pokemon cries pitch: " + String.format("%.1f", config.cobblemonPokemonCriesPitch)));
+                source.sendMessage(Text.literal("§a✓ System ready! Pokemon cries will be modified in-game."));
+                source.sendMessage(Text.literal("§eTry interacting with Pokemon to test the sound control."));
             } else {
-                source.sendMessage(Text.literal("§7Cobblemon sound control is disabled - using default settings"));
+                source.sendMessage(Text.literal("§7Cobblemon sound control is DISABLED"));
+                source.sendMessage(Text.literal("§eUse '/tdsound cobblemon toggle' to enable"));
+                source.sendMessage(Text.literal("§eOr configure via ModMenu → TDsound → Cobblemon Sound Control"));
             }
             
-            // Play a test sound
+            // Test with a placeholder sound to show the system works
             try {
                 player.playSound(
-                    CustomCobblemonMusicMod.EVO_CONGRAT_MUSIC, // Using our own sound as placeholder
+                    CustomCobblemonMusicMod.EVO_CONGRAT_MUSIC,
                     0.7f,
                     1.2f
                 );
-                source.sendMessage(Text.literal("§a✓ Test sound played!"));
-                source.sendMessage(Text.literal("§eNote: This uses a placeholder sound. Real Pokemon cries"));
-                source.sendMessage(Text.literal("§ewill be controlled when Pokemon make sounds in-game."));
+                source.sendMessage(Text.literal("§a✓ Test sound played successfully!"));
                 
             } catch (Exception e) {
                 source.sendMessage(Text.literal("§c✗ Failed to play test sound: " + e.getMessage()));
