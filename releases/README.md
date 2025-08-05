@@ -1,50 +1,57 @@
-# 📦 Releases - Custom Cobblemon Music Mod
+# 📦 Releases - TDsound (Custom Cobblemon Music Mod)
 
-## 🎵 customcobblemonmusicmod-1.0.0.jar
+## 🎵 Tdsound-1.1.4.jar
 
-**Final Release with Full Assets Integration**
+**Stable Release with Core Music Features and Basic Cobblemon Sound Control**
 
-### 📋 What's Included:
-- ✅ **Complete Mod Code** (19KB)
-- ✅ **All Sound Assets** (7 music files as placeholders)
-- ✅ **Icon Structure** (ready for custom 128x128px icon)
-- ✅ **Configuration Files** (sounds.json)
-- ✅ **Documentation** (README files)
+### 📋 Features:
+- ✅ **Core Music System** - Victory, Evolution, Catch, and Flee music
+- ✅ **ModMenu Integration** - Full GUI configuration with multiple categories
+- ✅ **Basic Cobblemon Sound Control** - Global volume and pitch control
+- ✅ **Command Support** - In-game commands for quick settings
+- ✅ **Debug Logging** - Detailed sound processing information
+- ✅ **Stable Configuration** - Tested and working with Cobblemon
 
-### 🎛️ Assets Inside JAR:
+### 🎛️ ModMenu Categories:
 ```
-assets/customcobblemonmusicmod/
-├── icon.png (placeholder - 0 bytes)
-├── sounds.json (music configuration)
-├── ICON_README.md (design guidelines)
-└── sounds/
-    ├── battle_song.ogg (placeholder)
-    ├── strong_battle_song.ogg (placeholder)
-    ├── panic_song.ogg (placeholder)
-    ├── victory.ogg (placeholder)
-    ├── evo.ogg (placeholder)
-    ├── evo_congrat.ogg (placeholder)
-    ├── catch_congrat.ogg (placeholder)
-    └── README.md (sound guidelines)
+ModMenu → TDsound
+├── Volume Settings (Victory, Evolution, Catch, Flee music)
+├── Pitch Settings (Music pitch control)
+├── Music Features (Enable/disable music)
+├── Cobblemon Sound Control (Global settings)
+└── Advanced Settings (Debug logging)
 ```
 
 ### 🚀 Installation:
-1. **Download**: `customcobblemonmusicmod-1.0.0.jar`
-2. **Requirements**: Minecraft 1.21.1 + Cobblemon 1.6.1+ + Fabric
+1. **Download**: `Tdsound-1.1.4.jar`
+2. **Requirements**: Minecraft 1.21.1 + Cobblemon 1.6.1+ + Fabric + ModMenu
 3. **Install**: Place in `mods` folder
-4. **Test**: `/cobblemusic status` in-game
+4. **Configure**: Use ModMenu or `/tdsound cobblemon toggle` in-game
 
-### 🎨 Customization:
-- **Sounds**: Replace placeholders with real .ogg files (44.1kHz)
-- **Icon**: Add custom 128x128px PNG for mod display
-- **Rebuild**: `./gradlew clean build` after changes
+### 🎨 Features:
+- **Music System**: Custom music for victory, evolution, catch, and flee events
+- **ModMenu Integration**: Full GUI configuration with multiple categories
+- **Command Support**: In-game commands for quick settings
+- **Debug Logging**: Detailed sound processing information
+- **Basic Cobblemon Control**: Global volume and pitch for Cobblemon sounds
 
 ### 📜 Technical:
-- **Size**: 19KB (optimized)
+- **Size**: 35KB (optimized)
 - **Platform**: Fabric (Minecraft 1.21.1)
-- **API**: Cobblemon Events 1.6.1+
-- **Self-contained**: No external dependencies
+- **API**: Cobblemon 1.6.1+ + ModMenu 11.0.1+
+- **Dependencies**: Cloth Config for ModMenu integration
 
 ---
 
-**🎯 Ready for production use with Cobblemon!**
+**🎯 Stable and tested version with core music features!**
+
+## 📦 Previous Releases
+
+### Tdsound-1.1.2.jar
+- Basic Cobblemon sound control
+- Initial ModMenu integration
+- Core music features
+
+---
+
+**🔧 For support and troubleshooting, see the main README.md file.**
