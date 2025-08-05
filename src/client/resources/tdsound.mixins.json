@@ -5,7 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "tdsound.refmap.json",
   "client": [
-    "SoundSystemMixin"
+    "SoundManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

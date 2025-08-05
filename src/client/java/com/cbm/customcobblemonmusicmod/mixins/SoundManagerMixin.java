@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(SoundManager.class)
-public class SoundSystemMixin {
+public class SoundManagerMixin {
     
     @ModifyArg(method = "play", at = @At("HEAD"), index = 0)
     private SoundInstance interceptSound(SoundInstance soundInstance) {
