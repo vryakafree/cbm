@@ -119,6 +119,8 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${project.base.archivesName.get()}"}
 	}
+	archiveBaseName = "Tdsound"
+	archiveVersion = project.version
 }
 
 // configure the maven publication
