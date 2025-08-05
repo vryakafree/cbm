@@ -2,6 +2,79 @@
 
 All notable changes to TDsound will be documented in this file.
 
+## [1.1.1] - 2025-08-05
+
+### 🎵 Major Feature: Cobblemon Sound Control System
+
+#### Added
+- **Cobblemon Sound Control**: Experimental system to control volume/pitch of ALL Cobblemon sounds
+- **Sound Categories**: Separate controls for Pokemon cries, Pokeball sounds, battle sounds, and general sounds
+- **Advanced Configuration**: New ModMenu category "Cobblemon Sound Control" with comprehensive settings
+- **Test Commands**: `/tdsound cobblemon test pokeball` and `/tdsound cobblemon test cry` for testing
+- **Management Commands**: `/tdsound cobblemon toggle` and `/tdsound cobblemon status`
+- **Flee Music**: Added support for flee music with separate volume/pitch controls
+
+#### Enhanced
+- **Separate Volume/Pitch**: All custom sounds now have independent volume AND pitch controls
+- **ModMenu Integration**: Added "Pitch Settings" category with proper validation (0.5-2.0 range)
+- **Language File**: Comprehensive translations for all new features and settings
+- **Configuration**: Proper validation for all volume (0.0-1.0) and pitch (0.5-2.0) values
+
+#### Changed
+- **Command System**: Changed from `/cobblecongrat` to `/tdsound` for better consistency
+- **JAR Naming**: Updated to "Tdsound-1.1.1.jar" format
+- **Mod Description**: Updated to reflect new Cobblemon sound management capabilities
+
+#### Fixed
+- **Mixin Crashes**: Removed problematic mixin system that caused game crashes
+- **Sound Framework**: Replaced with safer, more compatible sound management approach
+- **Stability**: Eliminated MixinTransformerError and related crash issues
+
+#### Technical
+- **CobblemonSoundInterceptor**: New class for managing Cobblemon sound modifications
+- **Sound Categorization**: Intelligent sound type detection based on sound ID paths
+- **Debug Logging**: Enhanced logging shows intercepted sounds with original/modified values
+- **Safety First**: Cobblemon sound control disabled by default to prevent conflicts
+
+## [1.0.9] - 2025-08-05
+
+### 🎮 Command System Overhaul
+
+#### Changed
+- **Command Prefix**: Updated from `/cobblecongrat` to `/tdsound` for consistency with mod name
+- **Help Text**: Updated all command references and status messages
+- **Logging**: Updated initialization message to reference new command structure
+
+#### Commands
+- `/tdsound status` - Show mod status and available commands
+- `/tdsound test victory` - Test victory music
+- `/tdsound test evo_congrat` - Test evolution congratulations music  
+- `/tdsound test catch` - Test catch congratulations music
+- `/tdsound test flee` - Test flee music
+- `/tdsound stop` - Stop all custom sounds
+- `/tdsound config` - Show current configuration settings
+
+## [1.0.8] - 2025-08-05
+
+### 🎛️ Separate Volume and Pitch Controls
+
+#### Added
+- **Pitch Configuration**: Separate pitch fields for all sound types (victory, evolution, catch, flee)
+- **Pitch Validation**: Proper validation with 0.5-2.0 range for all pitch values
+- **ModMenu Pitch Category**: New "Pitch Settings" category in configuration GUI
+- **Enhanced Commands**: All test commands now display both volume and pitch information
+- **Language Support**: Added pitch-related translations with comprehensive tooltips
+
+#### Enhanced
+- **Sound Playing Logic**: Updated to use separate volume and pitch parameters
+- **Client Integration**: Modified client-side sound playing to support independent pitch control
+- **Configuration Display**: Commands now show both volume percentage and pitch multiplier
+- **Debug Logging**: Enhanced to include pitch information in sound playing logs
+
+#### Fixed
+- **Configuration Issue**: Previous "volume" setting was actually controlling pitch - now properly separated
+- **Sound Parameters**: Corrected sound instance creation to use proper volume/pitch separation
+
 ## [1.0.3] - 2025-08-02
 
 ### 🎉 Major Rename & Enhanced Fade Out
