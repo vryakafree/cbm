@@ -9,25 +9,24 @@ import net.minecraft.util.Identifier;
 public class CobblemonSoundInterceptor {
     
     /**
-     * Intercepts and modifies sound instances from Cobblemon with custom volume/pitch
+     * Creates a modified Cobblemon sound with custom volume/pitch when playing manually
      */
-    public static SoundInstance interceptCobblemonSound(SoundInstance original) {
+    public static SoundInstance createModifiedCobblemonSound(Identifier soundId, float volume, float pitch) {
         CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
         
         // Only process if Cobblemon sound control is enabled
         if (!config.enableCobblemonSoundControl) {
-            return original;
+            return PositionedSoundInstance.master(SoundEvent.of(soundId), pitch, volume);
         }
         
         // Check if this is a Cobblemon sound
-        Identifier soundId = original.getId();
         if (!soundId.getNamespace().equals("cobblemon")) {
-            return original;
+            return PositionedSoundInstance.master(SoundEvent.of(soundId), pitch, volume);
         }
         
         // Determine sound category and apply appropriate volume/pitch
-        float newVolume = original.getVolume();
-        float newPitch = original.getPitch();
+        float newVolume = volume;
+        float newPitch = pitch;
         
         String soundPath = soundId.getPath();
         
@@ -51,25 +50,13 @@ public class CobblemonSoundInterceptor {
         
         // Debug logging
         if (config.debugLogging) {
-            CustomCobblemonMusicMod.LOGGER.info("Intercepted Cobblemon sound: " + soundId + 
-                " | Original vol: " + original.getVolume() + ", pitch: " + original.getPitch() + 
+            CustomCobblemonMusicMod.LOGGER.info("Creating modified Cobblemon sound: " + soundId + 
+                " | Original vol: " + volume + ", pitch: " + pitch + 
                 " | Modified vol: " + newVolume + ", pitch: " + newPitch);
         }
         
         // Create modified sound instance
-        return createModifiedSoundInstance(original, newVolume, newPitch);
-    }
-    
-    /**
-     * Creates a new sound instance with modified volume and pitch
-     */
-    private static SoundInstance createModifiedSoundInstance(SoundInstance original, float volume, float pitch) {
-        // Create a new positioned sound instance with modified values
-        return PositionedSoundInstance.master(
-            SoundEvent.of(original.getId()),
-            pitch,
-            volume
-        );
+        return PositionedSoundInstance.master(SoundEvent.of(soundId), newPitch, newVolume);
     }
     
     /**
@@ -94,5 +81,23 @@ public class CobblemonSoundInterceptor {
         } else {
             return "general_sounds";
         }
+    }
+    
+    /**
+     * Play a Cobblemon sound with custom volume/pitch control
+     */
+    public static void playCobblemonSound(Identifier soundId, float volume, float pitch) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.getSoundManager() != null) {
+            SoundInstance sound = createModifiedCobblemonSound(soundId, volume, pitch);
+            client.getSoundManager().play(sound);
+        }
+    }
+    
+    /**
+     * Play a Cobblemon sound with default volume/pitch (1.0, 1.0)
+     */
+    public static void playCobblemonSound(Identifier soundId) {
+        playCobblemonSound(soundId, 1.0f, 1.0f);
     }
 }

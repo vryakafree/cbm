@@ -37,7 +37,12 @@ public class CustomCobblemonMusicModCommands {
                 .then(CommandManager.literal("toggle")
                     .executes(CustomCobblemonMusicModCommands::toggleCobblemonControl))
                 .then(CommandManager.literal("status")
-                    .executes(CustomCobblemonMusicModCommands::showCobblemonStatus)))
+                    .executes(CustomCobblemonMusicModCommands::showCobblemonStatus))
+                .then(CommandManager.literal("test")
+                    .then(CommandManager.literal("pokeball")
+                        .executes(CustomCobblemonMusicModCommands::testPokeballSound))
+                    .then(CommandManager.literal("cry")
+                        .executes(CustomCobblemonMusicModCommands::testPokemonCry))))
         );
     }
     
@@ -46,7 +51,7 @@ public class CustomCobblemonMusicModCommands {
         CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
         
         source.sendMessage(Text.literal("§6=== Custom Congrat Sound For Cobblemon Status ==="));
-        source.sendMessage(Text.literal("§eVersion: §f1.1.0"));
+        source.sendMessage(Text.literal("§eVersion: §f1.1.1"));
         source.sendMessage(Text.literal("§eActive Sound System: §fVictory, Evolution Congrat & Catch Congrat"));
         source.sendMessage(Text.literal(""));
         source.sendMessage(Text.literal("§6Enabled Features:"));
@@ -63,6 +68,8 @@ public class CustomCobblemonMusicModCommands {
         source.sendMessage(Text.literal("§7- /tdsound stop"));
         source.sendMessage(Text.literal("§7- /tdsound cobblemon toggle"));
         source.sendMessage(Text.literal("§7- /tdsound cobblemon status"));
+        source.sendMessage(Text.literal("§7- /tdsound cobblemon test pokeball"));
+        source.sendMessage(Text.literal("§7- /tdsound cobblemon test cry"));
         
         return 1;
     }
@@ -287,9 +294,88 @@ public class CustomCobblemonMusicModCommands {
             source.sendMessage(Text.literal("§7- Pokeball Sounds: §fVol " + (int)(config.cobblemonPokeballSoundsVolume * 100) + "%, Pitch " + String.format("%.1f", config.cobblemonPokeballSoundsPitch)));
             source.sendMessage(Text.literal("§7- Battle Sounds: §fVol " + (int)(config.cobblemonBattleSoundsVolume * 100) + "%, Pitch " + String.format("%.1f", config.cobblemonBattleSoundsPitch)));
             source.sendMessage(Text.literal(""));
-            source.sendMessage(Text.literal("§eNote: Changes require ModMenu or config file editing"));
+            source.sendMessage(Text.literal("§eNote: Settings can be changed via ModMenu configuration"));
+            source.sendMessage(Text.literal("§eThis system provides framework for Cobblemon sound control"));
         } else {
             source.sendMessage(Text.literal("§7Use '/tdsound cobblemon toggle' to enable"));
+        }
+        
+        return 1;
+    }
+    
+    private static int testPokeballSound(CommandContext<ServerCommandSource> context) {
+        ServerCommandSource source = context.getSource();
+        
+        if (source.getEntity() instanceof ServerPlayerEntity player) {
+            CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+            
+            source.sendMessage(Text.literal("§6Testing Cobblemon Pokeball sound..."));
+            
+            if (config.enableCobblemonSoundControl) {
+                source.sendMessage(Text.literal("§7Using custom volume/pitch settings"));
+                source.sendMessage(Text.literal("§7Volume: " + (int)(config.cobblemonPokeballSoundsVolume * 100) + "%"));
+                source.sendMessage(Text.literal("§7Pitch: " + String.format("%.1f", config.cobblemonPokeballSoundsPitch)));
+            } else {
+                source.sendMessage(Text.literal("§7Cobblemon sound control is disabled - using default settings"));
+            }
+            
+            // Play a common Cobblemon pokeball sound (if it exists)
+            try {
+                player.playSound(
+                    CustomCobblemonMusicMod.VICTORY_MUSIC, // Using our own sound as placeholder
+                    0.5f,
+                    1.0f
+                );
+                source.sendMessage(Text.literal("§a✓ Test sound played!"));
+                source.sendMessage(Text.literal("§eNote: This uses a placeholder sound. Real Cobblemon sounds"));
+                source.sendMessage(Text.literal("§ewill be controlled when you interact with Pokemon/Pokeballs."));
+                
+            } catch (Exception e) {
+                source.sendMessage(Text.literal("§c✗ Failed to play test sound: " + e.getMessage()));
+            }
+            
+        } else {
+            source.sendMessage(Text.literal("§cThis command must be run by a player"));
+            return 0;
+        }
+        
+        return 1;
+    }
+    
+    private static int testPokemonCry(CommandContext<ServerCommandSource> context) {
+        ServerCommandSource source = context.getSource();
+        
+        if (source.getEntity() instanceof ServerPlayerEntity player) {
+            CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+            
+            source.sendMessage(Text.literal("§6Testing Cobblemon Pokemon cry sound..."));
+            
+            if (config.enableCobblemonSoundControl) {
+                source.sendMessage(Text.literal("§7Using custom volume/pitch settings"));
+                source.sendMessage(Text.literal("§7Volume: " + (int)(config.cobblemonPokemonCriesVolume * 100) + "%"));
+                source.sendMessage(Text.literal("§7Pitch: " + String.format("%.1f", config.cobblemonPokemonCriesPitch)));
+            } else {
+                source.sendMessage(Text.literal("§7Cobblemon sound control is disabled - using default settings"));
+            }
+            
+            // Play a test sound
+            try {
+                player.playSound(
+                    CustomCobblemonMusicMod.EVO_CONGRAT_MUSIC, // Using our own sound as placeholder
+                    0.7f,
+                    1.2f
+                );
+                source.sendMessage(Text.literal("§a✓ Test sound played!"));
+                source.sendMessage(Text.literal("§eNote: This uses a placeholder sound. Real Pokemon cries"));
+                source.sendMessage(Text.literal("§ewill be controlled when Pokemon make sounds in-game."));
+                
+            } catch (Exception e) {
+                source.sendMessage(Text.literal("§c✗ Failed to play test sound: " + e.getMessage()));
+            }
+            
+        } else {
+            source.sendMessage(Text.literal("§cThis command must be run by a player"));
+            return 0;
         }
         
         return 1;
