@@ -4,6 +4,7 @@
   "config.tdsound.category.volume": "Volume Settings",
   "config.tdsound.category.pitch": "Pitch Settings",
   "config.tdsound.category.features": "Music Features",
+  "config.tdsound.category.cobblemon": "Cobblemon Sound Control",
   "config.tdsound.category.advanced": "Advanced Settings",
   
   "config.tdsound.victory_volume": "Victory Music Volume",
@@ -41,6 +42,33 @@
   
   "config.tdsound.enable_flee_music": "Enable Flee Music",
   "config.tdsound.enable_flee_music.tooltip": "Enable flee music when player flees from battle",
+  
+  "config.tdsound.enable_cobblemon_control": "Enable Cobblemon Sound Control",
+  "config.tdsound.enable_cobblemon_control.tooltip": "Enable volume and pitch control for all Cobblemon sounds (experimental feature)",
+  
+  "config.tdsound.cobblemon_global_volume": "Global Cobblemon Volume",
+  "config.tdsound.cobblemon_global_volume.tooltip": "Master volume for all Cobblemon sounds (0.0 - 1.0)",
+  
+  "config.tdsound.cobblemon_global_pitch": "Global Cobblemon Pitch",
+  "config.tdsound.cobblemon_global_pitch.tooltip": "Master pitch for all Cobblemon sounds (0.5 - 2.0, 1.0 = normal)",
+  
+  "config.tdsound.cobblemon_cries_volume": "Pokemon Cries Volume",
+  "config.tdsound.cobblemon_cries_volume.tooltip": "Volume for Pokemon cry sounds (0.0 - 1.0)",
+  
+  "config.tdsound.cobblemon_cries_pitch": "Pokemon Cries Pitch",
+  "config.tdsound.cobblemon_cries_pitch.tooltip": "Pitch for Pokemon cry sounds (0.5 - 2.0, 1.0 = normal)",
+  
+  "config.tdsound.cobblemon_pokeball_volume": "Pokeball Sounds Volume",
+  "config.tdsound.cobblemon_pokeball_volume.tooltip": "Volume for Pokeball sounds (0.0 - 1.0)",
+  
+  "config.tdsound.cobblemon_pokeball_pitch": "Pokeball Sounds Pitch",
+  "config.tdsound.cobblemon_pokeball_pitch.tooltip": "Pitch for Pokeball sounds (0.5 - 2.0, 1.0 = normal)",
+  
+  "config.tdsound.cobblemon_battle_volume": "Battle Sounds Volume",
+  "config.tdsound.cobblemon_battle_volume.tooltip": "Volume for battle sounds (0.0 - 1.0)",
+  
+  "config.tdsound.cobblemon_battle_pitch": "Battle Sounds Pitch",
+  "config.tdsound.cobblemon_battle_pitch.tooltip": "Pitch for battle sounds (0.5 - 2.0, 1.0 = normal)",
   
   "config.tdsound.debug_logging": "Debug Logging",
   "config.tdsound.debug_logging.tooltip": "Enable debug logging for troubleshooting (check console logs)"

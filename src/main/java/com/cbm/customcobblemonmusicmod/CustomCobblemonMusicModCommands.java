@@ -33,6 +33,11 @@ public class CustomCobblemonMusicModCommands {
                 .executes(CustomCobblemonMusicModCommands::stopMusic))
             .then(CommandManager.literal("config")
                 .executes(CustomCobblemonMusicModCommands::showConfig))
+            .then(CommandManager.literal("cobblemon")
+                .then(CommandManager.literal("toggle")
+                    .executes(CustomCobblemonMusicModCommands::toggleCobblemonControl))
+                .then(CommandManager.literal("status")
+                    .executes(CustomCobblemonMusicModCommands::showCobblemonStatus)))
         );
     }
     
@@ -41,7 +46,7 @@ public class CustomCobblemonMusicModCommands {
         CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
         
         source.sendMessage(Text.literal("§6=== Custom Congrat Sound For Cobblemon Status ==="));
-        source.sendMessage(Text.literal("§eVersion: §f1.0.9"));
+        source.sendMessage(Text.literal("§eVersion: §f1.1.0"));
         source.sendMessage(Text.literal("§eActive Sound System: §fVictory, Evolution Congrat & Catch Congrat"));
         source.sendMessage(Text.literal(""));
         source.sendMessage(Text.literal("§6Enabled Features:"));
@@ -56,6 +61,8 @@ public class CustomCobblemonMusicModCommands {
         source.sendMessage(Text.literal("§7- /tdsound test catch"));
         source.sendMessage(Text.literal("§7- /tdsound test flee"));
         source.sendMessage(Text.literal("§7- /tdsound stop"));
+        source.sendMessage(Text.literal("§7- /tdsound cobblemon toggle"));
+        source.sendMessage(Text.literal("§7- /tdsound cobblemon status"));
         
         return 1;
     }
@@ -239,6 +246,51 @@ public class CustomCobblemonMusicModCommands {
         source.sendMessage(Text.literal("§eDebug Logging: §f" + config.debugLogging));
         source.sendMessage(Text.literal(""));
         source.sendMessage(Text.literal("§7Use ModMenu for GUI configuration"));
+        
+        return 1;
+    }
+    
+    private static int toggleCobblemonControl(CommandContext<ServerCommandSource> context) {
+        ServerCommandSource source = context.getSource();
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        
+        config.enableCobblemonSoundControl = !config.enableCobblemonSoundControl;
+        config.save();
+        
+        if (config.enableCobblemonSoundControl) {
+            source.sendMessage(Text.literal("§a✓ Cobblemon sound control enabled"));
+            source.sendMessage(Text.literal("§7All Cobblemon sounds will now use custom volume/pitch settings"));
+            source.sendMessage(Text.literal("§7Use '/tdsound cobblemon status' to see current settings"));
+        } else {
+            source.sendMessage(Text.literal("§c✗ Cobblemon sound control disabled"));
+            source.sendMessage(Text.literal("§7Cobblemon sounds will use default values"));
+        }
+        
+        return 1;
+    }
+    
+    private static int showCobblemonStatus(CommandContext<ServerCommandSource> context) {
+        ServerCommandSource source = context.getSource();
+        CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
+        
+        source.sendMessage(Text.literal("§6=== Cobblemon Sound Control Status ==="));
+        source.sendMessage(Text.literal("§eEnabled: §" + (config.enableCobblemonSoundControl ? "a✓" : "c✗")));
+        
+        if (config.enableCobblemonSoundControl) {
+            source.sendMessage(Text.literal(""));
+            source.sendMessage(Text.literal("§6Global Settings:"));
+            source.sendMessage(Text.literal("§7- Master Volume: §f" + (int)(config.cobblemonSoundsVolume * 100) + "%"));
+            source.sendMessage(Text.literal("§7- Master Pitch: §f" + String.format("%.1f", config.cobblemonSoundsPitch)));
+            source.sendMessage(Text.literal(""));
+            source.sendMessage(Text.literal("§6Specific Categories:"));
+            source.sendMessage(Text.literal("§7- Pokemon Cries: §fVol " + (int)(config.cobblemonPokemonCriesVolume * 100) + "%, Pitch " + String.format("%.1f", config.cobblemonPokemonCriesPitch)));
+            source.sendMessage(Text.literal("§7- Pokeball Sounds: §fVol " + (int)(config.cobblemonPokeballSoundsVolume * 100) + "%, Pitch " + String.format("%.1f", config.cobblemonPokeballSoundsPitch)));
+            source.sendMessage(Text.literal("§7- Battle Sounds: §fVol " + (int)(config.cobblemonBattleSoundsVolume * 100) + "%, Pitch " + String.format("%.1f", config.cobblemonBattleSoundsPitch)));
+            source.sendMessage(Text.literal(""));
+            source.sendMessage(Text.literal("§eNote: Changes require ModMenu or config file editing"));
+        } else {
+            source.sendMessage(Text.literal("§7Use '/tdsound cobblemon toggle' to enable"));
+        }
         
         return 1;
     }

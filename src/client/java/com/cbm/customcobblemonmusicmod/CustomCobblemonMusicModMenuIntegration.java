@@ -136,11 +136,92 @@ public class CustomCobblemonMusicModMenuIntegration implements ModMenuApi {
                     .setSaveConsumer(newValue -> config.enableFleeMusic = newValue)
                     .build());
             
+            // Cobblemon Sound Control Category
+            ConfigCategory cobblemonCategory = builder.getOrCreateCategory(
+                    Text.translatable("config.tdsound.category.cobblemon"));
+                    
+            cobblemonCategory.addEntry(entryBuilder
+                    .startBooleanToggle(Text.translatable("config.tdsound.enable_cobblemon_control"), config.enableCobblemonSoundControl)
+                    .setDefaultValue(false)
+                    .setTooltip(Text.translatable("config.tdsound.enable_cobblemon_control.tooltip"))
+                    .setSaveConsumer(newValue -> config.enableCobblemonSoundControl = newValue)
+                    .build());
+                    
+            cobblemonCategory.addEntry(entryBuilder
+                    .startFloatField(Text.translatable("config.tdsound.cobblemon_global_volume"), config.cobblemonSoundsVolume)
+                    .setDefaultValue(1.0f)
+                    .setMin(0.0f)
+                    .setMax(1.0f)
+                    .setTooltip(Text.translatable("config.tdsound.cobblemon_global_volume.tooltip"))
+                    .setSaveConsumer(newValue -> config.cobblemonSoundsVolume = newValue)
+                    .build());
+                    
+            cobblemonCategory.addEntry(entryBuilder
+                    .startFloatField(Text.translatable("config.tdsound.cobblemon_global_pitch"), config.cobblemonSoundsPitch)
+                    .setDefaultValue(1.0f)
+                    .setMin(0.5f)
+                    .setMax(2.0f)
+                    .setTooltip(Text.translatable("config.tdsound.cobblemon_global_pitch.tooltip"))
+                    .setSaveConsumer(newValue -> config.cobblemonSoundsPitch = newValue)
+                    .build());
+                    
+            cobblemonCategory.addEntry(entryBuilder
+                    .startFloatField(Text.translatable("config.tdsound.cobblemon_cries_volume"), config.cobblemonPokemonCriesVolume)
+                    .setDefaultValue(1.0f)
+                    .setMin(0.0f)
+                    .setMax(1.0f)
+                    .setTooltip(Text.translatable("config.tdsound.cobblemon_cries_volume.tooltip"))
+                    .setSaveConsumer(newValue -> config.cobblemonPokemonCriesVolume = newValue)
+                    .build());
+                    
+            cobblemonCategory.addEntry(entryBuilder
+                    .startFloatField(Text.translatable("config.tdsound.cobblemon_cries_pitch"), config.cobblemonPokemonCriesPitch)
+                    .setDefaultValue(1.0f)
+                    .setMin(0.5f)
+                    .setMax(2.0f)
+                    .setTooltip(Text.translatable("config.tdsound.cobblemon_cries_pitch.tooltip"))
+                    .setSaveConsumer(newValue -> config.cobblemonPokemonCriesPitch = newValue)
+                    .build());
+                    
+            cobblemonCategory.addEntry(entryBuilder
+                    .startFloatField(Text.translatable("config.tdsound.cobblemon_pokeball_volume"), config.cobblemonPokeballSoundsVolume)
+                    .setDefaultValue(1.0f)
+                    .setMin(0.0f)
+                    .setMax(1.0f)
+                    .setTooltip(Text.translatable("config.tdsound.cobblemon_pokeball_volume.tooltip"))
+                    .setSaveConsumer(newValue -> config.cobblemonPokeballSoundsVolume = newValue)
+                    .build());
+                    
+            cobblemonCategory.addEntry(entryBuilder
+                    .startFloatField(Text.translatable("config.tdsound.cobblemon_pokeball_pitch"), config.cobblemonPokeballSoundsPitch)
+                    .setDefaultValue(1.0f)
+                    .setMin(0.5f)
+                    .setMax(2.0f)
+                    .setTooltip(Text.translatable("config.tdsound.cobblemon_pokeball_pitch.tooltip"))
+                    .setSaveConsumer(newValue -> config.cobblemonPokeballSoundsPitch = newValue)
+                    .build());
+                    
+            cobblemonCategory.addEntry(entryBuilder
+                    .startFloatField(Text.translatable("config.tdsound.cobblemon_battle_volume"), config.cobblemonBattleSoundsVolume)
+                    .setDefaultValue(1.0f)
+                    .setMin(0.0f)
+                    .setMax(1.0f)
+                    .setTooltip(Text.translatable("config.tdsound.cobblemon_battle_volume.tooltip"))
+                    .setSaveConsumer(newValue -> config.cobblemonBattleSoundsVolume = newValue)
+                    .build());
+                    
+            cobblemonCategory.addEntry(entryBuilder
+                    .startFloatField(Text.translatable("config.tdsound.cobblemon_battle_pitch"), config.cobblemonBattleSoundsPitch)
+                    .setDefaultValue(1.0f)
+                    .setMin(0.5f)
+                    .setMax(2.0f)
+                    .setTooltip(Text.translatable("config.tdsound.cobblemon_battle_pitch.tooltip"))
+                    .setSaveConsumer(newValue -> config.cobblemonBattleSoundsPitch = newValue)
+                    .build());
+            
             // Advanced Settings Category
             ConfigCategory advancedCategory = builder.getOrCreateCategory(
                     Text.translatable("config.tdsound.category.advanced"));
-                    
-
                     
             advancedCategory.addEntry(entryBuilder
                     .startBooleanToggle(Text.translatable("config.tdsound.debug_logging"), config.debugLogging)

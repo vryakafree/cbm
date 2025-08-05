@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "id": "tdsound",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "name": "TDsound",
-  "description": "Adds authentic Pokemon-style congratulatory sounds for Cobblemon - plays victory music, evolution congratulations, catch congratulations, and flee sounds",
+  "description": "Adds authentic Pokemon-style congratulatory sounds for Cobblemon with volume/pitch control for both custom sounds and all Cobblemon sounds",
   "authors": [
     "Trần Duy Anh"
   ],
@@ -41,5 +41,9 @@
   "suggests": {
     "modmenu": "*",
     "cloth-config2": "*"
-  }
+  },
+
+  "mixins": [
+    "tdsound.mixins.json"
+  ]
 }

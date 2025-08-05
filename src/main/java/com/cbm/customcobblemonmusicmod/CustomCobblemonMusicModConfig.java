@@ -26,6 +26,17 @@ public class CustomCobblemonMusicModConfig {
     public float catchCongratMusicPitch = 1.0f; // Normal pitch
     public float fleeMusicPitch = 1.0f; // Normal pitch
     
+    // Cobblemon sound control settings
+    public boolean enableCobblemonSoundControl = false; // Disabled by default to avoid conflicts
+    public float cobblemonSoundsVolume = 1.0f; // Global volume for Cobblemon sounds
+    public float cobblemonSoundsPitch = 1.0f; // Global pitch for Cobblemon sounds
+    public float cobblemonPokemonCriesVolume = 1.0f; // Volume for Pokemon cries specifically
+    public float cobblemonPokemonCriesPitch = 1.0f; // Pitch for Pokemon cries specifically
+    public float cobblemonPokeballSoundsVolume = 1.0f; // Volume for Pokeball sounds
+    public float cobblemonPokeballSoundsPitch = 1.0f; // Pitch for Pokeball sounds
+    public float cobblemonBattleSoundsVolume = 1.0f; // Volume for battle sounds
+    public float cobblemonBattleSoundsPitch = 1.0f; // Pitch for battle sounds
+    
     // Music behavior settings
     public boolean enableVictoryMusic = true;
     public boolean enableEvolutionMusic = true;
@@ -86,5 +97,15 @@ public class CustomCobblemonMusicModConfig {
         evolutionCongratMusicPitch = Math.max(0.5f, Math.min(2.0f, evolutionCongratMusicPitch));
         catchCongratMusicPitch = Math.max(0.5f, Math.min(2.0f, catchCongratMusicPitch));
         fleeMusicPitch = Math.max(0.5f, Math.min(2.0f, fleeMusicPitch));
+        
+        // Ensure Cobblemon sound values are within valid range
+        cobblemonSoundsVolume = Math.max(0.0f, Math.min(1.0f, cobblemonSoundsVolume));
+        cobblemonSoundsPitch = Math.max(0.5f, Math.min(2.0f, cobblemonSoundsPitch));
+        cobblemonPokemonCriesVolume = Math.max(0.0f, Math.min(1.0f, cobblemonPokemonCriesVolume));
+        cobblemonPokemonCriesPitch = Math.max(0.5f, Math.min(2.0f, cobblemonPokemonCriesPitch));
+        cobblemonPokeballSoundsVolume = Math.max(0.0f, Math.min(1.0f, cobblemonPokeballSoundsVolume));
+        cobblemonPokeballSoundsPitch = Math.max(0.5f, Math.min(2.0f, cobblemonPokeballSoundsPitch));
+        cobblemonBattleSoundsVolume = Math.max(0.0f, Math.min(1.0f, cobblemonBattleSoundsVolume));
+        cobblemonBattleSoundsPitch = Math.max(0.5f, Math.min(2.0f, cobblemonBattleSoundsPitch));
     }
 }

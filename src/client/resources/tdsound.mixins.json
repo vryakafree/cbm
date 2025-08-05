@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.cbm.customcobblemonmusicmod.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "tdsound.refmap.json",
+  "client": [
+    "SoundSystemMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
