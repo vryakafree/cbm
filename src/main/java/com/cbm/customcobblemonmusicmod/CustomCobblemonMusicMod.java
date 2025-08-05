@@ -35,7 +35,7 @@ public class CustomCobblemonMusicMod implements ModInitializer {
         LOGGER.info("- catch_congrat.ogg (when Pokemon is caught)");
         LOGGER.info("- flee.ogg (when player flees from battle)");
         LOGGER.info("Ready for Cobblemon integration!");
-        LOGGER.info("Use '/cobblecongrat status' to check mod status");
+        LOGGER.info("Use '/tdsound status' to check mod status");
     }
 
     private static SoundEvent registerSoundEvent(String name) {

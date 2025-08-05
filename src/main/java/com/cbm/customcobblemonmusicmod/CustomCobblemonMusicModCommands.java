@@ -17,7 +17,7 @@ public class CustomCobblemonMusicModCommands {
     }
     
     private static void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(CommandManager.literal("cobblecongrat")
+        dispatcher.register(CommandManager.literal("tdsound")
             .then(CommandManager.literal("status")
                 .executes(CustomCobblemonMusicModCommands::showStatus))
             .then(CommandManager.literal("test")
@@ -41,7 +41,7 @@ public class CustomCobblemonMusicModCommands {
         CustomCobblemonMusicModConfig config = CustomCobblemonMusicModConfig.getInstance();
         
         source.sendMessage(Text.literal("§6=== Custom Congrat Sound For Cobblemon Status ==="));
-        source.sendMessage(Text.literal("§eVersion: §f1.0.8"));
+        source.sendMessage(Text.literal("§eVersion: §f1.0.9"));
         source.sendMessage(Text.literal("§eActive Sound System: §fVictory, Evolution Congrat & Catch Congrat"));
         source.sendMessage(Text.literal(""));
         source.sendMessage(Text.literal("§6Enabled Features:"));
@@ -51,11 +51,11 @@ public class CustomCobblemonMusicModCommands {
         source.sendMessage(Text.literal("§7- Flee Music: §" + (config.enableFleeMusic ? "a✓" : "c✗")));
         source.sendMessage(Text.literal(""));
         source.sendMessage(Text.literal("§6Commands:"));
-        source.sendMessage(Text.literal("§7- /cobblecongrat test victory"));
-        source.sendMessage(Text.literal("§7- /cobblecongrat test evo_congrat"));
-        source.sendMessage(Text.literal("§7- /cobblecongrat test catch"));
-        source.sendMessage(Text.literal("§7- /cobblecongrat test flee"));
-        source.sendMessage(Text.literal("§7- /cobblecongrat stop"));
+        source.sendMessage(Text.literal("§7- /tdsound test victory"));
+        source.sendMessage(Text.literal("§7- /tdsound test evo_congrat"));
+        source.sendMessage(Text.literal("§7- /tdsound test catch"));
+        source.sendMessage(Text.literal("§7- /tdsound test flee"));
+        source.sendMessage(Text.literal("§7- /tdsound stop"));
         
         return 1;
     }
