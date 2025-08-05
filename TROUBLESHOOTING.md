@@ -20,15 +20,15 @@ The main issues with Cobblemon sound control are:
 
 ### How to Fix Your Sound Issues
 
-#### Step 1: Fix the Basic Sound Files
+#### Step 1: Add the Basic Sound Files
 
-The sound files in `src/main/resources/assets/tdsound/sounds/` are corrupted. You need to replace them:
+The sound files in `src/main/resources/assets/tdsound/sounds/` are missing. You need to add them:
 
 ```bash
 # Navigate to the sounds directory
 cd src/main/resources/assets/tdsound/sounds/
 
-# Replace these corrupted files with proper OGG files:
+# Add these OGG files:
 # - victory.ogg
 # - evo_congrat.ogg  
 # - catch_congrat.ogg
